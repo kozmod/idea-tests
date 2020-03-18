@@ -5,8 +5,6 @@ import "com/msg/msg.proto";
 package com.data;
 
 message DataB {
-
         string key = 1;
-
         com.msg.Msg msg = 2;
 }

@@ -1,4 +1,4 @@
-package core
+package tsync
 
 import "sync"
 
@@ -27,6 +27,18 @@ func SubmitAll(functions ...func()) {
 		go func() {
 			defer wg.Done()
 			exf()
+		}()
+	}
+	wg.Wait()
+}
+
+func IterateSubmit(iterations int, functions func()) {
+	var wg sync.WaitGroup
+	wg.Add(iterations)
+	for i := 0; i < iterations; i++ {
+		go func() {
+			functions()
+			defer wg.Done()
 		}()
 	}
 	wg.Wait()

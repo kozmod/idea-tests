@@ -3,13 +3,13 @@ package context
 import (
 	"context"
 	"fmt"
-	"github.com/kozmod/idea-tests/core"
+	"github.com/kozmod/idea-tests/core/utils/tsync"
 	"testing"
 	"time"
 )
 
 func TestContext(t *testing.T) {
-	m := core.ExecuteAll(
+	m := tsync.ExecuteAll(
 		func() interface{} {
 			return do(1, 4, "first")
 		},

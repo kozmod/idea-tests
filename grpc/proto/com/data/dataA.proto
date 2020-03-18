@@ -6,6 +6,5 @@ package com.data;
 
 message DataA {
         string key = 1;
-
         com.msg.Msg msg = 2;
 }
