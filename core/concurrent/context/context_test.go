@@ -9,7 +9,7 @@ import (
 )
 
 func TestContext(t *testing.T) {
-	m := tsync.ExecuteAll(
+	m := tsync.OrderExecuteAll(
 		func() interface{} {
 			return do(1, 4, "first")
 		},

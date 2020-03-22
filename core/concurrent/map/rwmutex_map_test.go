@@ -45,7 +45,7 @@ func TestRWMutexMap(t *testing.T) {
 		threadSafeMap := NewRWMutexMap()
 		threadSafeMap.Store(keyRwMutex, 0)
 
-		tsync.IterateSubmit(iteration, func() {
+		tsync.MultiSubmit(iteration, func() {
 			threadSafeMap.Inc(keyRwMutex)
 		})
 

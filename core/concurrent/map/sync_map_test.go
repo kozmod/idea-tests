@@ -17,7 +17,7 @@ func TestSyncMap(t *testing.T) {
 		var syncMap sync.Map
 		syncMap.Store(keySyncMap, 0)
 
-		tsync.IterateSubmit(iteration, func() {
+		tsync.MultiSubmit(iteration, func() {
 			inc(keySyncMap, &syncMap)
 		})
 
