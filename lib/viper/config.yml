@@ -1,0 +1,6 @@
+collectorClientConfig:
+  grpcHost: localhost
+  grpcPort: 50051
+
+colocatorServerConfig:
+  grpsPort: 50055
