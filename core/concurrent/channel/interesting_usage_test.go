@@ -7,9 +7,9 @@ import (
 )
 
 func worker(start chan bool, num int) {
-	fmt.Println(num)
-	<-start
 	fmt.Printf("Start %d \n", num)
+	<-start
+	fmt.Printf("Stop %d \n", num)
 }
 
 //В этом примере сотня горутин запускается, ждет передачи данных через канал start (или его закрытия).

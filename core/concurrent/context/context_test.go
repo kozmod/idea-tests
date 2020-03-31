@@ -8,22 +8,30 @@ import (
 	"time"
 )
 
+const (
+	first  = "first"
+	second = "second"
+	third  = "third"
+)
+
 func TestContext(t *testing.T) {
 	m := tsync.OrderExecuteAll(
 		func() interface{} {
-			return do(1, 4, "first")
+			return do(1, 4, first)
 		},
 		func() interface{} {
-			return do(4, 3, "second")
+			return do(4, 3, second)
 		},
 		func() interface{} {
-			return do(4, 4, "third")
+			return do(4, 4, third)
 		},
 	)
 	fmt.Println("  <------------------------------>  ")
-	fmt.Println(m)
-	fmt.Println("  <------------------------------>  ")
+	for k, v := range m {
+		fmt.Println(fmt.Sprintf("%d - %s", k, v))
+	}
 
+	fmt.Println("  <------------------------------>  ")
 }
 
 func do(extime time.Duration, timeout time.Duration, val string) string {
@@ -33,12 +41,16 @@ func do(extime time.Duration, timeout time.Duration, val string) string {
 	defer fmt.Println(val + " server: do ended")
 
 	select {
-	case <-time.After(extime * time.Second):
+	case <-doSth(extime * time.Second):
 		fmt.Println(val + " - hello")
-		return val + " - done"
+		return fmt.Sprintf("%s - done  \n {extime %d, tomeout %d}", val, extime, timeout)
 	case <-ctx.Done():
 		err := ctx.Err()
 		fmt.Println(val+" server err:", err)
-		return val + " - canceled"
+		return fmt.Sprintf("%s - cenceled \n {extime %d, tomeout %d}", val, extime, timeout)
 	}
+}
+
+func doSth(duration time.Duration) <-chan time.Time {
+	return time.After(duration)
 }
