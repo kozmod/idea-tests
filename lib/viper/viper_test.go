@@ -1,7 +1,6 @@
 package viper
 
 import (
-	"fmt"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/spf13/viper"
 	"log"
@@ -41,5 +40,5 @@ func TestReadConfig(t *testing.T) {
 	}
 
 	spew.Dump(Config)
-	fmt.Println(Config)
+	//fmt.Println(Config)
 }

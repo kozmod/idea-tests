@@ -14,16 +14,16 @@ const (
 	third  = "third"
 )
 
-func TestContext(t *testing.T) {
+func TestDoneByTimeout(t *testing.T) {
 	m := tsync.OrderExecuteAll(
 		func() interface{} {
-			return do(1, 4, first)
+			return ex(1, 4, first)
 		},
 		func() interface{} {
-			return do(4, 3, second)
+			return ex(4, 3, second)
 		},
 		func() interface{} {
-			return do(4, 4, third)
+			return ex(4, 4, third)
 		},
 	)
 	fmt.Println("  <------------------------------>  ")
@@ -34,11 +34,11 @@ func TestContext(t *testing.T) {
 	fmt.Println("  <------------------------------>  ")
 }
 
-func do(extime time.Duration, timeout time.Duration, val string) string {
+func ex(extime time.Duration, timeout time.Duration, val string) string {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout*time.Second)
 	defer cancel()
-	fmt.Println(val + " server: do started")
-	defer fmt.Println(val + " server: do ended")
+	fmt.Println(val + " server: ex started")
+	defer fmt.Println(val + " server: ex ended")
 
 	select {
 	case <-doSth(extime * time.Second):
@@ -49,8 +49,4 @@ func do(extime time.Duration, timeout time.Duration, val string) string {
 		fmt.Println(val+" server err:", err)
 		return fmt.Sprintf("%s - cenceled \n {extime %d, tomeout %d}", val, extime, timeout)
 	}
-}
-
-func doSth(duration time.Duration) <-chan time.Time {
-	return time.After(duration)
 }
