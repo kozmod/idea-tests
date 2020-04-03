@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func Test(t *testing.T) {
+func TestLocalVarPointer(t *testing.T) {
 	x := 1
 	y := 9
 	p := &x // p is x pointer
