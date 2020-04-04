@@ -6,6 +6,7 @@ import (
 	"testing"
 )
 
+//noinspection SpellCheckingInspection
 func TestLocalVarPointer(t *testing.T) {
 	x := 1
 	y := 9
