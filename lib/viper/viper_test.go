@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+	"time"
 )
 
 type Config struct {
@@ -17,6 +18,7 @@ type Config struct {
 type CollectorClientConfig struct {
 	GrpcHost string
 	GrpcPort string
+	T        time.Duration
 }
 
 type ColocatorServerConfig struct {
@@ -39,6 +41,8 @@ func TestReadConfig(t *testing.T) {
 		os.Exit(1)
 	}
 
+	spew.Dump(Config)
+	Config.T = Config.T * time.Minute
 	spew.Dump(Config)
 	//fmt.Println(Config)
 }
