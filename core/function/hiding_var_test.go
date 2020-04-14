@@ -13,6 +13,7 @@ func TestHideVar(t *testing.T) {
 	x := one
 	fmt.Println(x) // 1
 	assert.Equal(t, one, x)
+
 	{
 		fmt.Println(x) // 1
 		assert.Equal(t, one, x)
@@ -20,6 +21,7 @@ func TestHideVar(t *testing.T) {
 		fmt.Println(x) // 2
 		assert.Equal(t, two, x)
 	}
+
 	fmt.Println(x) // 1
 	assert.Equal(t, one, x)
 }

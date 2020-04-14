@@ -1,11 +1,11 @@
-package init
+package pack
 
 import (
 	"github.com/magiconair/properties/assert"
 	"testing"
 )
-import _ "github.com/kozmod/idea-tests/core/init/sub"
-import s "github.com/kozmod/idea-tests/core/init/sub"
+import _ "github.com/kozmod/idea-tests/core/init/pack/sub"
+import s "github.com/kozmod/idea-tests/core/init/pack/sub"
 
 func TestInit(t *testing.T) {
 	root := getVal()

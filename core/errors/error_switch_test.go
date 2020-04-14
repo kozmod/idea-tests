@@ -1,8 +1,8 @@
 package errors
 
 import (
-	"errors"
 	"fmt"
+	"github.com/pkg/errors"
 	"testing"
 )
 
@@ -31,4 +31,12 @@ func TestSwitchError(t *testing.T) {
 	default:
 		fmt.Println("DEFAULT")
 	}
+}
+
+func TestWrap(t *testing.T) {
+	err := &errorString{"A"}
+	err2 := errors.Wrap(err, "Mongo")
+
+	fmt.Println(err2)
+	fmt.Println(errors.Unwrap(err2))
 }
