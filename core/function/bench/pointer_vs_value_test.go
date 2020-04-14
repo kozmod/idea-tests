@@ -48,6 +48,7 @@ func BenchmarkMemoryStack(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		s = byCopy()
+		//byCopyArg(s)
 	}
 
 	trace.Stop()
@@ -76,11 +77,36 @@ func BenchmarkMemoryHeap(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		s = byPointer()
+		//byPointerArg(s)
 	}
 
 	trace.Stop()
 
 	b.StopTimer()
 
+	_ = fmt.Sprintf("%v", s.a)
+}
+
+func byCopyArg(s S) {
+	byCopyArgSleep(s)
+	byCopyArgSleep(s)
+	byCopyArgSleep(s)
+
+}
+
+func byCopyArgSleep(s S) {
+	//<-time.After(1 * time.Second)
+	_ = fmt.Sprintf("%v", s.a)
+}
+
+func byPointerArg(s *S) {
+	byPointerArgSleep(s)
+	byPointerArgSleep(s)
+	byPointerArgSleep(s)
+
+}
+
+func byPointerArgSleep(s *S) {
+	//<-time.After(1 * time.Second)
 	_ = fmt.Sprintf("%v", s.a)
 }

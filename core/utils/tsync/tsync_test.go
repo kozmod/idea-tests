@@ -1,6 +1,7 @@
-package tsync
+package tsync_test
 
 import (
+	. "github.com/kozmod/idea-tests/core/utils/tsync"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
