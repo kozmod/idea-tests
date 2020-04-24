@@ -17,8 +17,6 @@ function test_2 {
 override_function test_2 test
  test
 
-
-
 #test
 
 $*
