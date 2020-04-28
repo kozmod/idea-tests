@@ -44,25 +44,6 @@ func TestSwitchError(t *testing.T) {
 	}
 }
 
-func TestWrapAndUnwrap(t *testing.T) {
-	err := newError()
-	err2 := errors.Wrap(err, "Mongo")
-	fmt.Println(err2)
-	//fmt.Println(errors.Unwrap(err2))
-
-	var etp *errorString
-	if errors.As(err, &etp) {
-		fmt.Printf("err is errorString: %s, %s \n", etp.msg, etp.val)
-	} else {
-		fmt.Println("err is not errorString")
-	}
-	if errors.As(err2, &etp) {
-		fmt.Printf("err2 is errorString: %s, %s \n", etp.msg, etp.val)
-	} else {
-		fmt.Println("err2 is not errorString")
-	}
-}
-
 func TestAs(t *testing.T) {
 	err := newError()
 	var es *errorString

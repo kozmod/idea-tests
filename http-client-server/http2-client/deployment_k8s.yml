@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-http2-cycle-client-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-http2-cycle-cl
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "true" #istio - inject proxy
+      labels:
+        app: go-http2-cycle-cl
+    spec:
+      containers:
+        - image: go-http2-client:v1.0.0
+          name: go-http2-client
+          env:
+            - name: SERVER_ADDR
+              value: "http://http2-server-service-lb:9091"
+            - name: REQUEST_QUANTITY
+              value: "10"
+            - name: REQUEST_FREQUENCY_SEC
+              value: "300"
+
+#Pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: go-http2-client
+  annotations:
+    sidecar.istio.io/inject: "true" #istio - inject proxy
+  labels:
+    app: go-http2-cycle-cl
+spec:
+  containers:
+    - image: go-http2-client:v1.0.0
+      name: go-http2-client
+      env:
+        - name: SERVER_ADDR
+          value: "http://http2-server-service-lb:9091"
+        - name: REQUEST_QUANTITY
+          value: "10"
+        - name: REQUEST_FREQUENCY_SEC
+          value: "300"

@@ -12,12 +12,11 @@ import (
 	"net/http"
 )
 
-type h2client struct {
+type H2client struct {
 	*http.Client
-	serverAddr string
 }
 
-func New(serverAddr string) *h2client {
+func New() *H2client {
 	hc := http.Client{}
 	hc.Transport = &http2.Transport{
 		AllowHTTP: true,
@@ -25,10 +24,10 @@ func New(serverAddr string) *h2client {
 			return net.Dial(network, addr)
 		},
 	}
-	return &h2client{&hc, serverAddr}
+	return &H2client{&hc}
 }
 
-func (c *h2client) LogGet(url string) {
+func (c *H2client) LogGet(url string) {
 	if rs, err := c.Get(url); err != nil {
 		log.Println(err)
 	} else {
@@ -37,7 +36,7 @@ func (c *h2client) LogGet(url string) {
 	}
 }
 
-func (c *h2client) LogPostJson(url string, json string) {
+func (c *H2client) LogPostJsonRs(url string, json string) {
 	data := []byte(json)
 	r := bytes.NewReader(data)
 	if rs, err := c.Post(url, "application/json", r); err != nil {
@@ -55,7 +54,7 @@ func asString(resp http.Response) (string, error) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		return fmt.Sprintf("\nBody: %s", string(bodyBytes)), nil
+		return fmt.Sprintf("Rsponce Body:\n%s", string(bodyBytes)), nil
 	}
 	return "error", errors.New("not 200 status")
 }

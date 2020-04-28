@@ -1,6 +1,5 @@
-server_port :=":8080"
-server_url :="http://localhost"
-server_addr :=$(server_url)$(server_port)
+server_port :=:8080
+server_url :=http://localhost
 
 mod_path :="github.com/kozmod/idea-tests/http-client-server"
 
@@ -16,10 +15,14 @@ client_version_tag :=v1.0.0
 
 bin_dir :="../bin"
 
+export SERVER_ADDR=$(server_url)$(server_port)
+export REQUEST_QUANTITY=10
+export REQUEST_FREQUENCY_SEC=60
+
 build.server:
 	pushd $(server_mod_path) && go build -o $(bin_dir)/$(server_bin_output) -ldflags="-X 'github.com/kozmod/idea-tests/http-client-server/http2-server/cmd.DefaultServerPort=$(server_port)'" $(server_src_path)
 build.client:
-	pushd $(client_mod_path) && go build -o $(bin_dir)/$(client_bin_output) -ldflags="-X 'github.com/kozmod/idea-tests/http-client-server/http2-client/cmd.DefaultServerAddr=$(server_addr)'" $(client_src_path)
+	pushd $(client_mod_path) && go build -o $(bin_dir)/$(client_bin_output) $(client_src_path)
 
 build.all:
 	@([ -d "./bin" ] && rm -r ./bin)
@@ -34,7 +37,7 @@ run.client:
 docker.server:
 	pushd $(server_mod_path) && docker image build -t go-http2-server:$(server_version_tag) .
 docker.client:
-	pushd $(client_mod_path) && docker image build -t go-http2-client:$(client_version_tag) .
+	pushd $(client_mod_path) &&  $(client_version_tag) .
 
 clear:
 	@([ -d "./bin" ] && rm -r ./bin)

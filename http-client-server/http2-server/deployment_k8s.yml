@@ -7,7 +7,7 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: go-http2
+      app: go-http2-server
   minReadySeconds: 15
   strategy:
     type: RollingUpdate
@@ -16,11 +16,13 @@ spec:
       maxSurge: 1
   template:
     metadata:
+      annotations:
+        sidecar.istio.io/inject: "true" #istio - inject proxy
       labels:
-        app: go-http2
+        app: go-http2-server
     spec:
       containers:
-        - image: go-http2-server:v1.0.1
+        - image: go-http2-server:v1.0.3
           name: go-http2-server
           ports:
             - containerPort: 8080
@@ -37,7 +39,7 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app: go-http2
+    app: go-http2-server
 
 #Pod
 apiVersion: v1
@@ -45,7 +47,7 @@ kind: Pod
 metadata:
   name: http2-server
   labels:
-  app:go-http2
+    app: go-http2-server
 spec:
   containers:
     - image: go-http2-server:v1.0.0
