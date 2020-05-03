@@ -1,4 +1,4 @@
-package bench
+package args
 
 import (
 	"fmt"
@@ -84,29 +84,5 @@ func BenchmarkMemoryHeap(b *testing.B) {
 
 	b.StopTimer()
 
-	_ = fmt.Sprintf("%v", s.a)
-}
-
-func byCopyArg(s S) {
-	byCopyArgSleep(s)
-	byCopyArgSleep(s)
-	byCopyArgSleep(s)
-
-}
-
-func byCopyArgSleep(s S) {
-	//<-time.After(1 * time.Second)
-	_ = fmt.Sprintf("%v", s.a)
-}
-
-func byPointerArg(s *S) {
-	byPointerArgSleep(s)
-	byPointerArgSleep(s)
-	byPointerArgSleep(s)
-
-}
-
-func byPointerArgSleep(s *S) {
-	//<-time.After(1 * time.Second)
 	_ = fmt.Sprintf("%v", s.a)
 }
