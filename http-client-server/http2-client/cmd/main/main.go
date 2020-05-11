@@ -29,10 +29,11 @@ var defaultValsCmd = &cobra.Command{
 	Use:   "dval",
 	Short: "print default values",
 	Run: func(cmd *cobra.Command, args []string) {
-		log.Println(fmt.Sprintf("ServerAddrEnv=%s; val=%s", ServerAddrEnv, os.Getenv(ServerAddrEnv)))
-		log.Println(fmt.Sprintf("RequestQuantityEnv=%s; val=%s", RequestQuantityEnv, os.Getenv(RequestQuantityEnv)))
-		log.Println(fmt.Sprintf("RequestFrequencySec=%s; val=%s", RequestFrequencySec, os.Getenv(RequestFrequencySec)))
-		log.Println(fmt.Sprintf("DefaultLogFilePath=%s;", DefaultLogFilePath))
+		log.Println(
+			"\n" + fmt.Sprintf("ServerAddrEnv=%s; val=%s", ServerAddrEnv, os.Getenv(ServerAddrEnv)) +
+				"\n" + fmt.Sprintf("RequestQuantityEnv=%s; val=%s", RequestQuantityEnv, os.Getenv(RequestQuantityEnv)) +
+				"\n" + fmt.Sprintf("RequestFrequencySec=%s; val=%s", RequestFrequencySec, os.Getenv(RequestFrequencySec)) +
+				"\n" + fmt.Sprintf("DefaultLogFilePath=%s;", DefaultLogFilePath))
 	},
 }
 

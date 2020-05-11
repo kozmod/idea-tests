@@ -6,6 +6,7 @@ import (
 	_ "github.com/kozmod/idea-tests/http-client-server/http2-server/pkg"
 	"github.com/kozmod/idea-tests/http-client-server/http2-server/pkg/server"
 	"github.com/spf13/cobra"
+	"log"
 	"os"
 )
 
@@ -21,7 +22,7 @@ var defaultValsCmd = &cobra.Command{
 	Use:   "dval",
 	Short: "print default values",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("DefaultServerPort: " + DefaultServerPort)
+		log.Println(fmt.Sprintf("DefaultServerPort=%s;", DefaultServerPort))
 	},
 }
 

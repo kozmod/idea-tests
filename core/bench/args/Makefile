@@ -10,25 +10,22 @@ ITERATIONS :=10
 
 all:
 	make clear
-	make mout
-	@(./bench.sh runStack $(HEAP_OUT) $(HEAP_OUT_BSTAT) $(ITERATIONS))
-	@(./bench.sh runStack $(STACK_OUT) $(STACK_OUT_BSTAT) $(ITERATIONS))
+	make stack
+	make heap
 
 stack:
-	make clear
-	make mout
-	@(./bench.sh runStack $(STACK_OUT) $(STACK_OUT_BSTAT) $(ITERATIONS))
+	@(make mout)
+	@(./bench.sh runStack ${STACK_OUT} ${STACK_OUT_BSTAT} ${ITERATIONS})
 
 heap:
-	make clear
-	make mout
-	@(./bench.sh runHeap $(HEAP_OUT) $(HEAP_OUT_BSTAT) $(ITERATIONS))
+	@(make mout)
+	@(./bench.sh runHeap ${HEAP_OUT} ${HEAP_OUT_BSTAT} ${ITERATIONS})
 
 mout:
-	@([ ! -d "./$(OUT_DIR)" ] && mkdir $(OUT_DIR))
+	@([ ! -d ${OUT_DIR} ] && mkdir ${OUT_DIR} || echo "${OUT_DIR} exists")
 
 
 clear:
-	@([ -d "./$(OUT_DIR)" ] && rm -r ./$(OUT_DIR))
+	@([ -d ${OUT_DIR} ] & rm -rf ${OUT_DIR})
 
 #  Open https://www.speedscope.app/ and open the .out files which will show you the flame graph.
