@@ -41,7 +41,7 @@ func ex(extime time.Duration, timeout time.Duration, val string) string {
 	defer fmt.Println(val + " server: ex ended")
 
 	select {
-	case <-doSth(extime * time.Second):
+	case <-time.After(extime * time.Second):
 		fmt.Println(val + " - hello")
 		return fmt.Sprintf("%s - done  \n {extime %d, tomeout %d}", val, extime, timeout)
 	case <-ctx.Done():
