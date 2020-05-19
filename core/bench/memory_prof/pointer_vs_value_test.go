@@ -1,4 +1,4 @@
-package args
+package memory_prof
 
 import (
 	"fmt"
@@ -48,7 +48,6 @@ func BenchmarkMemoryStack(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		s = byCopy()
-		//byCopyArg(s)
 	}
 
 	trace.Stop()
@@ -56,6 +55,36 @@ func BenchmarkMemoryStack(b *testing.B) {
 	b.StopTimer()
 
 	_ = fmt.Sprintf("%v", s.a)
+}
+
+func BenchmarkMemoryStackArgs(b *testing.B) {
+	var s S
+
+	f, err := os.Create("out/stack.out")
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	err = trace.Start(f)
+	if err != nil {
+		panic(err)
+	}
+
+	s = byCopy()
+	for i := 0; i < b.N; i++ {
+		byCopyArg(s)
+	}
+
+	trace.Stop()
+
+	b.StopTimer()
+
+	_ = fmt.Sprintf("%v", s.a)
+}
+
+func byCopyArg(s S) S {
+	return s
 }
 
 /*
@@ -77,7 +106,6 @@ func BenchmarkMemoryHeap(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		s = byPointer()
-		//byPointerArg(s)
 	}
 
 	trace.Stop()
@@ -85,4 +113,34 @@ func BenchmarkMemoryHeap(b *testing.B) {
 	b.StopTimer()
 
 	_ = fmt.Sprintf("%v", s.a)
+}
+
+func BenchmarkMemoryHeapArg(b *testing.B) {
+	var s *S
+
+	f, err := os.Create("out/heap.out")
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	err = trace.Start(f)
+	if err != nil {
+		panic(err)
+	}
+
+	s = byPointer()
+	for i := 0; i < b.N; i++ {
+		byPointerArg(s)
+	}
+
+	trace.Stop()
+
+	b.StopTimer()
+
+	_ = fmt.Sprintf("%v", s.a)
+}
+
+func byPointerArg(s *S) *S {
+	return s
 }
