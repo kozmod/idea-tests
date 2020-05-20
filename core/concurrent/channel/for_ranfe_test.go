@@ -56,3 +56,34 @@ func TestForRange_2(t *testing.T) {
 	}()
 	wg.Wait()
 }
+
+func TestForRange_3(t *testing.T) {
+	consumer := make(chan int)
+	go func(c chan<- int) {
+		i := 0
+		for {
+			consumer <- i
+			i++
+			if i == 10 {
+				break
+			}
+		}
+		close(c)
+	}(consumer)
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		for {
+			j, more := <-consumer
+			if more {
+				fmt.Println("received", j)
+			} else {
+				fmt.Println("received all val")
+				break
+			}
+		}
+		wg.Done()
+	}()
+	wg.Wait()
+	fmt.Println("done")
+}
