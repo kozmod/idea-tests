@@ -1,7 +1,7 @@
 package _map
 
 import (
-	"github.com/kozmod/idea-tests/core/utils/tsync"
+	"github.com/kozmod/idea-tests/utils/tsync"
 	"github.com/stretchr/testify/assert"
 	"sync"
 	"testing"

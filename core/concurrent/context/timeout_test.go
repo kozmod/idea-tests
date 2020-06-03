@@ -3,7 +3,7 @@ package context
 import (
 	"context"
 	"fmt"
-	"github.com/kozmod/idea-tests/core/utils/tsync"
+	"github.com/kozmod/idea-tests/utils/tsync"
 	"testing"
 	"time"
 )

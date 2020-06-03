@@ -1,7 +1,7 @@
 package tsync_test
 
 import (
-	. "github.com/kozmod/idea-tests/core/utils/tsync"
+	. "github.com/kozmod/idea-tests/utils/tsync"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
