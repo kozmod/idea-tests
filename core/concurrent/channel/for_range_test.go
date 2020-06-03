@@ -6,6 +6,7 @@ import (
 	"log"
 	"sync"
 	"testing"
+	"time"
 )
 
 const (
@@ -86,4 +87,20 @@ func TestForRange_3(t *testing.T) {
 	}()
 	wg.Wait()
 	fmt.Println("done")
+}
+
+func TestForRange_4(t *testing.T) {
+	send := func(c chan<- int) {
+		for i := 1; i < 6; i++ {
+			time.Sleep(time.Second)
+			c <- i
+		}
+		close(c)
+	}
+
+	c := make(chan int)
+	go send(c)
+	for value := range c {
+		fmt.Println(value)
+	}
 }
