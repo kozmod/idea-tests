@@ -3,11 +3,13 @@ server_url :=http://localhost
 
 mod_path :="github.com/kozmod/idea-tests/http-client-server"
 
+#SERVER
 server_bin :=http2server
 server_mod_path :="./http2-server"
 server_src_path :="./cmd/main/main.go"
-server_version_tag :=v1.0.0
+server_version_tag :=v1.0.4
 
+#CLiernt
 client_bin :=http2client
 client_mod_path :="./http2-client"
 client_src_path :="./cmd/main/main.go"

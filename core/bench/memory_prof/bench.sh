@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 function runStack() {
   out=$1
   outbstat=$2

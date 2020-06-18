@@ -1,4 +1,4 @@
-package testyfy_test
+package testify_test
 
 import (
 	"errors"
