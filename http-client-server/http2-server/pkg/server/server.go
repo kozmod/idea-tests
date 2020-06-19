@@ -2,28 +2,28 @@ package server
 
 import (
 	"fmt"
-	"golang.org/x/net/http2"
-	"golang.org/x/net/http2/h2c"
 	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
+
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
 )
 
-func ConfigureAndServe(port string) {
-	ConfigureHandleFuncsAndServe(
-		port,
-		map[string]func(http.ResponseWriter, *http.Request){
-			"/t":  currentTime,
-			"/tp": currentTimePayload,
-			"/hp": headersPayload,
-			"/":   helloCurrentTime,
-		},
-	)
+var HandleFunctionMap = map[string]func(http.ResponseWriter, *http.Request){
+	"/":   helloCurrentTime,
+	"/t":  currentTime,
+	"/tp": currentTimePayload,
+	"/hp": headersPayload,
 }
 
-func ConfigureHandleFuncsAndServe(port string, handleMap map[string]func(http.ResponseWriter, *http.Request)) {
+func ConfigureAndServe(port string) http.Server {
+	return ConfigureHandleFuncsAndServe(port, HandleFunctionMap)
+}
+
+func ConfigureHandleFuncsAndServe(port string, handleMap map[string]func(http.ResponseWriter, *http.Request)) http.Server {
 	h2s := http2.Server{}
 	hs := http.Server{
 		Addr:    port,
@@ -36,6 +36,7 @@ func ConfigureHandleFuncsAndServe(port string, handleMap map[string]func(http.Re
 	}
 	log.Printf("Server run on %s", port)
 	log.Fatal(hs.ListenAndServe())
+	return hs
 }
 
 func currentTime(w http.ResponseWriter, req *http.Request) {

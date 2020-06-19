@@ -13,7 +13,7 @@ server_version_tag :=v1.0.5
 client_bin :=client/http2client
 client_mod_path :="./http2-client"
 client_src_path :="./cmd/main/main.go"
-client_version_tag :=v1.0.0
+client_version_tag :=v1.0.1
 
 bin_dir := bin
 

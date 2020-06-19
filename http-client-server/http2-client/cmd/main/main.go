@@ -102,5 +102,5 @@ func start(serverAddr string, quantity int, frequency time.Duration) {
 }
 
 func postJson(client *client.H2client, serverAddr string, json string) {
-	client.LogPostJsonRs(serverAddr+"/t", json)
+	client.LogPostJsonRs(serverAddr+"/tp", json)
 }
