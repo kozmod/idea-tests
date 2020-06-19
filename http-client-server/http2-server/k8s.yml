@@ -72,3 +72,48 @@ spec:
       name: go-http2-server
       ports:
         - containerPort: 8080
+---
+# kubectl apply -f - <<EOF
+#
+# VirtualService & Gateway to test Istio ingress gateway from local machine
+# https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: go-http2-server
+spec:
+  hosts:
+    - "xxx.com"
+  gateways:
+    - go-server-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /t
+        - uri:
+            prefix: /h
+      route:
+        - destination:
+            port:
+              number: 80
+            host: go-http2-server
+  EOF
+
+
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: go-server-gateway
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "xxx.com"
+  EOF
