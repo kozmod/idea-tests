@@ -7,7 +7,7 @@ mod_path :="github.com/kozmod/idea-tests/http-client-server"
 server_bin :=server/http2server
 server_mod_path :="./http2-server"
 server_src_path :="./cmd/main/main.go"
-server_version_tag :=v1.0.4
+server_version_tag :=v1.0.5
 
 #CLiernt
 client_bin :=client/http2client

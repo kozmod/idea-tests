@@ -2,22 +2,23 @@ package server
 
 import (
 	"fmt"
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
-
-	"golang.org/x/net/http2"
-	"golang.org/x/net/http2/h2c"
 )
 
 func ConfigureAndServe(port string) {
 	ConfigureHandleFuncsAndServe(
 		port,
 		map[string]func(http.ResponseWriter, *http.Request){
-			"/t": currentTimePayload,
-			"/h": headersPayload,
-			"/":  helloCurrentTime,
+			"/t":  currentTime,
+			"/tp": currentTimePayload,
+			"/hp": headersPayload,
+			"/":   helloCurrentTime,
 		},
 	)
 }
@@ -37,6 +38,10 @@ func ConfigureHandleFuncsAndServe(port string, handleMap map[string]func(http.Re
 	log.Fatal(hs.ListenAndServe())
 }
 
+func currentTime(w http.ResponseWriter, req *http.Request) {
+	fmt.Fprintf(w, "time: %v\n", time.Now())
+}
+
 func currentTimePayload(w http.ResponseWriter, req *http.Request) {
 	content := logAndGetContent(w, req)
 	fmt.Fprintf(w, "time: %v\npayload:%s\n", time.Now(), content)
@@ -44,25 +49,20 @@ func currentTimePayload(w http.ResponseWriter, req *http.Request) {
 
 func helloCurrentTime(w http.ResponseWriter, req *http.Request) {
 	logAndGetContent(w, req)
-	fmt.Fprintf(w, "Hellow,\nCurrent time: %v\n", time.Now())
+	io.WriteString(w, helloBox)
+	fmt.Fprintf(w, "Current time: %v\n", time.Now())
 }
 
 func headersPayload(w http.ResponseWriter, req *http.Request) {
 	content := logAndGetContent(w, req)
-	fmt.Fprintf(w, "/*********************************\n")
-	fmt.Fprintf(w, "|---------|\n")
-	fmt.Fprintf(w, "| Headers |\n")
-	fmt.Fprintf(w, "|---------|\n")
+	io.WriteString(w, headerBox)
 	for name, headers := range req.Header {
 		for _, h := range headers {
 			fmt.Fprintf(w, "%v: %v\n", name, h)
 		}
 	}
-	fmt.Fprintf(w, "*********************************/\n")
-	fmt.Fprintf(w, "|---------|\n")
-	fmt.Fprintf(w, "| Payload |\n")
-	fmt.Fprintf(w, "|---------|\n")
-	fmt.Fprintf(w, "%s", content)
+	io.WriteString(w, payloadBox)
+	io.WriteString(w, content)
 }
 
 func logAndGetContent(w http.ResponseWriter, req *http.Request) string {
