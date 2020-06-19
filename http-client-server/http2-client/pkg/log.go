@@ -1,10 +1,11 @@
 package pkg
 
 import (
-	"github.com/kozmod/idea-tests/http-client-server/http2-client/cmd"
 	"io"
 	"log"
 	"os"
+
+	"github.com/kozmod/idea-tests/http-client-server/http2-client/cmd"
 )
 
 func init() {

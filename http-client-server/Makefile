@@ -51,6 +51,9 @@ docker.client:
 clear:
 	@(rm -rf ${bin_dir})
 
+imports:
+	goimports -w .
+
 
 
 

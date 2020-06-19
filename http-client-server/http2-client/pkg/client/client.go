@@ -5,11 +5,12 @@ import (
 	"crypto/tls"
 	"errors"
 	"fmt"
-	"golang.org/x/net/http2"
 	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
+
+	"golang.org/x/net/http2"
 )
 
 type H2client struct {

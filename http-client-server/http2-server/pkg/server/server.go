@@ -2,12 +2,13 @@ package server
 
 import (
 	"fmt"
-	"golang.org/x/net/http2"
-	"golang.org/x/net/http2/h2c"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
+
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
 )
 
 func ConfigureAndServe(port string) {

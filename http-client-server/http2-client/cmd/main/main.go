@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
+	"strconv"
+	"time"
+
 	. "github.com/kozmod/idea-tests/http-client-server/http2-client/cmd"
 	_ "github.com/kozmod/idea-tests/http-client-server/http2-client/pkg"
 	"github.com/kozmod/idea-tests/http-client-server/http2-client/pkg/client"
 	"github.com/kozmod/idea-tests/http-client-server/http2-client/pkg/utils"
 	"github.com/spf13/cobra"
-	"log"
-	"os"
-	"strconv"
-	"time"
 )
 
 var rootCmd = &cobra.Command{
