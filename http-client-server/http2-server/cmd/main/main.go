@@ -14,7 +14,7 @@ var rootCmd = &cobra.Command{
 	Use:   "http2 client",
 	Short: "start http2 server",
 	Run: func(cmd *cobra.Command, args []string) {
-		server.ListenAndServe(DefaultServerPort)
+		server.ConfigureAndServe(DefaultServerPort)
 	},
 }
 
@@ -31,7 +31,7 @@ var portCmd = &cobra.Command{
 	Short: "define port and start start http2 server",
 	Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		server.ListenAndServe(":" + args[0])
+		server.ConfigureAndServe(":" + args[0])
 	},
 }
 

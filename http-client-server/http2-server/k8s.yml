@@ -2,12 +2,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: go-http2-server-dep
+  name: go-http2-server
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: go-http2-server
+      version: v1
   minReadySeconds: 15
   strategy:
     type: RollingUpdate
@@ -20,9 +21,10 @@ spec:
         sidecar.istio.io/inject: "true" #istio - inject proxy
       labels:
         app: go-http2-server
+        version: v1
     spec:
       containers:
-        - image: go-http2-server:v1.0.3
+        - image: go-http2-server:v1.0.4
           name: go-http2-server
           ports:
             - containerPort: 8080
@@ -40,21 +42,23 @@ spec:
 #            - '--trust-domain=cluster.local'
 #            - '--concurrency'
 #            - '2'
-
+---
 # service
 apiVersion: v1
 kind: Service
 metadata:
-  name: http2-server-service-lb
+  name: go-http2-server
+  labels:
+    app: go-http2-server
 spec:
   type: LoadBalancer
   ports:
-    - port: 9091
+    - port: 80
       protocol: TCP
       targetPort: 8080
   selector:
     app: go-http2-server
-
+---
 #Pod
 apiVersion: v1
 kind: Pod

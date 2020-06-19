@@ -10,18 +10,18 @@ import (
 	"time"
 )
 
-func ListenAndServe(port string) {
-	ListenAndServeWithHandleFuncs(
+func ConfigureAndServe(port string) {
+	ConfigureHandleFuncsAndServe(
 		port,
 		map[string]func(http.ResponseWriter, *http.Request){
-			"/t": currentTime,
-			"/h": headers,
-			"/":  helloTime,
+			"/t": currentTimePayload,
+			"/h": headersPayload,
+			"/":  helloCurrentTime,
 		},
 	)
 }
 
-func ListenAndServeWithHandleFuncs(port string, handleMap map[string]func(http.ResponseWriter, *http.Request)) {
+func ConfigureHandleFuncsAndServe(port string, handleMap map[string]func(http.ResponseWriter, *http.Request)) {
 	h2s := http2.Server{}
 	hs := http.Server{
 		Addr:    port,
@@ -36,27 +36,32 @@ func ListenAndServeWithHandleFuncs(port string, handleMap map[string]func(http.R
 	log.Fatal(hs.ListenAndServe())
 }
 
-func currentTime(w http.ResponseWriter, req *http.Request) {
+func currentTimePayload(w http.ResponseWriter, req *http.Request) {
 	content := logAndGetContent(w, req)
 	fmt.Fprintf(w, "time: %v\npayload:%s\n", time.Now(), content)
 }
 
-func helloTime(w http.ResponseWriter, req *http.Request) {
+func helloCurrentTime(w http.ResponseWriter, req *http.Request) {
 	logAndGetContent(w, req)
 	fmt.Fprintf(w, "Hellow,\nCurrent time: %v\n", time.Now())
 }
 
-func headers(w http.ResponseWriter, req *http.Request) {
+func headersPayload(w http.ResponseWriter, req *http.Request) {
 	content := logAndGetContent(w, req)
 	fmt.Fprintf(w, "/*********************************\n")
-	fmt.Fprintf(w, "              Headers:\n")
+	fmt.Fprintf(w, "|---------|\n")
+	fmt.Fprintf(w, "| Headers |\n")
+	fmt.Fprintf(w, "|---------|\n")
 	for name, headers := range req.Header {
 		for _, h := range headers {
 			fmt.Fprintf(w, "%v: %v\n", name, h)
 		}
 	}
 	fmt.Fprintf(w, "*********************************/\n")
-	fmt.Fprintf(w, "Payload:%s\n", content)
+	fmt.Fprintf(w, "|---------|\n")
+	fmt.Fprintf(w, "| Payload |\n")
+	fmt.Fprintf(w, "|---------|\n")
+	fmt.Fprintf(w, "%s", content)
 }
 
 func logAndGetContent(w http.ResponseWriter, req *http.Request) string {

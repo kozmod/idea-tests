@@ -25,7 +25,7 @@ spec:
           name: go-http2-client
           env:
             - name: SERVER_ADDR
-              value: "http://http2-server-service-lb:9091"
+              value: "http://go-http2-server:80"
             - name: REQUEST_QUANTITY
               value: "10"
             - name: REQUEST_FREQUENCY_SEC
@@ -44,24 +44,23 @@ spec:
 #            - '--trust-domain=cluster.local'
 #            - '--concurrency'
 #            - '2'
-
-#Pod
-#apiVersion: v1
-#kind: Pod
-#metadata:
-#  name: go-http2-client
-#  annotations:
-#    sidecar.istio.io/inject: "true" #istio - inject proxy
-#  labels:
-#    app: go-http2-cycle-cl
-#spec:
-#  containers:
-#    - image: go-http2-client:v1.0.0
-#      name: go-http2-client
-#      env:
-#        - name: SERVER_ADDR
-#          value: "http://http2-server-service-lb:9091"
-#        - name: REQUEST_QUANTITY
-#          value: "10"
-#        - name: REQUEST_FREQUENCY_SEC
-#          value: "300"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: go-http2-client
+  annotations:
+    sidecar.istio.io/inject: "true" #istio - inject proxy
+  labels:
+    app: go-http2-cycle-cl
+spec:
+  containers:
+    - image: go-http2-client:v1.0.0
+      name: go-http2-client
+      env:
+        - name: SERVER_ADDR
+          value: "http://http2-server-service-lb:9091"
+        - name: REQUEST_QUANTITY
+          value: "10"
+        - name: REQUEST_FREQUENCY_SEC
+          value: "300"
