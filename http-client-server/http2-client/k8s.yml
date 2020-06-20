@@ -21,7 +21,7 @@ spec:
         app: go-http2-cycle-cl
     spec:
       containers:
-        - image: go-http2-client:v1.0.0
+        - image: go-http2-client:v1.0.1
           name: go-http2-client
           env:
             - name: SERVER_ADDR
@@ -30,6 +30,8 @@ spec:
               value: "10"
             - name: REQUEST_FREQUENCY_SEC
               value: "300"
+            - name: POST_WITH_PAYLOAD_RTL
+              value: "/tp"
 #        - name: istio-proxy
 #          image: 'istio/proxyv2:1.6-custom'
 #          args:

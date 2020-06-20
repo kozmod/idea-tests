@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-func Test(t *testing.T) {
+func TestPwd(t *testing.T) {
 	cmd := exec.Command("pwd")
 	cmd.Stdin = strings.NewReader("some input")
 	var out bytes.Buffer

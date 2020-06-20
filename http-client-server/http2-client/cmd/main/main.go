@@ -1,10 +1,12 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	. "github.com/kozmod/idea-tests/http-client-server/http2-client/cmd"
@@ -18,7 +20,7 @@ var rootCmd = &cobra.Command{
 	Use:   "http2 client",
 	Short: "run with env args",
 	Run: func(cmd *cobra.Command, args []string) {
-		var delay time.Duration = 3 * time.Second
+		delay := 3 * time.Second
 		log.Printf("Run with env var. Delay before start %v\n", delay)
 		defaultValsCmd.Run(cmd, args)
 		<-time.After(3 * time.Second)
@@ -34,14 +36,16 @@ var defaultValsCmd = &cobra.Command{
 			"\n" + fmt.Sprintf("ServerAddrEnv=%s; val=%s", ServerAddrEnv, os.Getenv(ServerAddrEnv)) +
 				"\n" + fmt.Sprintf("RequestQuantityEnv=%s; val=%s", RequestQuantityEnv, os.Getenv(RequestQuantityEnv)) +
 				"\n" + fmt.Sprintf("RequestFrequencySec=%s; val=%s", RequestFrequencySec, os.Getenv(RequestFrequencySec)) +
-				"\n" + fmt.Sprintf("DefaultLogFilePath=%s;", DefaultLogFilePath))
+				"\n" + fmt.Sprintf("DefaultLogFilePath=%s;", DefaultLogFilePath) +
+				"\n" + fmt.Sprintf("PostWithPayloadRtl=%s;", PostWithPayloadRtlEnv))
 	},
 }
 
 var startCmd = &cobra.Command{
-	Use:   "start [server address, request quantity, frequency (seconds)]",
-	Short: "define server address and start start http2 client",
-	Args:  cobra.MinimumNArgs(3),
+	Use:     "start [addr postAddress, request quantity, frequency (seconds)]",
+	Short:   "define server address and start start http2 client",
+	Example: "./app start http://localhost:8080/tp 1 10",
+	Args:    cobra.MinimumNArgs(3),
 	Run: func(cmd *cobra.Command, args []string) {
 		q, err := strconv.Atoi(args[1])
 		if err != nil {
@@ -67,7 +71,10 @@ var startEnvCmd = &cobra.Command{
 		if err != nil {
 			log.Fatal(err)
 		}
-		start(os.Getenv(ServerAddrEnv), q, f)
+		addr := fmt.Sprintf("%s%s",
+			os.Getenv(ServerAddrEnv),
+			os.Getenv(PostWithPayloadRtlEnv))
+		start(addr, q, f)
 	},
 }
 
@@ -80,10 +87,26 @@ var postEnvCmd = &cobra.Command{
 	},
 }
 
+var postCmd = &cobra.Command{
+	Use:     "post [addr postAddress,payload payload]",
+	Short:   "single post with payload",
+	Example: "./app post `{\"payload\":\"xxx\"}`",
+	Args:    cobra.MinimumNArgs(2),
+	Run: func(cmd *cobra.Command, args []string) {
+		addr, payload := args[0], args[1]
+		if strings.TrimSpace(addr) == "" || strings.TrimSpace(payload) == "" {
+			log.Fatal(errors.New(
+				fmt.Sprintf("address or payload is empty:[addr=%s, payload=%s]", addr, payload)))
+		}
+		postJson(client.New(), addr, payload)
+	},
+}
+
 func main() {
 	rootCmd.AddCommand(defaultValsCmd)
 	rootCmd.AddCommand(startCmd)
 	rootCmd.AddCommand(startEnvCmd)
+	rootCmd.AddCommand(postCmd)
 	rootCmd.AddCommand(postEnvCmd)
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
@@ -101,6 +124,6 @@ func start(serverAddr string, quantity int, frequency time.Duration) {
 	}
 }
 
-func postJson(client *client.H2client, serverAddr string, json string) {
-	client.LogPostJsonRs(serverAddr+"/tp", json)
+func postJson(client *client.H2client, postPayloadAddr string, json string) {
+	client.LogPostJsonRs(postPayloadAddr, json)
 }
