@@ -1,9 +1,6 @@
+#SERVER
 server_port :=:8080
 server_url :=http://localhost
-
-mod_path :="github.com/kozmod/idea-tests/http-client-server"
-
-#SERVER
 server_bin :=server/http2server
 server_mod_path :="./http2-server"
 server_src_path :="./cmd/main/main.go"
@@ -27,9 +24,11 @@ rebuild.run.client:
 	 @(rm -rf ${bin_dir}/${client_bin} && make build.client && make run.client)
 
 build.server:
-	pushd ${server_mod_path} && go build -o ../${bin_dir}/${server_bin} -ldflags="-X 'github.com/kozmod/idea-tests/http-client-server/http2-server/cmd.DefaultServerPort=${server_port}'" ${server_src_path}
+	pushd ${server_mod_path} \
+	&& go build -o ../${bin_dir}/${server_bin} -ldflags="-X 'github.com/kozmod/idea-tests/http-client-server/http2-server/cmd.DefaultServerPort=${server_port}'" ${server_src_path}
 build.client:
-	pushd ${client_mod_path} && go build -o ../${bin_dir}/${client_bin} ${client_src_path}
+	pushd ${client_mod_path} \
+	&& go build -o ../${bin_dir}/${client_bin} ${client_src_path}
 
 build.all:
 	@(make clear)
@@ -46,7 +45,7 @@ run.client:
 docker.server:
 	pushd ${server_mod_path} && docker image build -t go-http2-server:${server_version_tag} .
 docker.client:
-	pushd ${client_mod_path} && docker image build -t  go-http2-cycle-client:${client_version_tag} .
+	pushd ${client_mod_path} && docker image build -t go-http2-cycle-client:${client_version_tag} .
 
 clear:
 	@(rm -rf ${bin_dir})
