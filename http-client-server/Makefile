@@ -4,7 +4,7 @@ server_url :=http://localhost
 server_bin :=server/http2server
 server_mod_path :="./http2-server"
 server_src_path :="./cmd/main/main.go"
-server_version_tag :=v1.0.5
+server_version_tag :=v1.0.7
 
 #CLiernt
 client_bin :=client/http2client
@@ -43,9 +43,18 @@ run.client:
 	pushd ${bin_dir} && ./${client_bin}
 
 docker.server:
-	pushd ${server_mod_path} && docker image build -t go-http2-server:${server_version_tag} .
+	pushd ${server_mod_path} \
+	&& docker image build -t go-http2-server:${server_version_tag} . \
+	&& popd \
+	&& make docker.rmi.builder
 docker.client:
-	pushd ${client_mod_path} && docker image build -t go-http2-cycle-client:${client_version_tag} .
+	pushd ${client_mod_path} \
+	&& docker image build -t go-http2-cycle-client:${client_version_tag} . \
+	&& popd \
+	&& make docker.rmi.builder
+
+docker.rmi.builder:
+	docker image prune --filter label=stage=builder <<< y
 
 clear:
 	@(rm -rf ${bin_dir})

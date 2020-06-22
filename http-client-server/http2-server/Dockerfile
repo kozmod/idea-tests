@@ -1,4 +1,5 @@
 FROM golang:latest
+LABEL stage=builder
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download

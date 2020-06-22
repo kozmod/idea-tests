@@ -28,20 +28,6 @@ spec:
           name: go-http2-server
           ports:
             - containerPort: 8080
-#        - name: istio-proxy
-#          image: 'istio/proxyv2:1.6-custom'
-#          args:
-#            - proxy
-#            - sidecar
-#            - '--domain'
-#            - $(POD_NAMESPACE).svc.cluster.local
-#            - '--serviceCluster'
-#            - go-http2-server.$(POD_NAMESPACE)
-#            - '--proxyLogLevel=warning'
-#            - '--proxyComponentLogLevel=misc:error'
-#            - '--trust-domain=cluster.local'
-#            - '--concurrency'
-#            - '2'
 ---
 # service
 apiVersion: v1

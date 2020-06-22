@@ -21,8 +21,8 @@ spec:
         app: go-http2-cycle-cl
     spec:
       containers:
-        - image: go-http2-client:v1.0.1
-          name: go-http2-client
+        - image: go-http2-cycle-client:v1.0.1
+          name: go-http2-cycle-client
           env:
             - name: SERVER_ADDR
               value: "http://go-http2-server:80"
@@ -32,20 +32,6 @@ spec:
               value: "300"
             - name: POST_WITH_PAYLOAD_RTL
               value: "/tp"
-#        - name: istio-proxy
-#          image: 'istio/proxyv2:1.6-custom'
-#          args:
-#            - proxy
-#            - sidecar
-#            - '--domain'
-#            - $(POD_NAMESPACE).svc.cluster.local
-#            - '--serviceCluster'
-#            - go-http2-server.$(POD_NAMESPACE)
-#            - '--proxyLogLevel=warning'
-#            - '--proxyComponentLogLevel=misc:error'
-#            - '--trust-domain=cluster.local'
-#            - '--concurrency'
-#            - '2'
 ---
 apiVersion: v1
 kind: Pod
