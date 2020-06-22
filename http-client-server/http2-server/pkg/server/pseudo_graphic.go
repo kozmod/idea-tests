@@ -12,8 +12,3 @@ const helloBox = `┌─────────┐
 │  Hello  │
 └─────────┘
 `
-
-const allHandlersBox = `┌────────────┐
-│  Handlers  │
-└────────────┘
-`

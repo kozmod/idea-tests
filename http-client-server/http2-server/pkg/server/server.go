@@ -45,7 +45,9 @@ func currentTime(w http.ResponseWriter, req *http.Request) {
 
 func currentTimePayload(w http.ResponseWriter, req *http.Request) {
 	content := logAndGetContent(w, req)
-	fmt.Fprintf(w, "time: %v\npayload:%s\n", time.Now(), content)
+	fmt.Fprintf(w, "time: %v\n", time.Now())
+	io.WriteString(w, payloadBox)
+	io.WriteString(w, content)
 }
 
 func helloCurrentTime(w http.ResponseWriter, req *http.Request) {
