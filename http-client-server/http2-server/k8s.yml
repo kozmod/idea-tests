@@ -24,7 +24,7 @@ spec:
         version: v1
     spec:
       containers:
-        - image: go-http2-server:v1.0.5
+        - image: go-http2-server:v1.0.7
           name: go-http2-server
           ports:
             - containerPort: 8080
@@ -59,7 +59,6 @@ spec:
       ports:
         - containerPort: 8080
 ---
-# kubectl apply -f - <<EOF
 #
 # VirtualService & Gateway to test Istio ingress gateway from local machine
 # https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/
@@ -72,10 +71,13 @@ spec:
 # export INGRESS_HOST=$(minikube ip)
 #
 # Usage:
-# kubectl apply -f - <<EOF
-# <manifest>
-#EOF
+#   kubectl apply -f - <<EOF
+#   <manifest>
+#   EOF
 #
+#
+#   curl -s -v -i "Accept: application/json" -HHost:xxx.com "http://$INGRESS_HOST:$INGRESS_PORT/hp"
+
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -114,4 +116,4 @@ spec:
         protocol: HTTP
       hosts:
         - "xxx.com"
-  EOF
+EOF

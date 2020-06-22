@@ -43,15 +43,15 @@ run.client:
 	pushd ${bin_dir} && ./${client_bin}
 
 docker.server:
-	pushd ${server_mod_path} \
+	@(pushd ${server_mod_path} \
 	&& docker image build -t go-http2-server:${server_version_tag} . \
 	&& popd \
-	&& make docker.rmi.builder
+	&& make docker.rmi.builder)
 docker.client:
-	pushd ${client_mod_path} \
+	@(pushd ${client_mod_path} \
 	&& docker image build -t go-http2-cycle-client:${client_version_tag} . \
 	&& popd \
-	&& make docker.rmi.builder
+	&& make docker.rmi.builder)
 
 docker.rmi.builder:
 	docker image prune --filter label=stage=builder <<< y
