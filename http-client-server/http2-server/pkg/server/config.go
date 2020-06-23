@@ -1,11 +1,9 @@
 package server
 
 import (
-	"log"
-	"path/filepath"
-
 	"github.com/davecgh/go-spew/spew"
 	"github.com/spf13/viper"
+	"log"
 )
 
 type Config struct {
@@ -17,7 +15,9 @@ type Config struct {
 func ReadConfig(cname, ctype string, paths ...string) (c Config, ok bool) {
 	viper.SetConfigName(cname)
 	viper.SetConfigType(ctype)
-	viper.AddConfigPath(filepath.Join(paths...))
+	for _, path := range paths {
+		viper.AddConfigPath(path)
+	}
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
