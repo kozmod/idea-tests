@@ -24,10 +24,12 @@ type someStruct struct {
 	Val string
 }
 
+const get = "Get"
+
 func Test(t *testing.T) {
 	mockInterface := new(testMockedInterface)
-	mockInterface.On("Get", "a", someStruct{"A"}).Return(errors.New("A error")).Once()
-	mockInterface.On("Get", "a", someStruct{"B"}).Return(errors.New("B error")).Once()
+	mockInterface.On(get, "a", someStruct{"A"}).Return(errors.New("A error"))
+	mockInterface.On(get, "a", someStruct{"B"}).Return(errors.New("B error"))
 
 	if err := mockInterface.Get("a", someStruct{"A"}); err != nil {
 		fmt.Println(err)
@@ -35,4 +37,5 @@ func Test(t *testing.T) {
 	if err := mockInterface.Get("a", someStruct{"B"}); err != nil {
 		fmt.Println(err)
 	}
+	mockInterface.AssertNumberOfCalls(t, get, 2)
 }
