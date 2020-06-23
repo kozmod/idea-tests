@@ -15,13 +15,7 @@ var rootCmd = &cobra.Command{
 	Use:   "http2 client",
 	Short: "start http2 server",
 	Run: func(cmd *cobra.Command, args []string) {
-		port := ":"
-		if conf, ok := server.ReadConfig("config", "yml", "./etc/config"); ok {
-			port = port + conf.ServerAddr.Port
-		} else {
-			port = port + DefaultServerPort
-		}
-		http2server := server.ConfigureAndServe(port)
+		http2server := server.ConfigureAndServe(tryReadPort())
 		log.Fatal(http2server.ListenAndServe())
 	},
 }
@@ -50,4 +44,15 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+}
+
+func tryReadPort() string {
+	port := ":"
+	if conf, err := server.ReadConfig("config", "yml", "./etc/config"); err == nil {
+		port = port + conf.ServerAddr.Port
+	} else {
+		log.Println(err)
+		port = port + DefaultServerPort
+	}
+	return port
 }
