@@ -24,10 +24,29 @@ spec:
         version: v1
     spec:
       containers:
-        - image: go-http2-server:v1.0.7
+        - image: go-http2-server:v1.0.9
           name: go-http2-server
           ports:
             - containerPort: 8080
+          volumeMounts:
+            - name: config-volume
+              mountPath: app/etc/config
+      volumes:
+        - name: config-volume
+          configMap:
+            # Provide the name of the ConfigMap containing the files you want
+            # to add to the container
+            name: go-http2-server-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: go-http2-server-config
+  namespace: default
+data:
+  config.yml: |
+    serverAddr:
+      port: 8080
 ---
 # service
 apiVersion: v1
@@ -100,7 +119,6 @@ spec:
             port:
               number: 80
             host: go-http2-server
-EOF
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -116,4 +134,3 @@ spec:
         protocol: HTTP
       hosts:
         - "xxx.com"
-EOF

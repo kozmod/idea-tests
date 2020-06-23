@@ -4,7 +4,8 @@ server_url :=http://localhost
 server_bin :=server/http2server
 server_mod_path :="./http2-server"
 server_src_path :="./cmd/main/main.go"
-server_version_tag :=v1.0.7
+server_config_dir :=etc/config/
+server_version_tag :=v1.0.9
 
 #CLiernt
 client_bin :=client/http2client
@@ -25,7 +26,9 @@ rebuild.run.client:
 
 build.server:
 	pushd ${server_mod_path} \
-	&& go build -o ../${bin_dir}/${server_bin} -ldflags="-X 'github.com/kozmod/idea-tests/http-client-server/http2-server/cmd.DefaultServerPort=${server_port}'" ${server_src_path}
+	&& go build -o ../${bin_dir}/${server_bin} -ldflags="-X 'github.com/kozmod/idea-tests/http-client-server/http2-server/cmd.DefaultServerPort=${server_port}'" ${server_src_path} \
+	&& mkdir -p ../${bin_dir}/${server_config_dir} \
+	&& cp -a ./${server_config_dir}/config.yml ../${bin_dir}/${server_config_dir}
 build.client:
 	pushd ${client_mod_path} \
 	&& go build -o ../${bin_dir}/${client_bin} ${client_src_path}
