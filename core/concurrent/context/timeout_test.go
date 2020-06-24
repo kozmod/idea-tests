@@ -3,9 +3,10 @@ package context
 import (
 	"context"
 	"fmt"
-	"github.com/kozmod/idea-tests/utils/tsync"
 	"testing"
 	"time"
+
+	"github.com/kozmod/idea-tests/utils/tsync"
 )
 
 const (

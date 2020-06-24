@@ -1,8 +1,9 @@
 package ref
 
 import (
-	"github.com/magiconair/properties/assert"
 	"testing"
+
+	"github.com/magiconair/properties/assert"
 )
 
 type testStruct struct {

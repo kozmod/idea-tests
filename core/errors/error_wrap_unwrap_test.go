@@ -2,8 +2,9 @@ package errors
 
 import (
 	"fmt"
-	"github.com/pkg/errors"
 	"testing"
+
+	"github.com/pkg/errors"
 )
 
 type RepositoryError struct {

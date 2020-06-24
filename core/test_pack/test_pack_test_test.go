@@ -1,8 +1,9 @@
 package test_pack_test
 
 import (
-	"github.com/kozmod/idea-tests/core/test_pack"
 	"testing"
+
+	"github.com/kozmod/idea-tests/core/test_pack"
 )
 
 func TestPack(t *testing.T) {

@@ -2,8 +2,9 @@ package testify_test
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/mock"
 	"testing"
+
+	"github.com/stretchr/testify/mock"
 )
 
 type testMut interface {

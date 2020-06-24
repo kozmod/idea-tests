@@ -2,9 +2,10 @@ package caf
 
 import (
 	"fmt"
-	"github.com/rakyll/audio/caf"
 	"os"
 	"testing"
+
+	"github.com/rakyll/audio/caf"
 )
 
 func Test(t *testing.T) {

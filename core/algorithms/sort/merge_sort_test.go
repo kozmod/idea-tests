@@ -1,8 +1,9 @@
 package sort_test
 
 import (
-	"github.com/magiconair/properties/assert"
 	"testing"
+
+	"github.com/magiconair/properties/assert"
 )
 
 func TestMergeSort(t *testing.T) {

@@ -2,9 +2,10 @@ package errors
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/magiconair/properties/assert"
 	"github.com/pkg/errors"
-	"testing"
 )
 
 type errorString struct {

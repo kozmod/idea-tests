@@ -1,10 +1,11 @@
 package _map
 
 import (
-	"github.com/kozmod/idea-tests/utils/tsync"
-	"github.com/stretchr/testify/assert"
 	"sync"
 	"testing"
+
+	"github.com/kozmod/idea-tests/utils/tsync"
+	"github.com/stretchr/testify/assert"
 )
 
 const keySyncMap = "counter"

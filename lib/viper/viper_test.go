@@ -1,13 +1,14 @@
 package viper
 
 import (
-	"github.com/davecgh/go-spew/spew"
-	"github.com/spf13/viper"
 	"log"
 	"os"
 	"path/filepath"
 	"testing"
 	"time"
+
+	"github.com/davecgh/go-spew/spew"
+	"github.com/spf13/viper"
 )
 
 type Config struct {

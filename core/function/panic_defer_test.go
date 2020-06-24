@@ -3,9 +3,10 @@ package function
 import (
 	"errors"
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"runtime/debug"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestPanicDefer1(t *testing.T) {

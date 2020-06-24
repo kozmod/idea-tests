@@ -3,8 +3,9 @@ package testify_test
 import (
 	"errors"
 	"fmt"
-	"github.com/stretchr/testify/mock"
 	"testing"
+
+	"github.com/stretchr/testify/mock"
 )
 
 type testInterface interface {

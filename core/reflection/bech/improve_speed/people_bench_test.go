@@ -1,8 +1,9 @@
-package bech
+package improve_speed
 
 import (
-	"github.com/kozmod/idea-tests/core/reflection/include/person"
 	"testing"
+
+	"github.com/kozmod/idea-tests/core/reflection/bech/improve_speed/include/person"
 )
 
 func BenchmarkNew(b *testing.B) {

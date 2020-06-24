@@ -1,8 +1,9 @@
 package float
 
 import (
-	"github.com/magiconair/properties/assert"
 	"testing"
+
+	"github.com/magiconair/properties/assert"
 )
 
 func TestFloatOverflow(t *testing.T) {

@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/kozmod/idea-tests/versioning/version"
-	"github.com/spf13/cobra"
 	"os"
 	"runtime"
+
+	"github.com/kozmod/idea-tests/versioning/version"
+	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{

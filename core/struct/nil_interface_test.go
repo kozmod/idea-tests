@@ -2,8 +2,9 @@ package _struct
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 const nilVal = "0"

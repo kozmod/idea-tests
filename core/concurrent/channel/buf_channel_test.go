@@ -2,9 +2,10 @@ package channel
 
 import (
 	"fmt"
-	"github.com/magiconair/properties/assert"
 	"sync"
 	"testing"
+
+	"github.com/magiconair/properties/assert"
 )
 
 const (

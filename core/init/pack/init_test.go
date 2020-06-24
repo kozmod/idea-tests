@@ -1,11 +1,14 @@
 package pack
 
 import (
-	"github.com/magiconair/properties/assert"
 	"testing"
+
+	"github.com/magiconair/properties/assert"
+
+	_ "github.com/kozmod/idea-tests/core/init/pack/sub"
+
+	s "github.com/kozmod/idea-tests/core/init/pack/sub"
 )
-import _ "github.com/kozmod/idea-tests/core/init/pack/sub"
-import s "github.com/kozmod/idea-tests/core/init/pack/sub"
 
 func TestInit(t *testing.T) {
 	root := getVal()

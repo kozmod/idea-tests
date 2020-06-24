@@ -1,9 +1,10 @@
 package tsync_test
 
 import (
+	"testing"
+
 	. "github.com/kozmod/idea-tests/utils/tsync"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 const a = "a"

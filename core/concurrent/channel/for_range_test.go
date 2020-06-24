@@ -2,11 +2,12 @@ package channel
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"log"
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 )
 
 const (
