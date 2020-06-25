@@ -11,31 +11,33 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var rootCmd = &cobra.Command{
-	Use:   "http2 client",
-	Short: "start http2 server",
-	Run: func(cmd *cobra.Command, args []string) {
-		http2server := server.ConfigureAndServe(tryReadPort())
-		log.Fatal(http2server.ListenAndServe())
-	},
-}
+var (
+	rootCmd = &cobra.Command{
+		Use:   "http2 client",
+		Short: "start http2 server",
+		Run: func(cmd *cobra.Command, args []string) {
+			http2server := server.ConfigureAndServe(tryReadPort())
+			log.Fatal(http2server.ListenAndServe())
+		},
+	}
 
-var defaultValsCmd = &cobra.Command{
-	Use:   "dval",
-	Short: "print default values",
-	Run: func(cmd *cobra.Command, args []string) {
-		log.Println(fmt.Sprintf("DefaultServerPort=%s;", DefaultServerPort))
-	},
-}
+	defaultValsCmd = &cobra.Command{
+		Use:   "dval",
+		Short: "print default values",
+		Run: func(cmd *cobra.Command, args []string) {
+			log.Println(fmt.Sprintf("DefaultServerPort=%s;", DefaultServerPort))
+		},
+	}
 
-var portCmd = &cobra.Command{
-	Use:   "p [server port]",
-	Short: "define port and start start http2 server",
-	Args:  cobra.MinimumNArgs(1),
-	Run: func(cmd *cobra.Command, args []string) {
-		server.ConfigureAndServe(":" + args[0])
-	},
-}
+	portCmd = &cobra.Command{
+		Use:   "p [server port]",
+		Short: "define port and start start http2 server",
+		Args:  cobra.MinimumNArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			server.ConfigureAndServe(":" + args[0])
+		},
+	}
+)
 
 func main() {
 	rootCmd.AddCommand(defaultValsCmd)
