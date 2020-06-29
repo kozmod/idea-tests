@@ -8,16 +8,20 @@ server_mod_path :="./http2-server"
 server_src_path :="./cmd/main/main.go"
 server_config_dir :=etc/config/
 server_version_tag :=v1.0.9
+define server_ldflags
+-X 'github.com/kozmod/idea-tests/http-client-server/http2-server/cmd.DefaultServerPort=${server_port}' \
+-X 'github.com/kozmod/idea-tests/http-client-server/http2-server/version.Version=$(server_version_tag)' \
+-X 'github.com/kozmod/idea-tests/http-client-server/http2-server/version.Time=$(build_time)'
+endef
 
 #CLiernt
 client_bin :=client/http2client
 client_mod_path :="./http2-client"
 client_src_path :="./cmd/main/main.go"
 client_version_tag :=v1.0.1
-define server_ldflags
--X 'github.com/kozmod/idea-tests/http-client-server/http2-server/cmd.DefaultServerPort=${server_port}' \
--X 'github.com/kozmod/idea-tests/http-client-server/http2-server/version.Version=$(server_version_tag)' \
--X 'github.com/kozmod/idea-tests/http-client-server/http2-server/version.Time=$(build_time)'
+define client_ldflags
+-X 'github.com/kozmod/idea-tests/http-client-server/http2-client/version.Version=$(client_version_tag)' \
+-X 'github.com/kozmod/idea-tests/http-client-server/http2-client/version.Time=$(build_time)'
 endef
 
 bin_dir := bin
@@ -38,7 +42,7 @@ build.server:
 	&& cp -a ./${server_config_dir}/config.yml ../${bin_dir}/${server_config_dir}
 build.client:
 	pushd ${client_mod_path} \
-	&& go build -o ../${bin_dir}/${client_bin} ${client_src_path}
+	&& go build -o ../${bin_dir}/${client_bin} -ldflags="${client_ldflags}" ${client_src_path}
 
 build.all:
 	@(make clear)

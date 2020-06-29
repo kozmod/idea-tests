@@ -3,8 +3,10 @@ package main
 import (
 	"errors"
 	"fmt"
+	"github.com/kozmod/idea-tests/http-client-server/http2-client/version"
 	"log"
 	"os"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -102,6 +104,16 @@ var (
 			postJson(client.New(), addr, payload)
 		},
 	}
+
+	versionCmd = &cobra.Command{
+		Use:   "version",
+		Short: "version of app (+ golang version and build time)",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println(fmt.Sprintf("Go Version:         %s", runtime.Version()))
+			fmt.Println(fmt.Sprintf("Build Version:      %s", version.Version))
+			fmt.Println(fmt.Sprintf("Build Version Time: %s", version.Time))
+		},
+	}
 )
 
 func main() {
@@ -110,6 +122,7 @@ func main() {
 	rootCmd.AddCommand(startEnvCmd)
 	rootCmd.AddCommand(postCmd)
 	rootCmd.AddCommand(postEnvCmd)
+	rootCmd.AddCommand(versionCmd)
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
