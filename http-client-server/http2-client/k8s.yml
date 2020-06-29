@@ -30,7 +30,7 @@ spec:
               value: "10"
             - name: REQUEST_FREQUENCY_SEC
               value: "300"
-            - name: POST_WITH_PAYLOAD_RTL
+            - name: POST_WITH_PAYLOAD_URL
               value: "/tp"
 ---
 apiVersion: v1

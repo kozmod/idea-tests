@@ -3,13 +3,15 @@ package main
 import (
 	"errors"
 	"fmt"
-	"github.com/kozmod/idea-tests/http-client-server/http2-client/version"
 	"log"
 	"os"
 	"runtime"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/kozmod/idea-tests/http-client-server/http2-client/pkg/config"
+	"github.com/kozmod/idea-tests/http-client-server/http2-client/version"
 
 	. "github.com/kozmod/idea-tests/http-client-server/http2-client/cmd"
 	_ "github.com/kozmod/idea-tests/http-client-server/http2-client/pkg"
@@ -35,12 +37,21 @@ var (
 		Use:   "dval",
 		Short: "print default values",
 		Run: func(cmd *cobra.Command, args []string) {
+			c := config.FromEnv()
 			log.Println(
-				"\n" + fmt.Sprintf("ServerAddrEnv=%s; val=%s", ServerAddrEnv, os.Getenv(ServerAddrEnv)) +
-					"\n" + fmt.Sprintf("RequestQuantityEnv=%s; val=%s", RequestQuantityEnv, os.Getenv(RequestQuantityEnv)) +
-					"\n" + fmt.Sprintf("RequestFrequencySec=%s; val=%s", RequestFrequencySec, os.Getenv(RequestFrequencySec)) +
-					"\n" + fmt.Sprintf("DefaultLogFilePath=%s;", DefaultLogFilePath) +
-					"\n" + fmt.Sprintf("PostWithPayloadRtl=%s;", PostWithPayloadRtlEnv))
+				"\n" + "ENV:" +
+					"\n" + fmt.Sprintf("ServerAddrEnv=%s;", config.ServerAddrEnv) +
+					"\n" + fmt.Sprintf("RequestQuantityEnv=%s;", config.RequestQuantityEnv) +
+					"\n" + fmt.Sprintf("RequestFrequencySec=%s;", config.RequestFrequencySecEnv) +
+					"\n" + fmt.Sprintf("PostWithPayloadRtl=%s;", config.PostWithPayloadUrlEnv) +
+					"\n" + "Conf val:" +
+					"\n" + fmt.Sprintf("ServerAddrEnv=%s;", c.ServerAddr()) +
+					"\n" + fmt.Sprintf("RequestQuantityEnv=%d;", c.RequestQuantity()) +
+					"\n" + fmt.Sprintf("RequestFrequencySec=%s;", c.RequestFrequency()) +
+					"\n" + fmt.Sprintf("PostWithPayloadRtl=%s;", c.PostWithPayloadUrl()) +
+					"\n" + "Vars:" +
+					"\n" + fmt.Sprintf("DefaultLogFilePath=%s;", DefaultLogFilePath),
+			)
 		},
 	}
 
@@ -66,18 +77,11 @@ var (
 		Use:   "startEnv",
 		Short: "start with data from env",
 		Run: func(cmd *cobra.Command, args []string) {
-			q, err := strconv.Atoi(os.Getenv(RequestQuantityEnv))
-			if err != nil {
-				log.Fatal(err)
-			}
-			f, err := utils.AsSeconds(os.Getenv(RequestFrequencySec))
-			if err != nil {
-				log.Fatal(err)
-			}
+			c := config.FromEnv()
 			addr := fmt.Sprintf("%s%s",
-				os.Getenv(ServerAddrEnv),
-				os.Getenv(PostWithPayloadRtlEnv))
-			start(addr, q, f)
+				os.Getenv(c.ServerAddr()),
+				os.Getenv(c.PostWithPayloadUrl()))
+			start(addr, c.RequestQuantity(), c.RequestFrequency())
 		},
 	}
 
@@ -85,7 +89,7 @@ var (
 		Use:   "postEnv",
 		Short: "single post to server use env",
 		Run: func(cmd *cobra.Command, args []string) {
-			addr := os.Getenv(ServerAddrEnv)
+			addr := os.Getenv(config.ServerAddrEnv)
 			postJson(client.New(), addr, fmt.Sprintf(`{"single":"to %s"}`, addr))
 		},
 	}

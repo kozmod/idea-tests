@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/kozmod/idea-tests/http-client-server/http2-server/version"
 	"log"
 	"os"
 	"runtime"
+
+	"github.com/kozmod/idea-tests/http-client-server/http2-server/version"
 
 	. "github.com/kozmod/idea-tests/http-client-server/http2-server/cmd"
 	_ "github.com/kozmod/idea-tests/http-client-server/http2-server/pkg"

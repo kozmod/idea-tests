@@ -26,9 +26,11 @@ endef
 
 bin_dir := bin
 
+#env to run client
 export SERVER_ADDR=$(server_url)$(server_port)
 export REQUEST_QUANTITY=10
-export REQUEST_FREQUENCY_SEC=60
+export REQUEST_FREQUENCY_SEC=66
+export POST_WITH_PAYLOAD_URL="/tp"
 
 rebuild.run.server:
 	 @(rm -rf ${bin_dir}/${server_bin} && make build.server && make run.server)
