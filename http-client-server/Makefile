@@ -7,7 +7,7 @@ server_bin :=server/http2server
 server_mod_path :="./http2-server"
 server_src_path :="./cmd/main/main.go"
 server_config_dir :=etc/config/
-server_version_tag :=v1.0.9
+server_version_tag :=v1.0.10
 define server_ldflags
 -X 'github.com/kozmod/idea-tests/http-client-server/http2-server/cmd.DefaultServerPort=${server_port}' \
 -X 'github.com/kozmod/idea-tests/http-client-server/http2-server/version.Version=$(server_version_tag)' \
@@ -18,7 +18,7 @@ endef
 client_bin :=client/http2client
 client_mod_path :="./http2-client"
 client_src_path :="./cmd/main/main.go"
-client_version_tag :=v1.0.1
+client_version_tag :=v1.0.2
 define client_ldflags
 -X 'github.com/kozmod/idea-tests/http-client-server/http2-client/version.Version=$(client_version_tag)' \
 -X 'github.com/kozmod/idea-tests/http-client-server/http2-client/version.Time=$(build_time)'
@@ -45,6 +45,7 @@ build.server:
 build.client:
 	pushd ${client_mod_path} \
 	&& go build -o ../${bin_dir}/${client_bin} -ldflags="${client_ldflags}" ${client_src_path}
+
 
 build.all:
 	@(make clear)
