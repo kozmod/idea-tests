@@ -7,7 +7,7 @@ server_bin :=server/http2server
 server_mod_path :="./http2-server"
 server_src_path :="./cmd/main/main.go"
 server_config_dir :=etc/config/
-server_version_tag :=v1.0.10
+server_version_tag :=v1.0.11
 define server_ldflags
 -X 'github.com/kozmod/idea-tests/http-client-server/http2-server/cmd.DefaultServerPort=${server_port}' \
 -X 'github.com/kozmod/idea-tests/http-client-server/http2-server/version.Version=$(server_version_tag)' \
