@@ -1,2 +1,6 @@
 serverAddr:
   port: 8080
+log:
+  filePath: http2server.log
+  mod:
+    - stdout

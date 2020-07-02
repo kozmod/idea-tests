@@ -44,7 +44,7 @@ var (
 					"\n" + fmt.Sprintf("RequestQuantityEnv=%s;", config.RequestQuantityEnv) +
 					"\n" + fmt.Sprintf("RequestFrequencySec=%s;", config.RequestFrequencySecEnv) +
 					"\n" + fmt.Sprintf("PostWithPayloadRtl=%s;", config.PostWithPayloadUrlEnv) +
-					"\n" + "Conf val:" +
+					"\n" + "Config val:" +
 					"\n" + fmt.Sprintf("ServerAddrEnv=%s;", c.ServerAddr()) +
 					"\n" + fmt.Sprintf("RequestQuantityEnv=%d;", c.RequestQuantity()) +
 					"\n" + fmt.Sprintf("RequestFrequencySec=%s;", c.RequestFrequency()) +
