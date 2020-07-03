@@ -1,6 +1,7 @@
 package linkname_test
 
 import (
+	"fmt"
 	"os"
 	"runtime/pprof"
 	"testing"
@@ -34,9 +35,10 @@ func Test(t *testing.T) {
 	l := &mutex{}
 	go func() {
 		lock(l)
-		goparkunlock(l, "xxx", traceEvGoBlock, 1)
+		goparkunlock(l, "test", traceEvGoBlock, 1)
 	}()
-	for i := 0; i < 3; i++ {
+	for i := 0; i < 1; i++ {
+		fmt.Printf("---> iteration %d\n", i)
 		pprof.Lookup("goroutine").WriteTo(os.Stdout, 1)
 		time.Sleep(time.Second * 1)
 	}
