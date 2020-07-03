@@ -1,8 +1,9 @@
 package patterns
 
 import (
-	"github.com/magiconair/properties/assert"
 	"testing"
+
+	"github.com/magiconair/properties/assert"
 )
 
 //OOP realization

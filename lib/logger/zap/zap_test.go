@@ -1,9 +1,10 @@
 package zap_test
 
 import (
-	"go.uber.org/zap"
 	"testing"
 	"time"
+
+	"go.uber.org/zap"
 )
 
 func Test(t *testing.T) {
