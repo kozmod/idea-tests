@@ -1,4 +1,4 @@
-package improve_speed
+package improve_speed_test
 
 import (
 	"testing"
@@ -23,6 +23,14 @@ func BenchmarkNewUseReflect(b *testing.B) {
 }
 
 func BenchmarkNewQuickReflect(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		person.NewQuickReflect()
+	}
+}
+
+func BenchmarkNewQuickReflectLocalVar(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {

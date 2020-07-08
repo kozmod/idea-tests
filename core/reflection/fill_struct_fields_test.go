@@ -39,7 +39,7 @@ type testReflectionStruct struct {
 	I   injectedInterface
 }
 
-func Test(t *testing.T) {
+func TestFillStructField(t *testing.T) {
 	injection := injectedInterfaceImplB{}
 	obj := testReflectionStruct{}
 	val := reflect.ValueOf(&obj)
