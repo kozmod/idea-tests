@@ -1,4 +1,4 @@
-package reflection
+package reflection_test
 
 import (
 	"reflect"
