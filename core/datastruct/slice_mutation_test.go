@@ -8,7 +8,7 @@ import (
 )
 
 //noinspection GoNilness
-func TestSliceInit(t *testing.T) {
+func TestSliceInitByPointerCopy(t *testing.T) {
 	tryInitSlice := func(s []int) {
 		s = make([]int, 0, 5)
 		fmt.Println(fmt.Sprintf("s == nil in tryInitSlice?: %t, %v, len:%d, cap:%d", s == nil, s, len(s), cap(s)))
@@ -62,7 +62,11 @@ func TestAppendToSliceInFunc(t *testing.T) {
 }
 
 func TestAppendToSliceInFunc_2(t *testing.T) {
+	newSliceAndAppendCall := 0
 	newSliceAndAppend := func(value []string) {
+		newSliceAndAppendCall++
+		fmt.Printf("%d:\n***************************************************\n",
+			newSliceAndAppendCall)
 		fmt.Printf("value=%v\n", value)
 
 		value2 := value[:]
@@ -71,6 +75,7 @@ func TestAppendToSliceInFunc_2(t *testing.T) {
 
 		value2[0] = "z"
 		fmt.Printf("value=%v, value2=%v\n", value, value2)
+		fmt.Println("***************************************************")
 	}
 
 	slice1 := []string{"a"} // length 1, capacity 1
@@ -96,19 +101,23 @@ func TestAppendToSliceInFunc_2(t *testing.T) {
 }
 
 func TestAppendToSliceInFunc_3(t *testing.T) {
+	printFn := func(is *[]int) {
+		fmt.Println(len(*is), cap(*is), *is)
+	}
+
 	s1 := []int{1, 2, 3}
-	fmt.Println(len(s1), cap(s1), s1) // выводит 3 3 [1 2 3]
+	printFn(&s1) // выводит 3 3 [1 2 3]
 
 	s2 := s1[1:]
-	fmt.Println(len(s2), cap(s2), s2) // выводит 2 2 [2 3]
+	printFn(&s2) // выводит 2 2 [2 3]
 
 	for i := range s2 {
 		s2[i] += 20
 	}
 
 	// всё ещё ссылается на тот же массив
-	fmt.Println(s1) // выводит [1 22 23]
-	fmt.Println(s2) // выводит [22 23]
+	printFn(&s1) // выводит 3 3 [1 22 23]
+	printFn(&s2) // выводит 2 2 [22 23]
 
 	s2 = append(s2, 4) //append -> create new array to s2
 
@@ -117,6 +126,6 @@ func TestAppendToSliceInFunc_3(t *testing.T) {
 	}
 
 	//s1 is now "stale"
-	fmt.Println(s1) // выводит [1 22 23]
-	fmt.Println(s2) // выводит [32 33 14]
+	printFn(&s1) // выводит 3 3 [1 22 23]
+	printFn(&s2) // выводит 3 4 [32 33 14]
 }
