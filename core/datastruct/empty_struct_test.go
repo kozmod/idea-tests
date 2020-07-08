@@ -1,10 +1,11 @@
-package datastruct
+package datastruct_test
 
 import (
 	"fmt"
-	"github.com/magiconair/properties/assert"
 	"testing"
 	"unsafe"
+
+	"github.com/magiconair/properties/assert"
 )
 
 func TestNotAllocateMemory(t *testing.T) {
