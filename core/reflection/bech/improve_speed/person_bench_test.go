@@ -30,14 +30,6 @@ func BenchmarkNewQuickReflect(b *testing.B) {
 	}
 }
 
-func BenchmarkNewQuickReflectLocalVar(b *testing.B) {
-	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		person.NewQuickReflect()
-	}
-}
-
 func BenchmarkQuickReflectWithPool(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()

@@ -45,7 +45,6 @@ func TestFillStructField(t *testing.T) {
 	val := reflect.ValueOf(&obj)
 	fmt.Println(val)
 	for i := 0; i < val.Elem().NumField(); i++ {
-
 		switch val.Elem().Field(i).Type() {
 		case typeOfInterface:
 			rv := reflect.ValueOf(injection)

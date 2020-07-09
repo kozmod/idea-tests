@@ -76,24 +76,6 @@ func NewQuickReflect() interface{} {
 }
 
 //noinspection ALL
-func NewQuickReflectLocalVar() interface{} {
-	var prs Person
-	t := reflect.TypeOf(prs)
-	v := reflect.New(t)
-
-	p := v.Interface()
-	ptr0 := uintptr((*emptyInterface)(unsafe.Pointer(&p)).word)
-	ptr1 := ptr0 + offset1
-	ptr2 := ptr0 + offset2
-	ptr3 := ptr0 + offset3
-	*((*int)(unsafe.Pointer(ptr0))) = 30
-	*((*string)(unsafe.Pointer(ptr1))) = "Kozmo"
-	*((*string)(unsafe.Pointer(ptr2))) = "test1"
-	*((*string)(unsafe.Pointer(ptr3))) = "test2"
-	return p
-}
-
-//noinspection ALL
 func NewQuickReflectWithPool() interface{} {
 	p := Pool.Get()
 	ptr0 := uintptr((*emptyInterface)(unsafe.Pointer(&p)).word)
