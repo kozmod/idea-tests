@@ -59,6 +59,21 @@ func NewUseReflect() interface{} {
 	return v.Interface()
 }
 
+func NewUseReflectUnexportedField() interface{} {
+	var p Person
+	t := reflect.TypeOf(p)
+	v := reflect.New(t)
+	field := v.Elem().Field(0)
+	reflect.NewAt(field.Type(), unsafe.Pointer(field.UnsafeAddr())).Elem().Set(reflect.ValueOf(30))
+	field = v.Elem().Field(1)
+	reflect.NewAt(field.Type(), unsafe.Pointer(field.UnsafeAddr())).Elem().Set(reflect.ValueOf("Kozmo"))
+	field = v.Elem().Field(2)
+	reflect.NewAt(field.Type(), unsafe.Pointer(field.UnsafeAddr())).Elem().Set(reflect.ValueOf("test1"))
+	field = v.Elem().Field(3)
+	reflect.NewAt(field.Type(), unsafe.Pointer(field.UnsafeAddr())).Elem().Set(reflect.ValueOf("test2"))
+	return v.Interface()
+}
+
 //noinspection ALL
 func NewQuickReflect() interface{} {
 	v := reflect.New(t)
