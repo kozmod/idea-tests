@@ -7,15 +7,17 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const one = 1
-const two = 2
-const ten = 10
-
-func changeMap(m map[int]int) {
-	m[ten] = two
-}
+const (
+	one = 1
+	two = 2
+	ten = 10
+)
 
 func TestMapMutation(t *testing.T) {
+	changeMap := func(m map[int]int) {
+		m[ten] = two
+	}
+
 	m := make(map[int]int)
 	m[ten] = one
 	println("m[10] before change =", m[ten])
@@ -26,13 +28,12 @@ func TestMapMutation(t *testing.T) {
 }
 
 //noinspection ALL
-func tryInitMap(m map[int]int) {
-	m = make(map[int]int)
-	fmt.Println(fmt.Sprintf("m == nil in tryInitMap?: %t, %v", m == nil, m))
-}
-
-//noinspection ALL
 func TestMapInitByFunc(t *testing.T) {
+	tryInitMap := func(m map[int]int) {
+		m = make(map[int]int)
+		fmt.Println(fmt.Sprintf("m == nil in tryInitMap?: %t, %v", m == nil, m))
+	}
+
 	var m map[int]int
 	tryInitMap(m)
 	fmt.Println(fmt.Sprintf("m == nil in TestMapInit?: %t, %v", m == nil, m))
@@ -45,10 +46,14 @@ func TestInit(t *testing.T) {
 	var m3 map[int]int
 	m4 := map[int]int{1: 1, 2: 1}
 	assert.NotNil(t, m1)
+	assert.NotNil(t, &m1)
 	assert.NotNil(t, m2)
+	assert.NotNil(t, &m2)
 	assert.Nil(t, *m2)
 	assert.Nil(t, m3)
+	assert.NotNil(t, &m3)
 	assert.NotNil(t, m4)
+	assert.NotNil(t, &m4)
 	fmt.Println(fmt.Sprintf("m1: %v", m1))
 	fmt.Println(fmt.Sprintf("m2: %v", m2))
 	fmt.Println(fmt.Sprintf("m3: %v", m3))
