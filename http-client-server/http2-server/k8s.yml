@@ -18,13 +18,13 @@ spec:
   template:
     metadata:
       annotations:
-        sidecar.istio.io/inject: "true" #istio - inject proxy
+        sidecar.istio.io/inject: "false" #istio - inject proxy
       labels:
         app: go-http2-server
         version: v1
     spec:
       containers:
-        - image: go-http2-server:v1.0.9
+        - image: go-http2-server:v1.0.9 #registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/go-http2-server:v1.0.9
           name: go-http2-server
           ports:
             - containerPort: 8080
@@ -47,6 +47,10 @@ data:
   config.yml: |
     serverAddr:
       port: 8080
+    log:
+      filePath: http2server.log
+      mod:
+        - stdout
 ---
 # service
 apiVersion: v1

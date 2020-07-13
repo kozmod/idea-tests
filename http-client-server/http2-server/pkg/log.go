@@ -13,7 +13,6 @@ import (
 func init() {
 	config := Config
 	var writers []io.Writer
-	//if Contains(DefaultLogMod[:], File) {
 	if Contains(config.Log.Mod[:], server.File) {
 		// log to console and file
 		f, err := os.OpenFile(config.Log.FilePath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
