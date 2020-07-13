@@ -1,8 +1,9 @@
-package _struct
+package include
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 type worker interface {
@@ -16,7 +17,8 @@ func (wi *workerImpl) doSomeWork() string {
 }
 
 type workerDecorator struct {
-	worker worker
+	worker    worker
+	workerPtr *worker
 }
 
 func (wi *workerDecorator) doSomeWork() string {
@@ -26,4 +28,5 @@ func (wi *workerDecorator) doSomeWork() string {
 func TestI(t *testing.T) {
 	wd := workerDecorator{}
 	assert.Nil(t, wd.worker)
+	assert.Nil(t, *wd.workerPtr)
 }

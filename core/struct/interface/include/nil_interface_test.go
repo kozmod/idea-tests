@@ -1,4 +1,4 @@
-package _struct
+package include
 
 import (
 	"fmt"
@@ -34,7 +34,7 @@ func (s *st) val() (val string) {
 	return s.str
 }
 
-func Test1(t *testing.T) {
+func TestNilInterface_1(t *testing.T) {
 	var i i
 	var s *st
 	assert.Nil(t, s)
