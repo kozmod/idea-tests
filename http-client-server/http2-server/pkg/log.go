@@ -13,7 +13,7 @@ import (
 func init() {
 	config := Config
 	var writers []io.Writer
-	if Contains(config.Log.Mod[:], server.File) {
+	if contains(config.Log.Mod[:], server.File) {
 		// log to console and file
 		f, err := os.OpenFile(config.Log.FilePath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 		if err != nil {
@@ -21,7 +21,7 @@ func init() {
 		}
 		writers = append(writers, f)
 	}
-	if Contains(config.Log.Mod[:], server.Stdout) {
+	if contains(config.Log.Mod[:], server.Stdout) {
 		writers = append(writers, os.Stdout)
 	}
 	if len(writers) < 1 {
@@ -30,7 +30,7 @@ func init() {
 	log.SetOutput(io.MultiWriter(writers...))
 }
 
-func Contains(mods []server.LogMod, search server.LogMod) bool {
+func contains(mods []server.LogMod, search server.LogMod) bool {
 	for _, mod := range mods {
 		if mod == search {
 			return true
