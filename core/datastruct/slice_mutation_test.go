@@ -105,7 +105,10 @@ func TestAppendToSliceInFunc_3(t *testing.T) {
 		fmt.Println(len(*is), cap(*is), *is)
 	}
 
-	s1 := []int{1, 2, 3}
+	array := [...]int{1, 2, 3}
+	fmt.Println("array:", len(array), cap(array), array) // выводит 3 3 [1 2 3]
+
+	s1 := array[:]
 	printFn(&s1) // выводит 3 3 [1 2 3]
 
 	s2 := s1[1:]
@@ -116,8 +119,9 @@ func TestAppendToSliceInFunc_3(t *testing.T) {
 	}
 
 	// всё ещё ссылается на тот же массив
-	printFn(&s1) // выводит 3 3 [1 22 23]
-	printFn(&s2) // выводит 2 2 [22 23]
+	fmt.Println("array:", len(array), cap(array), array) // выводит 3 3 [1 22 23]
+	printFn(&s1)                                         // выводит 3 3 [1 22 23]
+	printFn(&s2)                                         // выводит 2 2 [22 23]
 
 	s2 = append(s2, 4) //append -> create new array to s2
 
@@ -126,6 +130,7 @@ func TestAppendToSliceInFunc_3(t *testing.T) {
 	}
 
 	//s1 is now "stale"
-	printFn(&s1) // выводит 3 3 [1 22 23]
-	printFn(&s2) // выводит 3 4 [32 33 14]
+	fmt.Println("array:", len(array), cap(array), array) // выводит 3 3 [1 22 23]
+	printFn(&s1)                                         // выводит 3 3 [1 22 23]
+	printFn(&s2)                                         // выводит 3 4 [32 33 14]
 }
