@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package msg;
+
+option go_package = "msg";
+
+service Msg {
+    rpc Max (stream Request) returns (stream Response) {}
+}
+
+message Request {
+    int32 num = 1;
+}
+
+message Response {
+    int32 result = 1;
+}
