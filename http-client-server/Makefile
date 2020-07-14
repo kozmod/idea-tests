@@ -32,6 +32,9 @@ export REQUEST_QUANTITY=10
 export REQUEST_FREQUENCY_SEC=66
 export POST_WITH_PAYLOAD_URL="/tp"
 
+#go env
+GO_ENV := GO111MODULE="on"
+
 rebuild.run.server:
 	 @(rm -rf ${bin_dir}/${server_bin} && make build.server && make run.server)
 rebuild.run.client:
@@ -39,13 +42,12 @@ rebuild.run.client:
 
 build.server:
 	pushd ${server_mod_path} \
-	&& go build -o ../${bin_dir}/${server_bin} -ldflags="${server_ldflags}" ${server_src_path} \
+	&& ${GO_ENV} go build -o ../${bin_dir}/${server_bin} -ldflags="${server_ldflags}" ${server_src_path} \
 	&& mkdir -p ../${bin_dir}/${server_config_dir} \
 	&& cp -a ./${server_config_dir}/config.yml ../${bin_dir}/${server_config_dir}
 build.client:
 	pushd ${client_mod_path} \
-	&& go build -o ../${bin_dir}/${client_bin} -ldflags="${client_ldflags}" ${client_src_path}
-
+	&& ${GO_ENV} go build -o ../${bin_dir}/${client_bin} -ldflags="${client_ldflags}" ${client_src_path}
 
 build.all:
 	@(make clear)
