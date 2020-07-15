@@ -12,8 +12,7 @@ func init() {
 	if conf, err := server.ReadConfig("config", "yml", "./etc/config"); err == nil {
 		Config = conf
 	} else {
-		log.Println(err)
-		log.Println("get default config from \"github.com/kozmod/idea-tests/http-client-server/http2-server/cmd\"")
+		log.Printf("get default config from \"github.com/kozmod/idea-tests/http-client-server/http2-server/cmd\".\nReason:\n%s\n", err)
 		Config = server.Config{
 			ServerAddr: struct{ Port string }{Port: DefaultServerPort},
 			Log: struct {
