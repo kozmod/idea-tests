@@ -33,3 +33,6 @@ run.bin.client:
 	pushd ${BIN_DIR} && ./${CLIENT_BIN}
 
 .PHONY: client server protoc
+
+clear:
+	@(rm -rf ${BIN_DIR})
