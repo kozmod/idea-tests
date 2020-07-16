@@ -28,7 +28,9 @@ var (
 		Use:   "dval",
 		Short: "print default values",
 		Run: func(cmd *cobra.Command, args []string) {
-			log.Println(fmt.Sprintf("DefaultServerPort=%s;", DefaultServerPort))
+			fmt.Println(fmt.Sprintf("DefaultServerPort=%s;", DefaultServerPort))
+			fmt.Println(fmt.Sprintf("DefaultLogMod=%s;", DefaultLogMod))
+			fmt.Println(fmt.Sprintf("DefaultLogFilePath=%s;", DefaultLogFilePath))
 		},
 	}
 

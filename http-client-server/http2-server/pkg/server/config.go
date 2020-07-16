@@ -1,7 +1,6 @@
 package server
 
 import (
-	"github.com/davecgh/go-spew/spew"
 	"github.com/spf13/viper"
 )
 
@@ -41,6 +40,5 @@ func ReadConfig(cName, cType string, paths ...string) (c Config, err error) {
 	if err = viper.Unmarshal(&c); err != nil {
 		return
 	}
-	spew.Dump(c)
 	return
 }

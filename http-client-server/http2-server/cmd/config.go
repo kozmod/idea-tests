@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/davecgh/go-spew/spew"
 	"log"
 
 	"github.com/kozmod/idea-tests/http-client-server/http2-server/pkg/server"
@@ -23,4 +24,5 @@ func init() {
 			},
 		}
 	}
+	spew.Dump(Config)
 }

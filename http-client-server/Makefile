@@ -8,12 +8,11 @@ bin_dir := bin
 server_bin :=server/http2server
 server_mod_path :="./http2-server"
 server_config_dir :=etc/config/
-server_version_tag :=v1.0.12.beta-1
 
 ##CLiernt
 client_bin :=client/http2client
 client_mod_path :="./http2-client"
-client_version_tag :=v1.0.2
+server_url :=http://localhost
 
 ##env to run client
 export SERVER_ADDR=$(server_url)$(server_port)
@@ -37,6 +36,11 @@ run.server.local:
 	pushd ${bin_dir} && ./${server_bin}
 run.client.local:
 	pushd ${bin_dir} && ./${client_bin}
+
+check.server.local:
+	pushd ${bin_dir} && ./${server_bin} dval && ./${server_bin} version
+check.client.local:
+	pushd ${bin_dir} && ./${client_bin} dval && ./${client_bin} version
 
 docker.server:
 	@(pushd ${server_mod_path} \
