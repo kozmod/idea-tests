@@ -41,6 +41,8 @@ heap.arg:
 mout:
 	@([ ! -d ${OUT_DIR} ] && mkdir ${OUT_DIR} || echo "${OUT_DIR} exists")
 
+trace.stack:
+	go tool trace $(OUT_DIR)/stack.out
 
 clear:
 	@([ -d ${OUT_DIR} ] & rm -rf ${OUT_DIR})
