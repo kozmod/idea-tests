@@ -1,4 +1,4 @@
-package mock
+package _func
 
 import (
 	"github.com/magiconair/properties/assert"
