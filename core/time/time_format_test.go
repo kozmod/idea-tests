@@ -2,6 +2,7 @@ package time
 
 import (
 	"fmt"
+	"github.com/magiconair/properties/assert"
 	"testing"
 	"time"
 )
@@ -15,4 +16,16 @@ func TestTimeFormat_1(t *testing.T) {
 
 func formatTime(t time.Time, format string) string {
 	return t.Format(format)
+}
+
+func TestTimeParse_1(t *testing.T) {
+	s := "23:01:00"
+	time, err := time.Parse("15:04:05", s)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(time)
+	assert.Equal(t, time.Second(), 0)
+	assert.Equal(t, time.Minute(), 1)
+	assert.Equal(t, time.Hour(), 23)
 }
