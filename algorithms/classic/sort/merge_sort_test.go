@@ -3,7 +3,7 @@ package sort_test
 import (
 	"testing"
 
-	"github.com/kozmod/idea-tests/core/algorithms/sort"
+	"github.com/kozmod/idea-tests/algorithms/classic/sort"
 	"github.com/stretchr/testify/assert"
 )
 
