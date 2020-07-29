@@ -18,7 +18,7 @@ Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
 Output: 7 -> 0 -> 8
 Explanation: 342 + 465 = 807.
 */
-//TODO -> TRY FIND BETTER SOLUTION
+//TODO -> MINE -> TRY FIND BETTER SOLUTION
 func Test_AddTwoNumbers(t *testing.T) {
 	var ln1 *ListNode
 	var ln2 *ListNode
@@ -124,4 +124,81 @@ func resultAndOver(res int) (int, int) {
 		}
 	}
 	return res, x
+}
+
+//GOOD
+func Test_AddTwoNumbers_2(t *testing.T) {
+	var ln1 *ListNode
+	var ln2 *ListNode
+	var res *ListNode
+
+	ln1 = newListNode(2, 4, 3)
+	ln2 = newListNode(5, 6, 4)
+	res = addTwoNumbers_2(ln1, ln2)
+	fmt.Println(res.StringVals())
+
+	ln1 = newListNode(0)
+	ln2 = newListNode(1)
+	res = addTwoNumbers_2(ln1, ln2)
+	fmt.Println(res.StringVals())
+
+	ln1 = newListNode(5)
+	ln2 = newListNode(5)
+	res = addTwoNumbers_2(ln1, ln2)
+	fmt.Println(res.StringVals())
+
+	ln1 = newListNode(8)
+	ln2 = newListNode(10)
+	res = addTwoNumbers_2(ln1, ln2)
+	fmt.Println(res.StringVals())
+
+	ln1 = newListNode(0)
+	ln2 = newListNode(7, 3)
+	res = addTwoNumbers_2(ln1, ln2)
+	fmt.Println(res.StringVals())
+
+	ln1 = newListNode(1)
+	ln2 = newListNode(9, 9)
+	res = addTwoNumbers_2(ln1, ln2)
+	fmt.Println(res.StringVals())
+}
+
+func addTwoNumbers_2(l1 *ListNode, l2 *ListNode) *ListNode {
+	dummyHead := &ListNode{Val: 0}
+	p := l1
+	q := l2
+	curr := dummyHead
+	carry := 0
+	for {
+		if p != nil || q != nil {
+			var x int
+			var y int
+			if p != nil {
+				x = p.Val
+			} else {
+				x = 0
+			}
+			if q != nil {
+				y = q.Val
+			} else {
+				y = 0
+			}
+			sum := carry + x + y
+			carry = sum / 10
+			curr.Next = &ListNode{Val: sum % 10}
+			curr = curr.Next
+			if p != nil {
+				p = p.Next
+			}
+			if q != nil {
+				q = q.Next
+			}
+		} else {
+			break
+		}
+		if carry > 0 {
+			curr.Next = &ListNode{Val: carry}
+		}
+	}
+	return dummyHead.Next
 }
