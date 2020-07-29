@@ -1,7 +1,8 @@
 package leetcode
 
 import (
-	"fmt"
+	"github.com/stretchr/testify/assert"
+	"reflect"
 	"testing"
 )
 
@@ -27,32 +28,32 @@ func Test_AddTwoNumbers(t *testing.T) {
 	ln1 = newListNode(2, 4, 3)
 	ln2 = newListNode(5, 6, 4)
 	res = addTwoNumbers(ln1, ln2)
-	fmt.Println(res.StringVals())
+	assert.True(t, reflect.DeepEqual(res, newListNode(7, 0, 8)))
 
 	ln1 = newListNode(0)
 	ln2 = newListNode(1)
 	res = addTwoNumbers(ln1, ln2)
-	fmt.Println(res.StringVals())
+	assert.True(t, reflect.DeepEqual(res, newListNode(1)))
 
 	ln1 = newListNode(5)
 	ln2 = newListNode(5)
 	res = addTwoNumbers(ln1, ln2)
-	fmt.Println(res.StringVals())
+	assert.True(t, reflect.DeepEqual(res, newListNode(0, 1)))
 
 	ln1 = newListNode(8)
 	ln2 = newListNode(10)
 	res = addTwoNumbers(ln1, ln2)
-	fmt.Println(res.StringVals())
+	assert.True(t, reflect.DeepEqual(res, newListNode(8, 1)))
 
 	ln1 = newListNode(0)
 	ln2 = newListNode(7, 3)
 	res = addTwoNumbers(ln1, ln2)
-	fmt.Println(res.StringVals())
+	assert.True(t, reflect.DeepEqual(res, newListNode(7, 3)))
 
 	ln1 = newListNode(1)
 	ln2 = newListNode(9, 9)
 	res = addTwoNumbers(ln1, ln2)
-	fmt.Println(res.StringVals())
+	assert.True(t, reflect.DeepEqual(res, newListNode(0, 0, 1)))
 }
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
@@ -135,32 +136,32 @@ func Test_AddTwoNumbers_2(t *testing.T) {
 	ln1 = newListNode(2, 4, 3)
 	ln2 = newListNode(5, 6, 4)
 	res = addTwoNumbers_2(ln1, ln2)
-	fmt.Println(res.StringVals())
+	assert.True(t, reflect.DeepEqual(res, newListNode(7, 0, 8)))
 
 	ln1 = newListNode(0)
 	ln2 = newListNode(1)
 	res = addTwoNumbers_2(ln1, ln2)
-	fmt.Println(res.StringVals())
+	assert.True(t, reflect.DeepEqual(res, newListNode(1)))
 
 	ln1 = newListNode(5)
 	ln2 = newListNode(5)
 	res = addTwoNumbers_2(ln1, ln2)
-	fmt.Println(res.StringVals())
+	assert.True(t, reflect.DeepEqual(res, newListNode(0, 1)))
 
 	ln1 = newListNode(8)
 	ln2 = newListNode(10)
 	res = addTwoNumbers_2(ln1, ln2)
-	fmt.Println(res.StringVals())
+	assert.True(t, reflect.DeepEqual(res, newListNode(8, 1)))
 
 	ln1 = newListNode(0)
 	ln2 = newListNode(7, 3)
 	res = addTwoNumbers_2(ln1, ln2)
-	fmt.Println(res.StringVals())
+	assert.True(t, reflect.DeepEqual(res, newListNode(7, 3)))
 
 	ln1 = newListNode(1)
 	ln2 = newListNode(9, 9)
 	res = addTwoNumbers_2(ln1, ln2)
-	fmt.Println(res.StringVals())
+	assert.True(t, reflect.DeepEqual(res, newListNode(0, 0, 1)))
 }
 
 func addTwoNumbers_2(l1 *ListNode, l2 *ListNode) *ListNode {
