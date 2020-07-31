@@ -1,7 +1,7 @@
 package function
 
 import (
-	"github.com/magiconair/properties/assert"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -17,10 +17,14 @@ type fnStruct struct {
 }
 
 func TestFunctionAsArg_Mutation(t *testing.T) {
-	s := fnStruct{fn: func() string {
+	s := fnStruct{}
+	assert.Nil(t, s.fn)
+
+	s.fn = func() string {
 		return a
-	}}
+	}
 	assert.Equal(t, a, s.fn())
+
 	s.fn = func() string {
 		return b
 	}
