@@ -2,8 +2,8 @@ BIN_DIR=bin
 SERVER_BIN=server
 CLIENT_BIN=client
 
-SERVER_SRC=pkg/server
-CLIENT_SRC=pkg/client
+SERVER_SRC=simple-server/cmd
+CLIENT_SRC=simple-client/cmd
 
 env := GO111MODULE="on"
 
@@ -12,14 +12,16 @@ all: client server
 protoc:
 	@echo "Generating Go files"
 	mkdir -p ./proto/generated
-	protoc -I ./proto/file --go_out=plugins=grpc:./proto/generated msg/msg.proto
+	protoc -I ./proto/file --go_out=plugins=grpc:./proto/generated api/api.proto
 
 server: protoc
 	@echo "Building server"
+	mkdir -p ${BIN_DIR}
 	pushd ${SERVER_SRC} && go build -o ../../${BIN_DIR}/${SERVER_BIN}
 
 client: protoc
 	@echo "Building client"
+	mkdir -p ${BIN_DIR}
 	pushd ${CLIENT_SRC} && go build -o ../../${BIN_DIR}/${CLIENT_BIN}
 
 run.server:
@@ -36,3 +38,9 @@ run.bin.client:
 
 clear:
 	@(rm -rf ${BIN_DIR})
+
+download:
+	go mod download
+
+imports:
+	goimports -w .

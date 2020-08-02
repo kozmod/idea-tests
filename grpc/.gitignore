@@ -4,4 +4,5 @@
 *.swp
 .idea/
 venodr/
-bin/
+bin
+proto/generated

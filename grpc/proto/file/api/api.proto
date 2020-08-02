@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package api;
+
+service SimpleService {
+    rpc Execute (Rq) returns (Rs) {
+    }
+}
+
+service GetRssService {
+    rpc Execute (Rq) returns (stream Rs) {
+    }
+}
+
+service SendRqsService {
+    rpc Execute (stream Rq) returns (Rs) {
+    }
+}
+
+service BidiService {
+    rpc Execute (stream Rq) returns (stream Rs) {
+    }
+}
+
+message Rq {
+    string uid = 1;
+    string val = 2;
+}
+
+message Rs {
+    string uid = 1;
+    string val = 2;
+}
