@@ -4,6 +4,7 @@ import (
 	"context"
 	pb "github.com/kozmod/idea-tests/grpc/proto/generated/api"
 	"github.com/spf13/cobra"
+	"golang.org/x/exp/rand"
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -14,7 +15,18 @@ import (
 )
 
 var (
-	port    = ":8080"
+	port = ":8080"
+)
+
+func main() {
+	rootCmd.AddCommand(startCmd)
+	if err := rootCmd.Execute(); err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
+}
+
+var (
 	rootCmd = &cobra.Command{
 		Use:   "grpc client",
 		Short: "run with 1 send",
@@ -31,14 +43,6 @@ var (
 		},
 	}
 )
-
-func main() {
-	rootCmd.AddCommand(startCmd)
-	if err := rootCmd.Execute(); err != nil {
-		log.Println(err)
-		os.Exit(1)
-	}
-}
 
 func start() {
 	listener, err := net.Listen("tcp", port)
@@ -66,12 +70,11 @@ func start() {
 }
 
 type timeoutServer struct {
-	duration time.Duration
 }
 
 func (s *timeoutServer) Execute(ctx context.Context, rq *pb.Rq) (*pb.Rs, error) {
 	log.Printf("get rq: %v\n", rq)
-	time.Sleep(s.duration)
+	time.Sleep(time.Duration(rand.Intn(5)) * time.Second)
 	rs := &pb.Rs{Uid: rq.Uid, Val: rq.Val}
 	return rs, nil
 }
