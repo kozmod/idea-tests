@@ -15,7 +15,10 @@ import (
 )
 
 var (
-	port = ":8080"
+	port               = ":8080"
+	randomDurationFunc = func() time.Duration {
+		return time.Duration(rand.Intn(5)) * time.Second
+	}
 )
 
 func main() {
@@ -74,7 +77,7 @@ type timeoutServer struct {
 
 func (s *timeoutServer) Execute(ctx context.Context, rq *pb.Rq) (*pb.Rs, error) {
 	log.Printf("get rq: %v\n", rq)
-	time.Sleep(time.Duration(rand.Intn(5)) * time.Second)
+	time.Sleep(randomDurationFunc())
 	rs := &pb.Rs{Uid: rq.Uid, Val: rq.Val}
 	return rs, nil
 }
