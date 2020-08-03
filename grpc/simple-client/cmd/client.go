@@ -16,8 +16,11 @@ import (
 )
 
 var (
-	addr            = "127.0.0.1:8080"
-	defaultQuantity = 5
+	addr               = "127.0.0.1:8080"
+	defaultQuantity    = 10
+	randomDurationFunc = func() time.Duration {
+		return time.Duration(rand.Intn(5)) * time.Second
+	}
 )
 
 func main() {
@@ -53,23 +56,29 @@ var (
 )
 
 func start(quantity int) {
+	cctx, cancel := context.WithCancel(context.TODO())
 	var wg sync.WaitGroup
 	wg.Add(quantity)
 	for i := 0; i < quantity; i++ {
 		go func(i int) {
-			ctx := context.TODO()
-			time.Sleep(time.Duration(rand.Intn(10)) * time.Second)
+			ctx, _ := context.WithTimeout(cctx, 1*time.Second)
+			//time.Sleep(randomDurationFunc())
+			time.Sleep(5 * time.Second)
 			client, connection := NewBidiServiceClient(addr, grpc.WithInsecure())
 			defer connection.Close()
 			rs, err := client.Execute(ctx, &api.Rq{Uid: strconv.Itoa(i), Val: fmt.Sprintf("val-%d", i)})
 			if err != nil {
-				log.Println(err)
+				log.Println(fmt.Sprintf("execution error: %v", err))
 			} else {
-				log.Println(rs)
+				log.Println(fmt.Sprintf("resp: %v", rs))
 			}
 			wg.Done()
 		}(i)
 	}
+	go func() {
+		time.Sleep(20 * time.Second)
+		cancel()
+	}()
 	wg.Wait()
 }
 
