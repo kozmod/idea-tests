@@ -2,16 +2,17 @@ package main
 
 import (
 	"context"
-	pb "github.com/kozmod/idea-tests/grpc/proto/generated/api"
-	"github.com/spf13/cobra"
-	"golang.org/x/exp/rand"
-	"google.golang.org/grpc"
 	"log"
 	"net"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	pb "github.com/kozmod/idea-tests/grpc/proto/generated/api"
+	"github.com/spf13/cobra"
+	"golang.org/x/exp/rand"
+	"google.golang.org/grpc"
 )
 
 var (

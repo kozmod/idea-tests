@@ -11,4 +11,6 @@ require (
 	google.golang.org/protobuf v1.25.0 // indirect
 )
 
-replace github.com/kozmod/idea-tests/grpc/proto => ../proto
+replace (
+    github.com/kozmod/idea-tests/grpc/proto => ../proto
+)

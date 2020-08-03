@@ -3,15 +3,16 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/kozmod/idea-tests/grpc/proto/generated/api"
-	"github.com/spf13/cobra"
-	"google.golang.org/grpc"
 	"log"
 	"math/rand"
 	"os"
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/kozmod/idea-tests/grpc/proto/generated/api"
+	"github.com/spf13/cobra"
+	"google.golang.org/grpc"
 )
 
 var (
