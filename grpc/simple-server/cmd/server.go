@@ -11,14 +11,14 @@ import (
 
 	pb "github.com/kozmod/idea-tests/grpc/proto/generated/api"
 	"github.com/spf13/cobra"
-	"golang.org/x/exp/rand"
 	"google.golang.org/grpc"
 )
 
 var (
 	port               = ":8080"
 	randomDurationFunc = func() time.Duration {
-		return time.Duration(rand.Intn(5)) * time.Second
+		//return time.Duration(rand.Intn(5)) * time.Second
+		return 10 * time.Second
 	}
 )
 

@@ -57,13 +57,14 @@ var (
 
 func start(quantity int) {
 	cctx, cancel := context.WithCancel(context.TODO())
+	fmt.Println(cctx.Err())
 	var wg sync.WaitGroup
 	wg.Add(quantity)
 	for i := 0; i < quantity; i++ {
 		go func(i int) {
 			ctx, _ := context.WithTimeout(cctx, 1*time.Second)
 			//time.Sleep(randomDurationFunc())
-			time.Sleep(5 * time.Second)
+			time.Sleep(1 * time.Second)
 			client, connection := NewBidiServiceClient(addr, grpc.WithInsecure())
 			defer connection.Close()
 			rs, err := client.Execute(ctx, &api.Rq{Uid: strconv.Itoa(i), Val: fmt.Sprintf("val-%d", i)})
@@ -75,10 +76,25 @@ func start(quantity int) {
 			wg.Done()
 		}(i)
 	}
+	wg.Add(1)
 	go func() {
-		time.Sleep(20 * time.Second)
+		time.Sleep(10 * time.Second)
+		fmt.Println(cctx.Err())
 		cancel()
+		fmt.Println(cctx.Err())
 	}()
+	go func() {
+	xx:
+		for {
+			select {
+			case <-cctx.Done():
+				fmt.Println("DONE")
+				break xx
+			}
+		}
+		wg.Done()
+	}()
+
 	wg.Wait()
 }
 
