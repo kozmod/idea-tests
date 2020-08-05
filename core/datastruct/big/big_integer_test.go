@@ -1,9 +1,10 @@
 package big
 
 import (
-	"github.com/magiconair/properties/assert"
 	"math/big"
 	"testing"
+
+	"github.com/magiconair/properties/assert"
 )
 
 func TestSimpleConvertBigInt(t *testing.T) {

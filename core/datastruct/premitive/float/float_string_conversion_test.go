@@ -1,9 +1,10 @@
 package float
 
 import (
-	"github.com/stretchr/testify/assert"
 	"strconv"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestFloatToString_strconv_FormatFloat(t *testing.T) {

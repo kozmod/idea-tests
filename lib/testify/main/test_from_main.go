@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/kozmod/idea-tests/lib/testify/main/internal"
 	"testing"
+
+	"github.com/kozmod/idea-tests/lib/testify/main/internal"
 )
 
 func main() {

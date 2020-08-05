@@ -1,9 +1,10 @@
 package _func
 
 import (
-	"github.com/magiconair/properties/assert"
 	"strconv"
 	"testing"
+
+	"github.com/magiconair/properties/assert"
 )
 
 type testFuncType = func(int) string

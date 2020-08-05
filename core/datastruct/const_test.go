@@ -1,8 +1,9 @@
 package datastruct
 
 import (
-	"github.com/magiconair/properties/assert"
 	"testing"
+
+	"github.com/magiconair/properties/assert"
 )
 
 type X int

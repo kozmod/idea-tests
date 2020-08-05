@@ -3,9 +3,10 @@ package time
 import (
 	"context"
 	"fmt"
-	"github.com/magiconair/properties/assert"
 	"testing"
 	"time"
+
+	"github.com/magiconair/properties/assert"
 )
 
 func TestTimeFormat_1(t *testing.T) {

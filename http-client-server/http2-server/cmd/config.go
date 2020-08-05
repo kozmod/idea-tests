@@ -1,8 +1,9 @@
 package cmd
 
 import (
-	"github.com/davecgh/go-spew/spew"
 	"log"
+
+	"github.com/davecgh/go-spew/spew"
 
 	"github.com/kozmod/idea-tests/http-client-server/http2-server/pkg/server"
 )

@@ -2,8 +2,9 @@ package datastruct_test
 
 import (
 	"fmt"
-	"github.com/kozmod/idea-tests/core/datastruct"
 	"testing"
+
+	"github.com/kozmod/idea-tests/core/datastruct"
 
 	"github.com/stretchr/testify/assert"
 )

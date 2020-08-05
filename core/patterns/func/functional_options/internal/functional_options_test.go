@@ -1,9 +1,10 @@
 package internal
 
 import (
-	"github.com/magiconair/properties/assert"
 	"testing"
 	"time"
+
+	"github.com/magiconair/properties/assert"
 )
 
 const addr = ":8080"
