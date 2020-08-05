@@ -1,4 +1,4 @@
-package premitive
+package float
 
 import (
 	"github.com/stretchr/testify/assert"
@@ -7,6 +7,7 @@ import (
 )
 
 func TestFloatToString_strconv_FormatFloat(t *testing.T) {
+	//noinspection ALL
 	var f float64 = 1.12345678901
 	s := strconv.FormatFloat(f, 'f', -1, 64)
 	assert.Equal(t, s, "1.12345678901")
