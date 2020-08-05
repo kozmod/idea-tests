@@ -2,6 +2,7 @@ package datastruct_test
 
 import (
 	"fmt"
+	"github.com/kozmod/idea-tests/core/datastruct"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -26,7 +27,7 @@ func TestSliceInitByPointerCopy(t *testing.T) {
 func TestChangeStructInSlice(t *testing.T) {
 	a, b, x := "a", "b", "X!"
 
-	s := []someStruct{
+	s := []datastruct.SomeStruct{
 		2: {Val: a},
 		0: {Val: b},
 	}

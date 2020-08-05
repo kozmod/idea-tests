@@ -2,6 +2,7 @@ package datastruct_test
 
 import (
 	"fmt"
+	"github.com/kozmod/idea-tests/core/datastruct"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -61,7 +62,7 @@ func TestInit(t *testing.T) {
 }
 
 func TestChangeStructInMap(t *testing.T) {
-	m := map[int]someStruct{
+	m := map[int]datastruct.SomeStruct{
 		1: {Val: "aaa"},
 	}
 	/***********************
