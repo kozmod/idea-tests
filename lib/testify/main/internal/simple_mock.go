@@ -8,10 +8,6 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-type testInterface interface {
-	Get(string, interface{}) error
-}
-
 type testMockedInterface struct {
 	mock.Mock
 }

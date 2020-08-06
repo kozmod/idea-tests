@@ -25,10 +25,6 @@ func (c *Composition) Apply() error {
 	return nil
 }
 
-func New(a InterdaceA, b InterdaceB) *Composition {
-	return &Composition{a, b}
-}
-
 const Execute = "Execute"
 
 type AMock struct {
@@ -63,7 +59,49 @@ func TestOrderOfMocks(t *testing.T) {
 		}
 	})
 
-	c := New(amock, bmock)
+	c := &Composition{amock, bmock}
 	err := c.Apply()
 	require.NoError(t, err)
+}
+
+const (
+	executeA = "ExecuteA"
+	executeB = "ExecuteB"
+)
+
+type SpyA struct {
+	Calls *[]string
+}
+
+func (s *SpyA) Execute() {
+	*s.Calls = append(*s.Calls, executeA)
+}
+
+type SpyB struct {
+	Calls *[]string
+}
+
+func (s *SpyB) Execute() {
+	*s.Calls = append(*s.Calls, executeB)
+}
+
+func TestOrderOfMocks_Spy(t *testing.T) {
+	calls := &[]string{}
+	sa := &SpyA{calls}
+	sb := &SpyB{calls}
+	c := &Composition{
+		a: sa,
+		b: sb,
+	}
+	err := c.Apply()
+	require.NoError(t, err)
+	expected := []string{
+		0: executeA,
+		1: executeB,
+	}
+	for i, val := range *calls {
+		if expected[i] != val {
+			t.Fail()
+		}
+	}
 }
