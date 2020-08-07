@@ -122,3 +122,21 @@ func TestGetCurrentTimeUtc_OnlyTimePattern(t *testing.T) {
 	parsed = parsed.AddDate(ct.Year(), int(ct.Month())-1, ct.Day()-1)
 	fmt.Println(parsed)
 }
+
+func TestPanicIfNegativeDurationAsTickerArg(t *testing.T) {
+	defer func() {
+		if p := recover(); p == nil {
+			t.Fail()
+		}
+	}()
+	time.NewTicker(-5 * time.Second)
+}
+
+func TestZeroDurationAsTickerArg(t *testing.T) {
+	defer func() {
+		if p := recover(); p == nil {
+			t.Fail()
+		}
+	}()
+	time.NewTicker(0 * time.Second)
+}
