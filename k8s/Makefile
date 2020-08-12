@@ -13,7 +13,7 @@ RESET := $(shell tput -Txterm sgr0)
 
 #param
 src_path :=./
-version_tag :=v1.0.3
+version_tag :=v1.0.5
 project_name :=k8s-test-metrics-reader
 
 docker:

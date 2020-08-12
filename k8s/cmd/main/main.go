@@ -1,5 +1,7 @@
 package main
 
+import "time"
+
 //import (
 //	"context"
 //	"encoding/json"
@@ -10,7 +12,7 @@ package main
 //	"k8s.io/client-go/rest"
 //)
 //
-//// PodMetricsList : PodMetricsList
+////// PodMetricsList : PodMetricsList
 //type PodMetricsList struct {
 //	Kind       string `json:"kind"`
 //	APIVersion string `json:"apiVersion"`
@@ -77,10 +79,12 @@ import (
 	"k8s.io/client-go/rest"
 	metricsv "k8s.io/metrics/pkg/client/clientset/versioned"
 	"os"
-	"time"
 )
 
-const targetNamespaceEnv = "TARGET_NAMESPACE"
+const (
+	targetNamespaceEnv = "TARGET_NAMESPACE"
+	sleep              = 10 * time.Second
+)
 
 func main() {
 	config, err := rest.InClusterConfig()
@@ -94,13 +98,18 @@ func main() {
 		panic(err.Error())
 	}
 	ns := os.Getenv(targetNamespaceEnv)
+	fmt.Println("env: ", targetNamespaceEnv, " = ", ns)
+	fmt.Println("sleep: ", sleep)
 	for i := 0; i < 10; i++ {
-		time.Sleep(10 * time.Second)
-		fmt.Println("env: ", targetNamespaceEnv, " = ", ns)
+		time.Sleep(sleep)
 		podMetricsList, err := clientset.MetricsV1beta1().PodMetricses(ns).List(context.TODO(), metav1.ListOptions{})
 		if err != nil {
 			fmt.Println("clientset error:\n", err)
 		}
-		fmt.Println(podMetricsList)
+		fmt.Println("TypeMeta", podMetricsList.TypeMeta)
+		fmt.Println("ListMeta", podMetricsList.ListMeta)
+		for i, item := range podMetricsList.Items {
+			fmt.Println(i, item)
+		}
 	}
 }
