@@ -78,10 +78,8 @@ var (
 		Short: "start with data from env",
 		Run: func(cmd *cobra.Command, args []string) {
 			c := config.FromEnv()
-			addr := fmt.Sprintf("%s%s",
-				os.Getenv(c.ServerAddr()),
-				os.Getenv(c.PostWithPayloadUrl()))
-			start(addr, c.RequestQuantity(), c.RequestFrequency())
+			fmt.Println(c)
+			start(c.ServerAddr(), c.RequestQuantity(), c.RequestFrequency())
 		},
 	}
 

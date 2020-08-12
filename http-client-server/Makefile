@@ -15,7 +15,7 @@ client_mod_path :="./http2-client"
 server_url :=http://localhost
 
 ##env to run client
-export SERVER_ADDR=$(server_url)$(server_port)
+export SERVER_ADDR=$(server_url):$(server_port)
 export REQUEST_QUANTITY=10
 export REQUEST_FREQUENCY_SEC=66
 export POST_WITH_PAYLOAD_URL="/tp"
