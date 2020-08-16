@@ -1,6 +1,8 @@
 package main
 
-import "time"
+import (
+	"time"
+)
 
 //import (
 //	"context"
@@ -84,14 +86,12 @@ import (
 const (
 	targetNamespaceEnv = "TARGET_NAMESPACE"
 	sleep              = 10 * time.Second
+	host               = "127.0.0.1" + ":" + "61488"
 )
 
 func main() {
-	config, err := rest.InClusterConfig()
-	if err != nil {
-		fmt.Println("rest error")
-		panic(err.Error())
-	}
+	config := rest.AnonymousClientConfig(&rest.Config{Host: host})
+	//config := rest.InClusterConfig() // in cluster config
 	clientset, err := metricsv.NewForConfig(config)
 	if err != nil {
 		fmt.Println("metricsv.NewForConfig(config) error")
