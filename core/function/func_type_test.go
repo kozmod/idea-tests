@@ -5,13 +5,17 @@ import (
 	"testing"
 )
 
-type StringActor func(string) (string, error)
+type stringActor interface {
+	act(string) (string, error)
+}
 
-func (act StringActor) act(s string) (string, error) {
+type stringActorImpl func(string) (string, error)
+
+func (act stringActorImpl) act(s string) (string, error) {
 	return act(s)
 }
 
-func newAddPrefixStringActor(prefix string) StringActor {
+func newAddPrefixStringActor(prefix string) stringActorImpl {
 	return func(s string) (string, error) {
 		return prefix + s, nil
 	}
@@ -23,7 +27,8 @@ func TestFunctionAsType(t *testing.T) {
 		val    = "xyz"
 		expres = prefix + val
 	)
-	res, err := newAddPrefixStringActor(prefix).act(val)
+	var actor stringActor = newAddPrefixStringActor(prefix)
+	res, err := actor.act(val)
 	assert.Equal(t, res, expres)
 	assert.NoError(t, err)
 }
