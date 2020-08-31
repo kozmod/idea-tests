@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"runtime"
 
@@ -54,6 +56,7 @@ var (
 )
 
 func main() {
+	http.ListenAndServe(":8080", nil)
 	rootCmd.AddCommand(defaultValsCmd)
 	rootCmd.AddCommand(portCmd)
 	rootCmd.AddCommand(versionCmd)

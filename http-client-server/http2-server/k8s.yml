@@ -24,13 +24,20 @@ spec:
         version: v1
     spec:
       containers:
-        - image: go-http2-server:v1.0.12 #registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/go-http2-server:v1.0.9
+        - image: go-http2-server:v1.0.12 #registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/go-http2-server:v1.011
           name: go-http2-server
           ports:
             - containerPort: 8080
           volumeMounts:
             - name: config-volume
               mountPath: app/etc/config
+          resources:
+            limits:
+              cpu: "0.3"
+              memory: 100Mi
+            requests:
+              cpu: "0.1"
+              memory: 10Mi
       volumes:
         - name: config-volume
           configMap:
