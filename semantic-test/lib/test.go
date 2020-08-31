@@ -6,5 +6,5 @@ type TestS struct {
 }
 
 func (s *TestS) DoThx() {
-	fmt.Println("V0")
+	fmt.Println("V99")
 }
