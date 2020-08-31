@@ -56,7 +56,7 @@ var (
 )
 
 func main() {
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":9090", nil)
 	rootCmd.AddCommand(defaultValsCmd)
 	rootCmd.AddCommand(portCmd)
 	rootCmd.AddCommand(versionCmd)
