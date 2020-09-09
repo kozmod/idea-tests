@@ -1,5 +1,12 @@
+version :=v1.0.4
+build_tag :=kozmo/sleep-client:${version}
+tag_to_replace=registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/${build_tag}
+
 docker:
-	docker image build -t sleep-client:1.0.2 . && make docker.rmi.builder
+	docker image build -t ${build_tag} . && make docker.rmi.builder
 
 docker.rmi.builder:
 	docker image prune --filter label=stage=builder <<< y
+
+required>tag:
+	docker tag $(docker images --format="{{.Repository}} {{.Tag}} {{.ID}}" | grep "^${build_tag} ${version} " | cut -d' ' -f3) ${tag_to_replace}
