@@ -1,0 +1,37 @@
+#Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sleep-client
+      version: v1
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false" #istio - inject proxy
+      labels:
+        app: sleep-client
+        version: v1
+    spec:
+      containers:
+        - image: registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/sleep-client:1.0.3
+          name: sleep-client
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: "0.3"
+              memory: 100Mi
+            requests:
+              cpu: "0.1"
+              memory: 10Mi
