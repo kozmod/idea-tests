@@ -12,7 +12,8 @@ const (
 
 func main() {
 	var sleepTime time.Duration
-	flag.DurationVar(&sleepTime, "time", defaultSleepTime, "SleepTime")
+	flag.DurationVar(&sleepTime, "time", defaultSleepTime, "Sleep Time (time.Duration)")
+	flag.Parse()
 	fmt.Println("Sleep:", sleepTime)
 	time.Sleep(sleepTime)
 }
