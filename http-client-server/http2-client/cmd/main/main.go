@@ -79,7 +79,8 @@ var (
 		Run: func(cmd *cobra.Command, args []string) {
 			c := config.FromEnv()
 			fmt.Println(c)
-			start(c.ServerAddr(), c.RequestQuantity(), c.RequestFrequency())
+			ping := c.ServerAddr() + c.PostWithPayloadUrl()
+			start(ping, c.RequestQuantity(), c.RequestFrequency())
 		},
 	}
 
@@ -88,7 +89,7 @@ var (
 		Short: "single post to server use env",
 		Run: func(cmd *cobra.Command, args []string) {
 			addr := os.Getenv(config.ServerAddrEnv)
-			postJson(client.New(), addr, fmt.Sprintf(`{"single":"to %s"}`, addr))
+			iteration(client.New(), addr, fmt.Sprintf(`{"single":"to %s"}`, addr))
 		},
 	}
 
@@ -103,7 +104,7 @@ var (
 				log.Fatal(errors.New(
 					fmt.Sprintf("address or payload is empty:[addr=%s, payload=%s]", addr, payload)))
 			}
-			postJson(client.New(), addr, payload)
+			iteration(client.New(), addr, payload)
 		},
 	}
 
@@ -135,12 +136,16 @@ func start(serverAddr string, quantity int, frequency time.Duration) {
 	h2c := client.New()
 	for {
 		for i := 1; i <= quantity; i++ {
-			postJson(h2c, serverAddr, fmt.Sprintf(`{"iteration":"%d"}`, i))
+			ping(h2c, serverAddr, i)
 		}
 		<-time.After(frequency)
 	}
 }
 
-func postJson(client *client.H2client, postPayloadAddr string, json string) {
-	client.LogPostJsonRs(postPayloadAddr, json)
+func iteration(client *client.H2client, address, payload string) {
+	client.LogPostJsonRs(address, payload)
+}
+
+func ping(client *client.H2client, serverAddr string, i int) {
+	client.LogPostJsonRs(serverAddr, fmt.Sprintf(`{"ping":"%d"}`, i))
 }

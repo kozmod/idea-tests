@@ -13,10 +13,10 @@ import (
 )
 
 var HandleFunctionMap = map[string]func(http.ResponseWriter, *http.Request){
-	"/":   helloCurrentTime,
-	"/t":  currentTime,
-	"/tp": currentTimePayload,
-	"/hp": headersPayload,
+	"/hello": helloCurrentTime,
+	"/ping":  ping,
+	"/t":     currentTime,
+	"/hp":    headersPayload,
 }
 
 func ConfigureAndServe(port string) http.Server {
@@ -34,6 +34,7 @@ func ConfigureHandleFuncsAndServe(port string, handleMap map[string]func(http.Re
 	for k, v := range handleMap {
 		http.HandleFunc(k, v)
 	}
+
 	log.Printf("Server run on %s", port)
 	log.Fatal(hs.ListenAndServe())
 	return hs
@@ -43,29 +44,27 @@ func currentTime(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "time: %v\n", time.Now())
 }
 
-func currentTimePayload(w http.ResponseWriter, req *http.Request) {
-	content := logAndGetContent(w, req)
-	fmt.Fprintf(w, "time: %v\n", time.Now())
-	io.WriteString(w, payloadBox)
-	io.WriteString(w, content)
+func ping(w http.ResponseWriter, req *http.Request) {
+	_ = logAndGetContent(w, req)
+	_, _ = fmt.Fprintf(w, "pong")
 }
 
 func helloCurrentTime(w http.ResponseWriter, req *http.Request) {
 	logAndGetContent(w, req)
-	io.WriteString(w, helloBox)
-	fmt.Fprintf(w, "Current time: %v\n", time.Now())
+	_, _ = io.WriteString(w, helloBox)
+	_, _ = fmt.Fprintf(w, "Current time: %v\n", time.Now())
 }
 
 func headersPayload(w http.ResponseWriter, req *http.Request) {
 	content := logAndGetContent(w, req)
-	io.WriteString(w, headerBox)
+	_, _ = io.WriteString(w, headerBox)
 	for name, headers := range req.Header {
 		for _, h := range headers {
-			fmt.Fprintf(w, "%v: %v\n", name, h)
+			_, _ = fmt.Fprintf(w, "%v: %v\n", name, h)
 		}
 	}
-	io.WriteString(w, payloadBox)
-	io.WriteString(w, content)
+	_, _ = io.WriteString(w, payloadBox)
+	_, _ = io.WriteString(w, content)
 }
 
 func logAndGetContent(w http.ResponseWriter, req *http.Request) string {

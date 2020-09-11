@@ -31,7 +31,7 @@ spec:
             - name: REQUEST_FREQUENCY_SEC
               value: "300"
             - name: POST_WITH_PAYLOAD_URL
-              value: "/tp"
+              value: "/ping"
 ---
 apiVersion: v1
 kind: Pod

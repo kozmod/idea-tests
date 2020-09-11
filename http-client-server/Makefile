@@ -20,7 +20,7 @@ server_url :=http://localhost
 export SERVER_ADDR=$(server_url):$(server_port)
 export REQUEST_QUANTITY=10
 export REQUEST_FREQUENCY_SEC=66
-export POST_WITH_PAYLOAD_URL="/tp"
+export POST_WITH_PAYLOAD_URL=/ping
 
 #go env
 GO_ENV := GO111MODULE="on"
