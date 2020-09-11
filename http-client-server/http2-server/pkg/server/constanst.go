@@ -12,3 +12,8 @@ const helloBox = `┌─────────┐
 │  Hello  │
 └─────────┘
 `
+const (
+	pingRq = "ping"
+	pongRs = "pong"
+	WTF    = "WTF?"
+)

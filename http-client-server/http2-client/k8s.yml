@@ -16,12 +16,12 @@ spec:
   template:
     metadata:
       annotations:
-        sidecar.istio.io/inject: "true" #istio - inject proxy
+        sidecar.istio.io/inject: "false" #istio - inject proxy
       labels:
         app: go-http2-cycle-cl
     spec:
       containers:
-        - image: go-http2-cycle-client:v1.0.2
+        - image: go-http2-cycle-client:v1.0.4 #registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/go-http2-cycle-client:v1.0.4
           name: go-http2-cycle-client
           env:
             - name: SERVER_ADDR

@@ -17,7 +17,7 @@ import (
 
 var (
 	rootCmd = &cobra.Command{
-		Use:   "http2 client",
+		Use:   "http2 servet",
 		Short: "start http2 server",
 		Run: func(cmd *cobra.Command, args []string) {
 			http2server := server.ConfigureAndServe(Config.ColonPort())

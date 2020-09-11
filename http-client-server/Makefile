@@ -11,7 +11,7 @@ server_mod_path :="./http2-server"
 server_config_dir :=etc/config/
 
 ##CLiernt
-client_version_tag :=v1.0.4
+client_version_tag :=v1.0.5
 client_bin :=client/http2client
 client_mod_path :="./http2-client"
 server_url :=http://localhost

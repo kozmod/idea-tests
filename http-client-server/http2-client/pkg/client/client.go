@@ -38,8 +38,7 @@ func (c *H2client) LogGet(url string) {
 }
 
 func (c *H2client) LogPostJsonRs(url string, json string) {
-	data := []byte(json)
-	r := bytes.NewReader(data)
+	r := bytes.NewReader([]byte(json))
 	if rs, err := c.Post(url, "application/json", r); err != nil {
 		log.Println(err)
 	} else {
@@ -47,6 +46,16 @@ func (c *H2client) LogPostJsonRs(url string, json string) {
 		log.Println(s)
 	}
 }
+
+//func (c *H2client) LogPostRs(url string, payload string) {
+//	r := bytes.NewReader([]byte(payload))
+//	if rs, err := c.Post(url, r); err != nil {
+//		log.Println(err)
+//	} else {
+//		s, _ := asString(*rs)
+//		log.Println(s)
+//	}
+//}
 
 func asString(resp http.Response) (string, error) {
 	if resp.StatusCode == http.StatusOK {
