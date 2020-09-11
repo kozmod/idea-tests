@@ -24,7 +24,7 @@ spec:
         version: v1
     spec:
       containers:
-        - image: go-http2-server:v1.0.12 #registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/go-http2-server:v1.011
+        - image: registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/go-http2-server:v1.0.12
           name: go-http2-server
           ports:
             - containerPort: 8080
@@ -74,20 +74,6 @@ spec:
       targetPort: 8080
   selector:
     app: go-http2-server
----
-#Pod
-apiVersion: v1
-kind: Pod
-metadata:
-  name: http2-server
-  labels:
-    app: go-http2-server
-spec:
-  containers:
-    - image: go-http2-server:v1.0.0
-      name: go-http2-server
-      ports:
-        - containerPort: 8080
 ---
 #
 # VirtualService & Gateway to test Istio ingress gateway from local machine
@@ -145,3 +131,69 @@ spec:
         protocol: HTTP
       hosts:
         - "xxx.com"
+---
+#OS
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: ingress
+  namespace: istio-system
+  labels:
+    app: istio-ingressgateway
+    istio: ingressgateway
+    release: istio
+  annotations:
+    openshift.io/host.generated: 'true'
+spec:
+  host: ingress-istio-system.apps.syn-sb.sigma.sbrf.ru
+  to:
+    kind: Service
+    name: istio-ingressgateway
+    weight: 100
+  port:
+    targetPort: gw
+  wildcardPolicy: None
+status:
+  ingress:
+    - host: ingress-istio-system.apps.syn-sb.sigma.sbrf.ru
+      routerName: default
+      conditions:
+        - type: Admitted
+          status: 'True'
+          lastTransitionTime: '2020-09-11T11:35:15Z'
+      wildcardPolicy: None
+      routerCanonicalHostname: apps.syn-sb.sigma.sbrf.ru
+___
+
+#ingress-gateway
+#...
+#- name: gw
+#  protocol: TCP
+#  port: 3080
+#  targetPort: 3080
+#  nodePort: 31230
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: go-http2-server
+  namespace: default
+spec:
+  gateways:
+    - go-server-gateway
+  hosts:
+    - ingress-istio-system.apps.syn-sb.sigma.sbrf.ru
+  http:
+    - match:
+        - uri:
+            prefix: /t
+        - uri:
+            prefix: /tp
+        - uri:
+            prefix: /hp
+      route:
+        - destination:
+            host: go-http2-server
+            port:
+              number: 1080
+---
