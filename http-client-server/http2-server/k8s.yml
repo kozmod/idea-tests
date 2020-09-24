@@ -24,7 +24,7 @@ spec:
         version: v1
     spec:
       containers:
-        - image: registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/go-http2-server:v1.0.12
+        - image: go-http2-server:v1.0.15 #registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/go-http2-server:latest
           name: go-http2-server
           ports:
             - containerPort: 8080
@@ -197,3 +197,18 @@ spec:
             port:
               number: 1080
 ---
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: ingressgateway-test
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - hosts:
+        - ingress-rout-istio-system.apps.syn-sb.sigma.sbrf.ru #rout
+      port:
+        name: http
+        number: 3080
+        protocol: HTTP

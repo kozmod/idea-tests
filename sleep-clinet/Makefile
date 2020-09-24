@@ -7,6 +7,3 @@ docker:
 
 docker.rmi.builder:
 	docker image prune --filter label=stage=builder <<< y
-
-required>tag:
-	docker tag $(docker images --format="{{.Repository}} {{.Tag}} {{.ID}}" | grep "^${build_tag} ${version} " | cut -d' ' -f3) ${tag_to_replace}

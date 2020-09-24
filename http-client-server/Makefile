@@ -5,13 +5,13 @@ build_time :=$(shell date +%Y-%m-%dT%H:%M:%S%z)
 bin_dir := bin
 
 ##SERVER
-server_version_tag :=v1.0.13
+server_version_tag :=v1.0.15
 server_bin :=server/http2server
 server_mod_path :="./http2-server"
 server_config_dir :=etc/config/
 
 ##CLiernt
-client_version_tag :=v1.0.5
+client_version_tag :=v1.0.7
 client_bin :=client/http2client
 client_mod_path :="./http2-client"
 server_url :=http://localhost

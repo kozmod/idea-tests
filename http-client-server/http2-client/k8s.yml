@@ -16,20 +16,20 @@ spec:
   template:
     metadata:
       annotations:
-        sidecar.istio.io/inject: "false" #istio - inject proxy
+        sidecar.istio.io/inject: "true" #istio - inject proxy
       labels:
         app: go-http2-cycle-cl
     spec:
       containers:
-        - image: go-http2-cycle-client:v1.0.4 #registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/go-http2-cycle-client:v1.0.4
+        - image: go-http2-cycle-client:v1.0.7 #registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/go-http2-cycle-client:latest
           name: go-http2-cycle-client
           env:
             - name: SERVER_ADDR
               value: "http://go-http2-server:80"
             - name: REQUEST_QUANTITY
-              value: "10"
+              value: "1"
             - name: REQUEST_FREQUENCY_SEC
-              value: "300"
+              value: "1"
             - name: POST_WITH_PAYLOAD_URL
               value: "/ping"
 ---
