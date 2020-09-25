@@ -61,3 +61,18 @@ loop:
 	// B
 	fmt.Printf("End: %d\n", end)
 }
+
+func TestForSwitch3(t *testing.T) {
+	for x := 0; x <= 2; x++ {
+		switch {
+		case x == 0:
+			fmt.Println("start")
+		case x == 1:
+			fallthrough
+		case x == 2:
+			fmt.Println("two")
+		default:
+			fmt.Println("counting")
+		}
+	}
+}
