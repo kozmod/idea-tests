@@ -9,9 +9,9 @@ func TestFor1(t *testing.T) {
 	s := []int{1, 2, 3, 4, 5, 6, 7}
 	var calls int
 	l := func(i []int) int {
-		leng := len(i)
+		length := len(i)
 		calls++
-		return leng
+		return length
 	}
 	for i := 0; i < l(s); i++ {
 
