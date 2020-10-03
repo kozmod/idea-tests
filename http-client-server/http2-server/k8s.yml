@@ -24,7 +24,7 @@ spec:
         version: v1
     spec:
       containers:
-        - image: go-http2-server:v1.0.15 #registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/go-http2-server:latest
+        - image: kozmod/go-http2-server:v1.0.15 #registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/go-http2-server:latest
           name: go-http2-server
           ports:
             - containerPort: 8080
