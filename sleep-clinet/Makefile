@@ -1,5 +1,5 @@
-version :=v1.0.5
-build_tag :=kozmo/sleep-client:${version}
+version :=v1.0.6
+build_tag :=kozmod/sleep-client:${version}
 tag_to_replace=registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/${build_tag}
 
 docker:
