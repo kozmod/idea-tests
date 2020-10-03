@@ -24,7 +24,7 @@ spec:
         version: v1
     spec:
       containers:
-        - image: kozmod/sleep-client:sleep-client:1.0.6 #registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/sleep-client:1.0.3
+        - image: kozmod/sleep-client:v1.0.6 #registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/sleep-client:1.0.3
           name: sleep-client
           ports:
             - containerPort: 8080
