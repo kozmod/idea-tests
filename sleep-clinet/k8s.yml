@@ -20,11 +20,11 @@ spec:
       annotations:
         sidecar.istio.io/inject: "false" #istio - inject proxy
       labels:
-        app: kozmod/sleep-client
+        app: sleep-client
         version: v1
     spec:
       containers:
-        - image: registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/sleep-client:1.0.3
+        - image: kozmod/sleep-client:sleep-client:1.0.5 #registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/sleep-client:1.0.3
           name: sleep-client
           ports:
             - containerPort: 8080
