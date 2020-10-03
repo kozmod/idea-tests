@@ -20,7 +20,7 @@ spec:
       annotations:
         sidecar.istio.io/inject: "false" #istio - inject proxy
       labels:
-        app: sleep-client
+        app: kozmod/sleep-client
         version: v1
     spec:
       containers:
