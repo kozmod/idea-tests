@@ -11,6 +11,7 @@ import (
 type key string
 
 const (
+	uid        = "1234-5678-xxx-yxz-901"
 	UidKey key = "uid"
 	anyKey     = "anyKey"
 	anyVal     = "anyKey"
@@ -30,9 +31,18 @@ func PutUid(ctx context.Context, uid string) context.Context {
 }
 
 func TestContextWithParameters(t *testing.T) {
-	uid := "1234-5678-xxx-yxz-901"
 	ctx := PutUid(context.Background(), uid)
 	ctx = context.WithValue(ctx, anyKey, anyVal)
+	worker(ctx, "some_msg")
+	assert.Equal(t, uid, GetUid(ctx))
+	assert.Equal(t, anyVal, ctx.Value(anyKey).(string))
+}
+
+func TestContextWithParametersWithChildContext(t *testing.T) {
+	ctx := PutUid(context.Background(), uid)
+	ctx, _ = context.WithCancel(
+		context.WithValue(ctx, anyKey, anyVal),
+	)
 	worker(ctx, "some_msg")
 	assert.Equal(t, uid, GetUid(ctx))
 	assert.Equal(t, anyVal, ctx.Value(anyKey).(string))
