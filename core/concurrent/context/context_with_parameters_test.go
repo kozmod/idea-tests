@@ -14,7 +14,7 @@ const (
 	uid        = "1234-5678-xxx-yxz-901"
 	UidKey key = "uid"
 	anyKey     = "anyKey"
-	anyVal     = "anyKey"
+	anyVal     = "anyVal"
 )
 
 func GetUid(ctx context.Context) string {
