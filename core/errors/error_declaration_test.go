@@ -17,6 +17,7 @@ func SomeError() error {
 //goland:noinspection ALL
 func TestErrorAsConstant(t *testing.T) {
 	sql.ErrConnDone = errors.New("{wtf}")
+	assert.False(t, errors.Is(nil, sql.ErrConnDone))
 	fmt.Println(sql.ErrConnDone)
 	assert.True(t, errors.Is(SomeError(), varError))
 	assert.True(t, errors.Is(fmt.Errorf("E2: %w", SomeError()), varError))
@@ -32,5 +33,4 @@ func TestErrorAsConstant(t *testing.T) {
 	assert.True(t, errors.Is(errors.WithMessage(SomeError(), "with msg"), sql.ErrConnDone))
 	assert.True(t, errors.Is(errors.WithStack(SomeError()), sql.ErrConnDone))
 	assert.True(t, errors.Is(errors.WithStack(SomeError()), sql.ErrConnDone))
-
 }
