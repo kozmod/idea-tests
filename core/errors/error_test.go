@@ -1,6 +1,7 @@
 package errors
 
 import (
+	"database/sql"
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -32,8 +33,12 @@ const (
 	st  = "SOME_TEXT"
 )
 
-var qe = newErrorString()
+var (
+	qe = newErrorString()
+	se = errors.New("some error")
+)
 
+//goland:noinspection ALL
 func TestIs(t *testing.T) {
 	e := errors.New("a")
 	e2 := errors.New("a")
@@ -52,6 +57,13 @@ func TestIs(t *testing.T) {
 	assert.True(t, errors.Is(e6, e5))
 	assert.False(t, errors.Is(e5, e6))
 	assert.False(t, errors.Is(e6, &e5))
+
+	e7 := se
+	assert.True(t, errors.Is(e7, se))
+	assert.True(t, errors.Is(se, e7))
+	assert.False(t, errors.Is(e7, fmt.Errorf("E2: %w", se)))
+	assert.True(t, errors.Is(fmt.Errorf("E2: %w", se), e7))
+	assert.True(t, e7 == se)
 }
 
 func TestSwitchError(t *testing.T) {
@@ -79,4 +91,11 @@ func TestAs(t *testing.T) {
 		assert.Equal(t, msg, es.msg)
 		assert.Equal(t, st, es.val)
 	}
+}
+
+func TestEquality(t *testing.T) {
+	sqle := sql.ErrNoRows
+	assert.True(t, sqle == sql.ErrNoRows)
+	assert.False(t, sqle == fmt.Errorf("foo err, %v", sql.ErrNoRows))
+	assert.True(t, sql.ErrNoRows == errors.Cause(sqle))
 }

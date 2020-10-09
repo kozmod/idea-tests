@@ -1,7 +1,9 @@
 package errors
 
 import (
+	"database/sql"
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"testing"
 
 	"github.com/pkg/errors"
@@ -18,10 +20,6 @@ func (repErr *RepositoryError) Error() string {
 
 func (repErr *RepositoryError) Cause() error {
 	return repErr.cause
-}
-
-func newRepo(errorMessage string, cause error) error {
-	return &RepositoryError{errorMessage, cause}
 }
 
 type OtherError struct {
@@ -51,4 +49,13 @@ func TestWrapAndUnwrap(t *testing.T) {
 	fmt.Println(errors.As(other, &oe))
 	fmt.Println(errors.As(errors.Unwrap(other), &oe))
 	fmt.Println(errors.Cause(other))
+}
+
+func TestWrap(t *testing.T) {
+	we := errors.Wrap(sql.ErrNoRows, "foo failed")
+	wme := errors.WithMessage(we, "bar failed")
+	assert.True(t, errors.Cause(wme) == sql.ErrNoRows)
+
+	fmt.Printf("data not found, %v\n", wme)
+	fmt.Printf("%+v\n", wme)
 }
