@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 	_ "net/http/pprof"
 	"os"
 	"runtime"
@@ -55,7 +56,12 @@ var (
 )
 
 func main() {
-	//http.ListenAndServe(":9090", nil) //fixme does not work in sbt network
+	go func() {
+		err := http.ListenAndServe(":9090", nil) //http://localhost:9090/debug/pprof/
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
 	rootCmd.AddCommand(defaultValsCmd)
 	rootCmd.AddCommand(portCmd)
 	rootCmd.AddCommand(versionCmd)
