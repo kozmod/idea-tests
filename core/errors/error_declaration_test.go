@@ -34,3 +34,39 @@ func TestErrorAsConstant(t *testing.T) {
 	assert.True(t, errors.Is(errors.WithStack(SomeError()), sql.ErrConnDone))
 	assert.True(t, errors.Is(errors.WithStack(SomeError()), sql.ErrConnDone))
 }
+
+func TestWrapSqlError(t *testing.T) {
+	sql.ErrConnDone = errors.New("{wtf}")
+	fmt.Println(errors.Wrap(sql.ErrConnDone, "wrapped error"))
+	fmt.Println(errors.WithMessage(sql.ErrConnDone, "wrapped error"))
+	fmt.Println(fmt.Errorf("wrapped error: %w", sql.ErrConnDone))
+}
+
+func Test(t *testing.T) {
+	result, err := caller1()
+	if err != nil {
+		fmt.Printf("%+v\n", errors.WithStack(err))
+		return
+	}
+	fmt.Println("Result: ", result)
+}
+
+func caller1() (int, error) {
+	err := caller2()
+	if err != nil {
+		return 0, err
+	}
+	return 1, nil
+}
+
+func caller2() error {
+	err := caller3()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func caller3() error {
+	return errors.New("failed")
+}
