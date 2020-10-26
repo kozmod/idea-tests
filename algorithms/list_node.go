@@ -1,4 +1,4 @@
-package leetcode
+package algorithms
 
 import (
 	"encoding/json"
@@ -30,7 +30,7 @@ func (ln *ListNode) StringVals() string {
 }
 
 //noinspection SpellCheckingInspection
-func newListNode(vals ...int) *ListNode {
+func NewListNode(vals ...int) *ListNode {
 	if len(vals) < 0 {
 		return &ListNode{}
 	}

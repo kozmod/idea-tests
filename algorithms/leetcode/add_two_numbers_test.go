@@ -1,6 +1,7 @@
 package leetcode
 
 import (
+	"github.com/kozmod/idea-tests/algorithms"
 	"reflect"
 	"testing"
 
@@ -22,46 +23,46 @@ Explanation: 342 + 465 = 807.
 */
 //TODO -> MINE -> TRY FIND BETTER SOLUTION
 func Test_AddTwoNumbers(t *testing.T) {
-	var ln1 *ListNode
-	var ln2 *ListNode
-	var res *ListNode
+	var ln1 *algorithms.ListNode
+	var ln2 *algorithms.ListNode
+	var res *algorithms.ListNode
 
-	ln1 = newListNode(2, 4, 3)
-	ln2 = newListNode(5, 6, 4)
+	ln1 = algorithms.NewListNode(2, 4, 3)
+	ln2 = algorithms.NewListNode(5, 6, 4)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, newListNode(7, 0, 8)))
+	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(7, 0, 8)))
 
-	ln1 = newListNode(0)
-	ln2 = newListNode(1)
+	ln1 = algorithms.NewListNode(0)
+	ln2 = algorithms.NewListNode(1)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, newListNode(1)))
+	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(1)))
 
-	ln1 = newListNode(5)
-	ln2 = newListNode(5)
+	ln1 = algorithms.NewListNode(5)
+	ln2 = algorithms.NewListNode(5)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, newListNode(0, 1)))
+	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(0, 1)))
 
-	ln1 = newListNode(8)
-	ln2 = newListNode(10)
+	ln1 = algorithms.NewListNode(8)
+	ln2 = algorithms.NewListNode(10)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, newListNode(8, 1)))
+	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(8, 1)))
 
-	ln1 = newListNode(0)
-	ln2 = newListNode(7, 3)
+	ln1 = algorithms.NewListNode(0)
+	ln2 = algorithms.NewListNode(7, 3)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, newListNode(7, 3)))
+	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(7, 3)))
 
-	ln1 = newListNode(1)
-	ln2 = newListNode(9, 9)
+	ln1 = algorithms.NewListNode(1)
+	ln2 = algorithms.NewListNode(9, 9)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, newListNode(0, 0, 1)))
+	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(0, 0, 1)))
 }
 
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	var first *ListNode
-	var previous *ListNode
+func addTwoNumbers(l1 *algorithms.ListNode, l2 *algorithms.ListNode) *algorithms.ListNode {
+	var first *algorithms.ListNode
+	var previous *algorithms.ListNode
 	set := func(res int) {
-		ln := &ListNode{Val: res}
+		ln := &algorithms.ListNode{Val: res}
 		if first == nil {
 			first = ln
 			previous = ln
@@ -103,7 +104,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 			}
 		} else {
 			if x > 0 {
-				previous.Next = &ListNode{Val: x}
+				previous.Next = &algorithms.ListNode{Val: x}
 			}
 			break
 		}
@@ -130,43 +131,43 @@ func resultAndOver(res int) (int, int) {
 
 //GOOD
 func Test_AddTwoNumbers_2(t *testing.T) {
-	var ln1 *ListNode
-	var ln2 *ListNode
-	var res *ListNode
+	var ln1 *algorithms.ListNode
+	var ln2 *algorithms.ListNode
+	var res *algorithms.ListNode
 
-	ln1 = newListNode(2, 4, 3)
-	ln2 = newListNode(5, 6, 4)
+	ln1 = algorithms.NewListNode(2, 4, 3)
+	ln2 = algorithms.NewListNode(5, 6, 4)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, newListNode(7, 0, 8)))
+	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(7, 0, 8)))
 
-	ln1 = newListNode(0)
-	ln2 = newListNode(1)
+	ln1 = algorithms.NewListNode(0)
+	ln2 = algorithms.NewListNode(1)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, newListNode(1)))
+	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(1)))
 
-	ln1 = newListNode(5)
-	ln2 = newListNode(5)
+	ln1 = algorithms.NewListNode(5)
+	ln2 = algorithms.NewListNode(5)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, newListNode(0, 1)))
+	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(0, 1)))
 
-	ln1 = newListNode(8)
-	ln2 = newListNode(10)
+	ln1 = algorithms.NewListNode(8)
+	ln2 = algorithms.NewListNode(10)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, newListNode(8, 1)))
+	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(8, 1)))
 
-	ln1 = newListNode(0)
-	ln2 = newListNode(7, 3)
+	ln1 = algorithms.NewListNode(0)
+	ln2 = algorithms.NewListNode(7, 3)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, newListNode(7, 3)))
+	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(7, 3)))
 
-	ln1 = newListNode(1)
-	ln2 = newListNode(9, 9)
+	ln1 = algorithms.NewListNode(1)
+	ln2 = algorithms.NewListNode(9, 9)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, newListNode(0, 0, 1)))
+	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(0, 0, 1)))
 }
 
-func addTwoNumbers_2(l1 *ListNode, l2 *ListNode) *ListNode {
-	dummyHead := &ListNode{Val: 0}
+func addTwoNumbers_2(l1 *algorithms.ListNode, l2 *algorithms.ListNode) *algorithms.ListNode {
+	dummyHead := &algorithms.ListNode{Val: 0}
 	p := l1
 	q := l2
 	curr := dummyHead
@@ -187,7 +188,7 @@ func addTwoNumbers_2(l1 *ListNode, l2 *ListNode) *ListNode {
 			}
 			sum := carry + x + y
 			carry = sum / 10
-			curr.Next = &ListNode{Val: sum % 10}
+			curr.Next = &algorithms.ListNode{Val: sum % 10}
 			curr = curr.Next
 			if p != nil {
 				p = p.Next
@@ -199,7 +200,7 @@ func addTwoNumbers_2(l1 *ListNode, l2 *ListNode) *ListNode {
 			break
 		}
 		if carry > 0 {
-			curr.Next = &ListNode{Val: carry}
+			curr.Next = &algorithms.ListNode{Val: carry}
 		}
 	}
 	return dummyHead.Next
