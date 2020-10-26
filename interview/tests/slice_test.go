@@ -17,3 +17,12 @@ func TestChaneSliceTest(t *testing.T) {
 	d[0] = "Foo"
 	fmt.Println(c)
 }
+
+func TestNilSlice(t *testing.T) {
+	var s []string
+	fmt.Println(s, len(s), cap(s))
+	fmt.Println([]string(nil))
+
+	s2 := append([]string(nil), []string(nil)...)
+	fmt.Println(s2, len(s2), cap(s))
+}
