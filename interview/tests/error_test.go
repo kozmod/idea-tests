@@ -1,7 +1,9 @@
 package tests
 
 import (
+	"database/sql"
 	"fmt"
+	"github.com/pkg/errors"
 	"testing"
 )
 
@@ -16,10 +18,18 @@ func errorHandler(err error) {
 }
 
 func TestPointerError(t *testing.T) {
-	// Каков будет вывод программы и почему?
 	var err *MyError
 	errorHandler(err)
 
 	err = &MyError{}
 	errorHandler(err)
+}
+
+func TestWrapAndCause(t *testing.T) {
+	err := sql.ErrNoRows
+	err = errors.Wrap(err, "wrapped")
+	if errors.Is(err, sql.ErrNoRows) {
+		fmt.Printf("is sql.ErrNoRows: %+v\n", err)
+	}
+	fmt.Printf("cause: %+v\n", errors.Cause(err))
 }
