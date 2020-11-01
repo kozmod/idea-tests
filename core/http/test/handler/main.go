@@ -13,6 +13,8 @@ func main() {
 
 func firstHandler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		cs := r.Cookies()
+		fmt.Println(cs)
 		v := map[string]string{
 			"created_by": "A",
 			"name":       "Name",
