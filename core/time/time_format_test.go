@@ -140,3 +140,11 @@ func TestZeroDurationAsTickerArg(t *testing.T) {
 	}()
 	time.NewTicker(0 * time.Second)
 }
+
+func TestTimeParsing_1(t *testing.T) {
+	s := "2020-11-03T06:30:00.000Z"
+	parsed, err := time.Parse(time.RFC3339, s)
+	fmt.Println(parsed)
+	fmt.Println(parsed.Format("15:04 PM"))
+	fmt.Println(err)
+}
