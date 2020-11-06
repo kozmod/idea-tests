@@ -1,13 +1,15 @@
 MAIN_PATH	:=main.go
 
-VERSION		:=v0.0.3
+VERSION		:=v0.0.7
 REPO 		:=kozmo
 TAG			:=${REPO}/file-server:${VERSION}
 
 PORT		:=9002
 FILE_STORAGE:=./files
-CERT_PATH	:=./certs/ott-ingress.crt
-KEY_PATH	:=./certs/ott-ingress.key
+ROOT_CERT_PATH	:=./certs/sec.syn.crt
+ROOT_KEY_PATH	:=./certs/sec.syn.key
+CERT_PATH		:=./certs/ott-ingress.crt
+KEY_PATH		:=./certs/ott-ingress.key
 
 run:
 	GO111MODULE="on" \
