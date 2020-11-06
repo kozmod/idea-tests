@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/pkg/errors"
 	"log"
 	"net/http"
 	"os"
@@ -12,7 +13,8 @@ import (
 
 const (
 	fileStorageEnv = "FILE_STORAGE"
-	portEnv        = "PORT"
+	httpsPortEnv   = "HTTPS_PORT"
+	httpPortEnv    = "HTTP_PORT"
 	certPathEnv    = "CERT_PATH"
 	keyPathEnv     = "KEY_PATH"
 )
@@ -23,60 +25,85 @@ func main() {
 		log.Fatal(err)
 	}
 
-	//pkg.GenCerts(
-	//	pkg.WithHost("127.0.0.1"+conf.Port()),
-	//	pkg.WithCertAndKeyPaths(conf.CertPath, conf.KeyPath),
-	//)
+	httpMux := http.NewServeMux()
+	httpMux.HandleFunc("/status", status(conf))
+	httpMux.HandleFunc("/", files(conf.FilesDir))
 
-	http.HandleFunc("/status", func(writer http.ResponseWriter, request *http.Request) {
-		confByte, err := json.Marshal(conf)
-		if err != nil {
-			writer.WriteHeader(http.StatusInternalServerError)
-			_, _ = writer.Write([]byte(err.Error()))
+	httpServer := http.Server{
+		Addr:    conf.HttpPort(),
+		Handler: httpMux,
+	}
+	go func() {
+		log.Printf("http server start on port %s with config: %+v", conf.HttpPort(), conf)
+		log.Fatal(httpServer.ListenAndServe())
+	}()
 
-			return
-		}
+	httpsMux := http.NewServeMux()
+	httpsMux.HandleFunc("/status", status(conf))
+	httpsMux.HandleFunc("/", files(conf.FilesDir))
+	httpsServer := http.Server{
+		Addr:    conf.HttpsPort(),
+		Handler: httpMux,
+	}
+	log.Printf("https server start on port %s with config: %+v", conf.HttpsPort(), conf)
+	log.Fatal(httpsServer.ListenAndServeTLS(conf.CertPath, conf.KeyPath))
+}
+
+func status(cong Conf) func(writer http.ResponseWriter, request *http.Request) {
+	confByte, err := json.Marshal(cong)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return func(writer http.ResponseWriter, request *http.Request) {
 		writer.WriteHeader(http.StatusOK)
 		writer.Header().Set("Content-Type", "text/plain")
 
 		if _, err := writer.Write(confByte); err != nil {
 			log.Print(err)
 		}
-	})
+	}
+}
 
-	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
+func files(dir string) func(writer http.ResponseWriter, request *http.Request) {
+	return func(writer http.ResponseWriter, request *http.Request) {
 		log.Println(request.URL)
 		spath := strings.Split(request.URL.Path, "/")
 		file := spath[len(spath)-1]
-		filePath := fmt.Sprintf("%s/%s", conf.FilesDir, file)
+		filePath := fmt.Sprintf("%s/%s", dir, file)
 		log.Printf("url path: %s, file path: %s", request.URL.Path, filePath)
 		http.ServeFile(writer, request, filePath)
-	})
-
-	log.Printf("server start on port %s  with config: %+v", conf.Port(), conf)
-	//log.Fatal(http.ListenAndServe(conf.Port(), nil))
-	log.Fatal(http.ListenAndServeTLS(conf.Port(), conf.CertPath, conf.KeyPath, nil))
+	}
 }
 
 type Conf struct {
-	FilesDir string
-	CertPath string
-	KeyPath  string
-	port     uint64
+	FilesDir  string
+	CertPath  string
+	KeyPath   string
+	httpPort  uint64
+	httpsPort uint64
 }
 
-func (c Conf) Port() string {
-	return ":" + strconv.FormatUint(c.port, 10)
+func (c Conf) HttpsPort() string {
+	return ":" + strconv.FormatUint(c.httpsPort, 10)
+}
+
+func (c Conf) HttpPort() string {
+	return ":" + strconv.FormatUint(c.httpPort, 10)
 }
 
 func configFromEnv() (Conf, error) {
 	conf := Conf{}
 	conf.FilesDir = os.Getenv(fileStorageEnv)
-	port, err := strconv.ParseUint(os.Getenv(portEnv), 10, 32)
+	httpsPort, err := strconv.ParseUint(os.Getenv(httpsPortEnv), 10, 32)
 	if err != nil {
-		return conf, err
+		return conf, errors.WithMessage(err, fmt.Sprintf("parce env %s", httpsPortEnv))
 	}
-	conf.port = port
+	conf.httpsPort = httpsPort
+	httpPort, err := strconv.ParseUint(os.Getenv(httpPortEnv), 10, 32)
+	if err != nil {
+		return conf, errors.WithMessage(err, fmt.Sprintf("parce env %s", httpPortEnv))
+	}
+	conf.httpPort = httpPort
 	conf.CertPath = os.Getenv(certPathEnv)
 	conf.KeyPath = os.Getenv(keyPathEnv)
 	return conf, nil
