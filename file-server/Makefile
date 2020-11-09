@@ -5,7 +5,7 @@ REPO 		:=kozmo
 TAG			:=${REPO}/file-server:${VERSION}
 
 HTTP_PORT		:=9001
-HTTPS_PORT		:=9003
+HTTPS_PORT		:=443
 FILE_STORAGE	:=./files
 CERT_PATH		:=./certs/ott-ingress.crt
 KEY_PATH		:=./certs/ott-ingress.key

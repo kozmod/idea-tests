@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/pkg/errors"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -71,7 +72,14 @@ func files(dir string) func(writer http.ResponseWriter, request *http.Request) {
 		file := spath[len(spath)-1]
 		filePath := fmt.Sprintf("%s/%s", dir, file)
 		log.Printf("url path: %s, file path: %s", request.URL.Path, filePath)
-		http.ServeFile(writer, request, filePath)
+		data, err := ioutil.ReadFile(filePath)
+		if err != nil {
+			_, _ = writer.Write([]byte(fmt.Sprintf("file not found - url path: %s, file path: %s", request.URL.Path, filePath)))
+		} else {
+			if _, err := writer.Write(data); err != nil {
+				_, _ = writer.Write([]byte(fmt.Sprintf("problem reading file - url path: %s, file path: %s", request.URL.Path, filePath)))
+			}
+		}
 	}
 }
 
