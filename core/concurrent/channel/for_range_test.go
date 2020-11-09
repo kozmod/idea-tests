@@ -105,3 +105,29 @@ func TestForRange_4(t *testing.T) {
 		fmt.Println(value)
 	}
 }
+
+func TestForRange_5(t *testing.T) {
+	var wg sync.WaitGroup
+	consumer := make(chan string, 1)
+	go func() {
+		consumer <- res1
+		consumer <- res2
+		consumer <- res3
+		close(consumer)
+	}()
+	fmt.Println(len(consumer))
+	i := 0
+	for {
+		res, ok := <-consumer
+		i++
+		if !ok {
+			break
+		}
+		wg.Add(1)
+		go func(i int) {
+			log.Println(fmt.Sprintf("get res %s on iteration %d", res, i))
+			wg.Done()
+		}(i)
+	}
+	wg.Wait()
+}
