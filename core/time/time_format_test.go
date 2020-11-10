@@ -148,3 +148,22 @@ func TestTimeParsing_1(t *testing.T) {
 	fmt.Println(parsed.Format("15:04 PM"))
 	fmt.Println(err)
 }
+
+func TestMonthsBetween(t *testing.T) {
+	pattern := "2006-01-02 15:04:05 -0700 MST"
+	from, err := time.Parse(pattern, "2020-04-01 00:00:00 +0000 UTC")
+	if err != nil {
+		panic(err)
+	}
+	to, err := time.Parse(pattern, "2021-03-31 00:00:00 +0000 UTC")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(from, to)
+	fmt.Println(to.Sub(from))
+	outLayout := "January 2006"
+	for to.After(from) {
+		fmt.Println(from.Format(outLayout))
+		from = from.AddDate(0, 1, 0)
+	}
+}
