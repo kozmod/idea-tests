@@ -1,11 +1,12 @@
 MAIN_PATH	:=main.go
 
-VERSION		:=v0.0.7
+VERSION		:=v0.0.13
+
 REPO 		:=kozmo
 TAG			:=${REPO}/file-server:${VERSION}
 
 HTTP_PORT		:=9001
-HTTPS_PORT		:=443
+HTTPS_PORT		:=9003
 FILE_STORAGE	:=./files
 CERT_PATH		:=./certs/ott-ingress.crt
 KEY_PATH		:=./certs/ott-ingress.key
