@@ -1,4 +1,4 @@
-package datastruct_test
+package slice_test
 
 import (
 	"fmt"
