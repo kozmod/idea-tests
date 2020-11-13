@@ -1,13 +1,13 @@
 package channel
 
 import (
-	"fmt"
+	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
 )
 
-func TestForRange_NilChannelBlocks(t *testing.T) {
-	t.Skip()
+func TestFor_NilChannelBlocks(t *testing.T) {
+	stop := make(chan bool)
 
 	var ch chan int
 	for i := 0; i < 3; i++ {
@@ -15,13 +15,19 @@ func TestForRange_NilChannelBlocks(t *testing.T) {
 			ch <- (idx + 1) * 2
 		}(i)
 	}
-	//// do other work
 
+	//// do other work
 	go func() {
 		time.Sleep(5 * time.Second)
-		panic("c")
+		stop <- true
 	}()
 
-	// get first result - BLOCK
-	fmt.Println("result:", <-ch)
+	select {
+	case <-ch:
+		t.Fail()
+		break
+	case st := <-stop:
+		assert.True(t, st)
+		break
+	}
 }
