@@ -23,15 +23,17 @@ spec:
         app: sleep-client
         version: v1
     spec:
+#      imagePullSecrets:
+#        - name: registry-pull-secret
       containers:
-        - image: kozmod/sleep-client:v1.0.6 #registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/sleep-client:1.0.3
+        - image: registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/kozmo/sleep-client:2.0.0 # kozmod/sleep-client:v1.0.6
           name: sleep-client
           ports:
             - containerPort: 8080
-          resources:
-            limits:
-              cpu: "0.3"
-              memory: 100Mi
-            requests:
-              cpu: "0.1"
-              memory: 10Mi
+#          resources:
+#            limits:
+#              cpu: "0.3"
+#              memory: 100Mi
+#            requests:
+#              cpu: "0.1"
+#              memory: 10Mi
