@@ -8,8 +8,7 @@ RUN  GO111MODULE="on" CGO_ENABLED=0 GOOS=linux go build -o main .
 
 FROM ubuntu:latest
 LABEL maintainer="Kozmo"
-RUN apt-get update && apt-get -y install curl
-RUN apt-get update && apt-get -y install telnet
+RUN apt-get update && apt-get -y install curl telnet openssh-client
 WORKDIR /app
 COPY --from=0 /app/main .
 EXPOSE 8080
