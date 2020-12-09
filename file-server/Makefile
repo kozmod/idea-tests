@@ -1,6 +1,6 @@
 MAIN_PATH	:=main.go
 
-VERSION		:=v0.0.13
+VERSION		:=v0.0.17
 
 REPO 		:=kozmo
 TAG			:=${REPO}/file-server:${VERSION}
@@ -22,7 +22,6 @@ run:
 
 fmt:
 	go fmt ./...
-	goimports -w .
 
 build: fmt
 	go build -o bin/main ${MAIN_PATH}

@@ -41,7 +41,7 @@ func ConfigureHandleFuncsAndServe(port string, handleMap map[string]func(http.Re
 }
 
 func currentTime(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "time: %v\n", time.Now())
+	_, _ = fmt.Fprintf(w, "time: %v\n", time.Now())
 }
 
 func ping(w http.ResponseWriter, req *http.Request) {
