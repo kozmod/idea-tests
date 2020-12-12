@@ -1,4 +1,4 @@
-package algorithms
+package linkedlist
 
 import (
 	"encoding/json"
@@ -31,7 +31,7 @@ func (ln *ListNode) StringVals() string {
 
 //noinspection SpellCheckingInspection
 func NewListNode(vals ...int) *ListNode {
-	if len(vals) < 0 {
+	if vals == nil || len(vals) < 0 {
 		return &ListNode{}
 	}
 	first := &ListNode{Val: vals[0]}

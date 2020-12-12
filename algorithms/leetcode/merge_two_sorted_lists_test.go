@@ -2,7 +2,7 @@ package leetcode
 
 import (
 	"fmt"
-	. "github.com/kozmod/idea-tests/algorithms"
+	"github.com/kozmod/idea-tests/algorithms/linkedlist"
 	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
@@ -86,24 +86,24 @@ func mergeTwoSortedSlices(l1, l2 []int) []int {
  */
 func TestMergeTwoLists(t *testing.T) {
 	testCases := []struct {
-		l1  *ListNode
-		l2  *ListNode
-		res *ListNode
+		l1  *linkedlist.ListNode
+		l2  *linkedlist.ListNode
+		res *linkedlist.ListNode
 	}{
 		{
-			l1:  NewListNode(1, 2, 3),
-			l2:  NewListNode(1, 2, 4),
-			res: NewListNode(1, 1, 2, 2, 3, 4),
+			l1:  linkedlist.NewListNode(1, 2, 3),
+			l2:  linkedlist.NewListNode(1, 2, 4),
+			res: linkedlist.NewListNode(1, 1, 2, 2, 3, 4),
 		},
 		{
 			l1:  nil,
-			l2:  NewListNode(0),
-			res: NewListNode(0),
+			l2:  linkedlist.NewListNode(0),
+			res: linkedlist.NewListNode(0),
 		},
 		{
-			l1:  NewListNode(1),
+			l1:  linkedlist.NewListNode(1),
 			l2:  nil,
-			res: NewListNode(1),
+			res: linkedlist.NewListNode(1),
 		},
 	}
 	for i, testCase := range testCases {
@@ -113,30 +113,30 @@ func TestMergeTwoLists(t *testing.T) {
 	}
 }
 
-func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
+func mergeTwoLists(l1 *linkedlist.ListNode, l2 *linkedlist.ListNode) *linkedlist.ListNode {
 	current1 := l1
 	current2 := l2
-	var tmp *ListNode
-	var res *ListNode
+	var tmp *linkedlist.ListNode
+	var res *linkedlist.ListNode
 	//goland:noinspection ALL
 	for current1 != nil && current2 != nil {
 		if res == nil {
 			if current1.Val < current2.Val {
-				res = &ListNode{Val: current1.Val}
+				res = &linkedlist.ListNode{Val: current1.Val}
 				current1 = current1.Next
 			} else {
-				res = &ListNode{Val: current2.Val}
+				res = &linkedlist.ListNode{Val: current2.Val}
 				current2 = current2.Next
 			}
 			tmp = res
 			continue
 		}
 		if current1.Val < current2.Val && tmp != nil {
-			tmp.Next = &ListNode{Val: current1.Val}
+			tmp.Next = &linkedlist.ListNode{Val: current1.Val}
 			current1 = current1.Next
 			tmp = tmp.Next
 		} else {
-			tmp.Next = &ListNode{Val: current2.Val}
+			tmp.Next = &linkedlist.ListNode{Val: current2.Val}
 			current2 = current2.Next
 			tmp = tmp.Next
 		}

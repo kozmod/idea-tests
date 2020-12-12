@@ -1,7 +1,7 @@
 package leetcode
 
 import (
-	"github.com/kozmod/idea-tests/algorithms"
+	"github.com/kozmod/idea-tests/algorithms/linkedlist"
 	"reflect"
 	"testing"
 
@@ -23,46 +23,46 @@ Explanation: 342 + 465 = 807.
 */
 //TODO -> MINE -> TRY FIND BETTER SOLUTION
 func Test_AddTwoNumbers(t *testing.T) {
-	var ln1 *algorithms.ListNode
-	var ln2 *algorithms.ListNode
-	var res *algorithms.ListNode
+	var ln1 *linkedlist.ListNode
+	var ln2 *linkedlist.ListNode
+	var res *linkedlist.ListNode
 
-	ln1 = algorithms.NewListNode(2, 4, 3)
-	ln2 = algorithms.NewListNode(5, 6, 4)
+	ln1 = linkedlist.NewListNode(2, 4, 3)
+	ln2 = linkedlist.NewListNode(5, 6, 4)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(7, 0, 8)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(7, 0, 8)))
 
-	ln1 = algorithms.NewListNode(0)
-	ln2 = algorithms.NewListNode(1)
+	ln1 = linkedlist.NewListNode(0)
+	ln2 = linkedlist.NewListNode(1)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(1)))
 
-	ln1 = algorithms.NewListNode(5)
-	ln2 = algorithms.NewListNode(5)
+	ln1 = linkedlist.NewListNode(5)
+	ln2 = linkedlist.NewListNode(5)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(0, 1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(0, 1)))
 
-	ln1 = algorithms.NewListNode(8)
-	ln2 = algorithms.NewListNode(10)
+	ln1 = linkedlist.NewListNode(8)
+	ln2 = linkedlist.NewListNode(10)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(8, 1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(8, 1)))
 
-	ln1 = algorithms.NewListNode(0)
-	ln2 = algorithms.NewListNode(7, 3)
+	ln1 = linkedlist.NewListNode(0)
+	ln2 = linkedlist.NewListNode(7, 3)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(7, 3)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(7, 3)))
 
-	ln1 = algorithms.NewListNode(1)
-	ln2 = algorithms.NewListNode(9, 9)
+	ln1 = linkedlist.NewListNode(1)
+	ln2 = linkedlist.NewListNode(9, 9)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(0, 0, 1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(0, 0, 1)))
 }
 
-func addTwoNumbers(l1 *algorithms.ListNode, l2 *algorithms.ListNode) *algorithms.ListNode {
-	var first *algorithms.ListNode
-	var previous *algorithms.ListNode
+func addTwoNumbers(l1 *linkedlist.ListNode, l2 *linkedlist.ListNode) *linkedlist.ListNode {
+	var first *linkedlist.ListNode
+	var previous *linkedlist.ListNode
 	set := func(res int) {
-		ln := &algorithms.ListNode{Val: res}
+		ln := &linkedlist.ListNode{Val: res}
 		if first == nil {
 			first = ln
 			previous = ln
@@ -104,7 +104,7 @@ func addTwoNumbers(l1 *algorithms.ListNode, l2 *algorithms.ListNode) *algorithms
 			}
 		} else {
 			if x > 0 {
-				previous.Next = &algorithms.ListNode{Val: x}
+				previous.Next = &linkedlist.ListNode{Val: x}
 			}
 			break
 		}
@@ -131,43 +131,43 @@ func resultAndOver(res int) (int, int) {
 
 //GOOD
 func Test_AddTwoNumbers_2(t *testing.T) {
-	var ln1 *algorithms.ListNode
-	var ln2 *algorithms.ListNode
-	var res *algorithms.ListNode
+	var ln1 *linkedlist.ListNode
+	var ln2 *linkedlist.ListNode
+	var res *linkedlist.ListNode
 
-	ln1 = algorithms.NewListNode(2, 4, 3)
-	ln2 = algorithms.NewListNode(5, 6, 4)
+	ln1 = linkedlist.NewListNode(2, 4, 3)
+	ln2 = linkedlist.NewListNode(5, 6, 4)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(7, 0, 8)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(7, 0, 8)))
 
-	ln1 = algorithms.NewListNode(0)
-	ln2 = algorithms.NewListNode(1)
+	ln1 = linkedlist.NewListNode(0)
+	ln2 = linkedlist.NewListNode(1)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(1)))
 
-	ln1 = algorithms.NewListNode(5)
-	ln2 = algorithms.NewListNode(5)
+	ln1 = linkedlist.NewListNode(5)
+	ln2 = linkedlist.NewListNode(5)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(0, 1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(0, 1)))
 
-	ln1 = algorithms.NewListNode(8)
-	ln2 = algorithms.NewListNode(10)
+	ln1 = linkedlist.NewListNode(8)
+	ln2 = linkedlist.NewListNode(10)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(8, 1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(8, 1)))
 
-	ln1 = algorithms.NewListNode(0)
-	ln2 = algorithms.NewListNode(7, 3)
+	ln1 = linkedlist.NewListNode(0)
+	ln2 = linkedlist.NewListNode(7, 3)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(7, 3)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(7, 3)))
 
-	ln1 = algorithms.NewListNode(1)
-	ln2 = algorithms.NewListNode(9, 9)
+	ln1 = linkedlist.NewListNode(1)
+	ln2 = linkedlist.NewListNode(9, 9)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, algorithms.NewListNode(0, 0, 1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(0, 0, 1)))
 }
 
-func addTwoNumbers_2(l1 *algorithms.ListNode, l2 *algorithms.ListNode) *algorithms.ListNode {
-	dummyHead := &algorithms.ListNode{Val: 0}
+func addTwoNumbers_2(l1 *linkedlist.ListNode, l2 *linkedlist.ListNode) *linkedlist.ListNode {
+	dummyHead := &linkedlist.ListNode{Val: 0}
 	p := l1
 	q := l2
 	curr := dummyHead
@@ -188,7 +188,7 @@ func addTwoNumbers_2(l1 *algorithms.ListNode, l2 *algorithms.ListNode) *algorith
 			}
 			sum := carry + x + y
 			carry = sum / 10
-			curr.Next = &algorithms.ListNode{Val: sum % 10}
+			curr.Next = &linkedlist.ListNode{Val: sum % 10}
 			curr = curr.Next
 			if p != nil {
 				p = p.Next
@@ -200,7 +200,7 @@ func addTwoNumbers_2(l1 *algorithms.ListNode, l2 *algorithms.ListNode) *algorith
 			break
 		}
 		if carry > 0 {
-			curr.Next = &algorithms.ListNode{Val: carry}
+			curr.Next = &linkedlist.ListNode{Val: carry}
 		}
 	}
 	return dummyHead.Next
