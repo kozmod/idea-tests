@@ -15,7 +15,7 @@ import (
 //A linked list can be reversed either iteratively or recursively. Could you implement both?
 
 func TestReverseLinkedList(t *testing.T) {
-	list := NewListNode(1, 2, 3)
+	list := NewLinkedListNode(1, 2, 3)
 	res := reverseList(list)
 	fmt.Println(res)
 }
@@ -35,8 +35,7 @@ func reverseList(head *ListNode) *ListNode {
 	next := head.Next
 	for next != nil {
 		tmp := &ListNode{Val: rev.Val, Next: rev.Next}
-		rev = &ListNode{Val: next.Val}
-		rev.Next = tmp
+		rev = &ListNode{Val: next.Val, Next: tmp}
 		next = next.Next
 	}
 	return rev

@@ -30,7 +30,7 @@ func (ln *ListNode) StringVals() string {
 }
 
 //noinspection SpellCheckingInspection
-func NewListNode(vals ...int) *ListNode {
+func NewLinkedListNode(vals ...int) *ListNode {
 	if vals == nil || len(vals) < 0 {
 		return &ListNode{}
 	}

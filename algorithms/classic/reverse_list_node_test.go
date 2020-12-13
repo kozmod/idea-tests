@@ -7,7 +7,7 @@ import (
 )
 
 func TestReverseLinkedList(t *testing.T) {
-	list := linkedlist.NewListNode(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+	list := linkedlist.NewLinkedListNode(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
 	rev := &linkedlist.ListNode{Val: list.Val}
 	next := list.Next

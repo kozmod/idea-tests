@@ -27,35 +27,35 @@ func Test_AddTwoNumbers(t *testing.T) {
 	var ln2 *linkedlist.ListNode
 	var res *linkedlist.ListNode
 
-	ln1 = linkedlist.NewListNode(2, 4, 3)
-	ln2 = linkedlist.NewListNode(5, 6, 4)
+	ln1 = linkedlist.NewLinkedListNode(2, 4, 3)
+	ln2 = linkedlist.NewLinkedListNode(5, 6, 4)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(7, 0, 8)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(7, 0, 8)))
 
-	ln1 = linkedlist.NewListNode(0)
-	ln2 = linkedlist.NewListNode(1)
+	ln1 = linkedlist.NewLinkedListNode(0)
+	ln2 = linkedlist.NewLinkedListNode(1)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(1)))
 
-	ln1 = linkedlist.NewListNode(5)
-	ln2 = linkedlist.NewListNode(5)
+	ln1 = linkedlist.NewLinkedListNode(5)
+	ln2 = linkedlist.NewLinkedListNode(5)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(0, 1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(0, 1)))
 
-	ln1 = linkedlist.NewListNode(8)
-	ln2 = linkedlist.NewListNode(10)
+	ln1 = linkedlist.NewLinkedListNode(8)
+	ln2 = linkedlist.NewLinkedListNode(10)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(8, 1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(8, 1)))
 
-	ln1 = linkedlist.NewListNode(0)
-	ln2 = linkedlist.NewListNode(7, 3)
+	ln1 = linkedlist.NewLinkedListNode(0)
+	ln2 = linkedlist.NewLinkedListNode(7, 3)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(7, 3)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(7, 3)))
 
-	ln1 = linkedlist.NewListNode(1)
-	ln2 = linkedlist.NewListNode(9, 9)
+	ln1 = linkedlist.NewLinkedListNode(1)
+	ln2 = linkedlist.NewLinkedListNode(9, 9)
 	res = addTwoNumbers(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(0, 0, 1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(0, 0, 1)))
 }
 
 func addTwoNumbers(l1 *linkedlist.ListNode, l2 *linkedlist.ListNode) *linkedlist.ListNode {
@@ -135,35 +135,35 @@ func Test_AddTwoNumbers_2(t *testing.T) {
 	var ln2 *linkedlist.ListNode
 	var res *linkedlist.ListNode
 
-	ln1 = linkedlist.NewListNode(2, 4, 3)
-	ln2 = linkedlist.NewListNode(5, 6, 4)
+	ln1 = linkedlist.NewLinkedListNode(2, 4, 3)
+	ln2 = linkedlist.NewLinkedListNode(5, 6, 4)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(7, 0, 8)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(7, 0, 8)))
 
-	ln1 = linkedlist.NewListNode(0)
-	ln2 = linkedlist.NewListNode(1)
+	ln1 = linkedlist.NewLinkedListNode(0)
+	ln2 = linkedlist.NewLinkedListNode(1)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(1)))
 
-	ln1 = linkedlist.NewListNode(5)
-	ln2 = linkedlist.NewListNode(5)
+	ln1 = linkedlist.NewLinkedListNode(5)
+	ln2 = linkedlist.NewLinkedListNode(5)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(0, 1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(0, 1)))
 
-	ln1 = linkedlist.NewListNode(8)
-	ln2 = linkedlist.NewListNode(10)
+	ln1 = linkedlist.NewLinkedListNode(8)
+	ln2 = linkedlist.NewLinkedListNode(10)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(8, 1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(8, 1)))
 
-	ln1 = linkedlist.NewListNode(0)
-	ln2 = linkedlist.NewListNode(7, 3)
+	ln1 = linkedlist.NewLinkedListNode(0)
+	ln2 = linkedlist.NewLinkedListNode(7, 3)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(7, 3)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(7, 3)))
 
-	ln1 = linkedlist.NewListNode(1)
-	ln2 = linkedlist.NewListNode(9, 9)
+	ln1 = linkedlist.NewLinkedListNode(1)
+	ln2 = linkedlist.NewLinkedListNode(9, 9)
 	res = addTwoNumbers_2(ln1, ln2)
-	assert.True(t, reflect.DeepEqual(res, linkedlist.NewListNode(0, 0, 1)))
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(0, 0, 1)))
 }
 
 func addTwoNumbers_2(l1 *linkedlist.ListNode, l2 *linkedlist.ListNode) *linkedlist.ListNode {

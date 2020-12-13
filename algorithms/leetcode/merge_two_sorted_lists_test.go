@@ -91,19 +91,19 @@ func TestMergeTwoLists(t *testing.T) {
 		res *linkedlist.ListNode
 	}{
 		{
-			l1:  linkedlist.NewListNode(1, 2, 3),
-			l2:  linkedlist.NewListNode(1, 2, 4),
-			res: linkedlist.NewListNode(1, 1, 2, 2, 3, 4),
+			l1:  linkedlist.NewLinkedListNode(1, 2, 3),
+			l2:  linkedlist.NewLinkedListNode(1, 2, 4),
+			res: linkedlist.NewLinkedListNode(1, 1, 2, 2, 3, 4),
 		},
 		{
 			l1:  nil,
-			l2:  linkedlist.NewListNode(0),
-			res: linkedlist.NewListNode(0),
+			l2:  linkedlist.NewLinkedListNode(0),
+			res: linkedlist.NewLinkedListNode(0),
 		},
 		{
-			l1:  linkedlist.NewListNode(1),
+			l1:  linkedlist.NewLinkedListNode(1),
 			l2:  nil,
-			res: linkedlist.NewListNode(1),
+			res: linkedlist.NewLinkedListNode(1),
 		},
 	}
 	for i, testCase := range testCases {
