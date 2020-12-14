@@ -29,7 +29,7 @@ import (
 //Output: false
 //Explanation: There is no cycle in the linked list.
 
-func Test_Linked_List_Cycle(t *testing.T) {
+func Test_Linked_List_Cycle_2(t *testing.T) {
 	head := &ListNode{Val: 0}
 	last := &ListNode{
 		Val:  2,
@@ -40,72 +40,64 @@ func Test_Linked_List_Cycle(t *testing.T) {
 		Next: last,
 	}
 	head.Next = mid
-	assert.True(t, hasCycle(head))
+	assert.Equal(t, head, detectCycle(head))
 
-	assert.False(t, hasCycle(nil))
+	assert.True(t, nil == detectCycle(nil))
 
-	assert.False(t, hasCycle(&ListNode{Val: 0}))
+	assert.True(t, nil == detectCycle(&ListNode{Val: 0}))
 
-	assert.False(t, hasCycle(&ListNode{Val: 0, Next: &ListNode{Val: 1}}))
+	assert.True(t, nil == detectCycle(&ListNode{Val: 0, Next: &ListNode{Val: 1}}))
+
+	assert.Equal(t, head, detectCycleArray(head))
+
+	assert.True(t, nil == detectCycleArray(nil))
+
+	assert.True(t, nil == detectCycleArray(&ListNode{Val: 0}))
+
+	assert.True(t, nil == detectCycleArray(&ListNode{Val: 0, Next: &ListNode{Val: 1}}))
 }
 
-func hasCycle(head *ListNode) bool {
+func detectCycle(head *ListNode) *ListNode {
 	if head == nil {
-		return false
-	}
-	slow := head
-	fast := head.Next
-	for slow != fast {
-		if fast == nil || fast.Next == nil {
-			return false
-		}
-		slow = slow.Next
-		fast = fast.Next.Next
-	}
-	return true
-}
-
-func hasCycleReq(head *ListNode) bool {
-	if head == nil {
-		return false
+		return nil
 	}
 	next := head.Next
 	for depth := 0; next != nil; depth++ {
-		if find(head, next, depth) {
-			return true
+		if f := find2(head, next, depth); f != nil {
+			return f
 		}
 		next = next.Next
 	}
-	return false
+	return nil
 }
 
-func hasCycleArray(head *ListNode) bool {
-	if head == nil {
-		return false
+func find2(head, search *ListNode, depth int) *ListNode {
+	current := head
+	for i := 0; depth > i; i++ {
+		if current == search {
+			return current
+		}
+		current = current.Next
 	}
-	arr := make([]*ListNode, 0, 0)
-	next := head.Next
+	return nil
+}
+
+func detectCycleArray(head *ListNode) *ListNode {
+	if head == nil {
+		return nil
+	}
+	arr := make([]*ListNode, 0)
 	arr = append(arr, head)
-	for next != nil {
-		for _, node := range arr {
-			if node == next {
-				return true
+	next := head.Next
+	for depth := 0; next != nil; depth++ {
+		for i := len(arr) - 1; i >= 0; i-- {
+			tmp := arr[i]
+			if tmp == next {
+				return tmp
 			}
 		}
 		arr = append(arr, next)
 		next = next.Next
 	}
-	return false
-}
-
-func find(head, search *ListNode, depth int) bool {
-	current := head
-	for i := 0; depth > i; i++ {
-		if current == search {
-			return true
-		}
-
-		current = current.Next
-	}
-	return false
+	return nil
 }
