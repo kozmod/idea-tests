@@ -6,9 +6,9 @@ RUN go mod download
 COPY . .
 RUN  GO111MODULE="on" CGO_ENABLED=0 GOOS=linux go build -o main .
 
-FROM ubuntu:latest
+FROM alpine:latest
 LABEL maintainer="Kozmo"
-RUN apt-get update && apt-get -y install curl telnet openssh-client
+RUN apk update && apk add mc curl busybox-extras openssh-client apache2-utils vim
 WORKDIR /app
 COPY --from=0 /app/main .
 EXPOSE 8080
