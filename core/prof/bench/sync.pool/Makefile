@@ -12,8 +12,4 @@ out:
 refresh:
 	rm -rf ${PROF_OUT} && mkdir ${PROF_OUT}
 
-echo:
-	@(echo "go tool pprof ${BIN_OUT} ${CPU_OUT} -- top, list <function>, web/png/gif")
-	@(echo "go tool pprof ${BIN_OUT} ${MEM_OUT} -- top, list <function>, alloc_space, web")
-	@(echo "top, list <function>, web/png/gif")
 
