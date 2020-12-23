@@ -5,7 +5,7 @@ build_time :=$(shell date +%Y-%m-%dT%H:%M:%S%z)
 bin_dir := bin
 
 ##SERVER
-server_version_tag :=v1.0.16
+server_version_tag :=v1.0.19
 server_bin :=server/http2server
 server_mod_path :="./http2-server"
 server_config_dir :=etc/config/
