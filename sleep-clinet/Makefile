@@ -1,4 +1,4 @@
-version :=v2.0.3
+version :=v2.0.5
 build_tag :=kozmo/sleep-client:${version}
 tag_to_replace=registry.sigma.sbrf.ru/dev/ci01994970/ci02001129_synapse_dev/${build_tag}
 

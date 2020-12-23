@@ -1,5 +1,9 @@
 FROM golang:latest
 LABEL stage=builder
+ARG cert_location=/usr/local/share/ca-certificates
+RUN openssl s_client -showcerts -connect github.com:443 </dev/null 2>/dev/null|openssl x509 -outform PEM > ${cert_location}/github.com.crt
+RUN openssl s_client -showcerts -connect proxy.golang.org:443 </dev/null 2>/dev/null|openssl x509 -outform PEM > ${cert_location}/proxy.golang.org.crt
+RUN update-ca-certificates
 WORKDIR /app
 COPY go.mod ./
 RUN go mod download
