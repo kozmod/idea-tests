@@ -6,10 +6,9 @@ import (
 )
 
 func TestGetFirsResult(t *testing.T) {
-	quantity := 5
-	ch := make(chan int, quantity)
+	ch := make(chan int, 1)
 	go func() {
-		for i := 0; i < quantity; i++ {
+		for i := 0; i < 5; i++ {
 			go func(c chan<- int, i int) {
 				res := Add(i)
 				c <- res
