@@ -1,4 +1,4 @@
-package easy
+package medium
 
 import (
 	"github.com/kozmod/idea-tests/algorithms/linkedlist"
@@ -16,12 +16,26 @@ Add the two numbers and return it as a linked list.
 You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 
 Example:
-
 Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
 Output: 7 -> 0 -> 8
 Explanation: 342 + 465 = 807.
+
+Example 2:
+Input: l1 = [0], l2 = [0]
+Output: [0]
+
+Example 3:
+Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+Output: [8,9,9,9,0,0,0,1]
 */
-//TODO -> MINE -> TRY FIND BETTER SOLUTION
+
+/*
+Constraints:
+The number of nodes in each linked list is in the range [1, 100].
+0 <= Node.val <= 9
+It is guaranteed that the list represents a number that does not have leading zeros.
+*/
+
 func Test_AddTwoNumbers(t *testing.T) {
 	var ln1 *linkedlist.ListNode
 	var ln2 *linkedlist.ListNode
@@ -202,6 +216,80 @@ func addTwoNumbers_2(l1 *linkedlist.ListNode, l2 *linkedlist.ListNode) *linkedli
 		if carry > 0 {
 			curr.Next = &linkedlist.ListNode{Val: carry}
 		}
+	}
+	return dummyHead.Next
+}
+
+func Test_AddTwoNumbers_3(t *testing.T) {
+	var ln1 *linkedlist.ListNode
+	var ln2 *linkedlist.ListNode
+	var res *linkedlist.ListNode
+
+	ln1 = linkedlist.NewLinkedListNode(2, 4, 3)
+	ln2 = linkedlist.NewLinkedListNode(5, 6, 4)
+	res = addTwoNumbers_3(ln1, ln2)
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(7, 0, 8)))
+
+	ln1 = linkedlist.NewLinkedListNode(0)
+	ln2 = linkedlist.NewLinkedListNode(1)
+	res = addTwoNumbers_3(ln1, ln2)
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(1)))
+
+	ln1 = linkedlist.NewLinkedListNode(5)
+	ln2 = linkedlist.NewLinkedListNode(5)
+	res = addTwoNumbers_3(ln1, ln2)
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(0, 1)))
+
+	ln1 = linkedlist.NewLinkedListNode(8)
+	ln2 = linkedlist.NewLinkedListNode(10)
+	res = addTwoNumbers_3(ln1, ln2)
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(8, 1)))
+
+	ln1 = linkedlist.NewLinkedListNode(0)
+	ln2 = linkedlist.NewLinkedListNode(7, 3)
+	res = addTwoNumbers_3(ln1, ln2)
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(7, 3)))
+
+	ln1 = linkedlist.NewLinkedListNode(1)
+	ln2 = linkedlist.NewLinkedListNode(9, 9)
+	res = addTwoNumbers_3(ln1, ln2)
+	assert.True(t, reflect.DeepEqual(res, linkedlist.NewLinkedListNode(0, 0, 1)))
+}
+
+//BEST
+func addTwoNumbers_3(l1 *linkedlist.ListNode, l2 *linkedlist.ListNode) *linkedlist.ListNode {
+	left := l1
+	right := l2
+	dummyHead := &linkedlist.ListNode{Val: 0}
+	current := dummyHead
+	sum := 0
+	for {
+		if left != nil && right != nil {
+			sum = sum + left.Val + right.Val
+			left = left.Next
+			right = right.Next
+		} else if left != nil {
+			sum = sum + left.Val
+			left = left.Next
+		} else if right != nil {
+			sum = sum + right.Val
+			right = right.Next
+		} else {
+			if sum > 0 {
+				current.Next = &linkedlist.ListNode{Val: sum}
+				break
+			}
+			break
+		}
+		tmp := &linkedlist.ListNode{Val: sum}
+		if tmp.Val >= 10 {
+			tmp.Val = tmp.Val - 10
+			sum = 1
+		} else {
+			sum = 0
+		}
+		current.Next = tmp
+		current = current.Next
 	}
 	return dummyHead.Next
 }
