@@ -42,46 +42,46 @@ func Test_AddTwoNumbers(t *testing.T) {
 	type testcase struct {
 		inA *ListNode
 		inB *ListNode
-		res *ListNode
+		exp *ListNode
 	}
 	testcases := []testcase{
 		{
 			inA: NewLinkedListNode(2, 4, 3),
 			inB: NewLinkedListNode(5, 6, 4),
-			res: NewLinkedListNode(7, 0, 8),
+			exp: NewLinkedListNode(7, 0, 8),
 		},
 		{
 			inA: NewLinkedListNode(0),
 			inB: NewLinkedListNode(1),
-			res: NewLinkedListNode(1),
+			exp: NewLinkedListNode(1),
 		},
 		{
 			inA: NewLinkedListNode(5),
 			inB: NewLinkedListNode(5),
-			res: NewLinkedListNode(0, 1),
+			exp: NewLinkedListNode(0, 1),
 		},
 		{
 			inA: NewLinkedListNode(8),
 			inB: NewLinkedListNode(10),
-			res: NewLinkedListNode(8, 1),
+			exp: NewLinkedListNode(8, 1),
 		},
 		{
 			inA: NewLinkedListNode(0),
 			inB: NewLinkedListNode(7, 3),
-			res: NewLinkedListNode(7, 3),
+			exp: NewLinkedListNode(7, 3),
 		},
 		{
 			inA: NewLinkedListNode(1),
 			inB: NewLinkedListNode(9, 9),
-			res: NewLinkedListNode(0, 0, 1),
+			exp: NewLinkedListNode(0, 0, 1),
 		},
 	}
 	assertTest := func(f func(l1 *ListNode, l2 *ListNode) *ListNode) {
 		for i, testcase := range testcases {
 			res := f(testcase.inA, testcase.inB)
-			assert.True(t, reflect.DeepEqual(res, testcase.res),
+			assert.True(t, reflect.DeepEqual(res, testcase.exp),
 				fmt.Sprintf("expected:%v, actual:%v, testcase:%v, func:%s \n",
-					testcase.res, res, i, runtime.FuncForPC(reflect.ValueOf(f).Pointer()).Name()))
+					testcase.exp, res, i, runtime.FuncForPC(reflect.ValueOf(f).Pointer()).Name()))
 		}
 	}
 	assertTest(addTwoNumbers)
