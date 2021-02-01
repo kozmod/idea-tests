@@ -50,6 +50,7 @@ func TestSlicePointerVsValue(t *testing.T) {
 
 	fmt.Print("5. ")
 	slice = make([]string, 2, 3)
+	fmt.Print(slice)
 	func(slice []string) {
 		slice = append(slice, "a", "a")
 		slice[0] = "b"
@@ -65,11 +66,11 @@ func TestSlicePointerVsValue(t *testing.T) {
 		slice = slice[1:3]
 		slice[0] = "b"
 		slice[1] = "b"
-		fmt.Print(len(slice), cap(slice))
-		fmt.Print(slice)
+		fmt.Print("{", len(slice), cap(slice))
+		fmt.Print(slice, "}")
 	}(slice)
-	fmt.Print(len(slice), cap(slice))
-	fmt.Println(slice)
+	fmt.Print("{", len(slice), cap(slice))
+	fmt.Println(slice, "}")
 
 	fmt.Print("7. ")
 	slice = make([]string, 1, 3)
@@ -77,10 +78,10 @@ func TestSlicePointerVsValue(t *testing.T) {
 		*slice = (*slice)[1:3]
 		(*slice)[0] = "b"
 		(*slice)[1] = "b"
-		fmt.Print(len(*slice), cap(*slice))
-		fmt.Print(slice)
+		fmt.Print("{", len(*slice), cap(*slice))
+		fmt.Print(slice, "}")
 	}(&slice)
-	fmt.Print(len(slice), cap(slice))
-	fmt.Print(slice)
+	fmt.Print("{", len(slice), cap(slice))
+	fmt.Print(slice, "}")
 	fmt.Println(" <-- slice change array in both pointer (diff res than 6)")
 }
