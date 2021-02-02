@@ -1,8 +1,9 @@
 package classic
 
 import (
-	"fmt"
 	"github.com/kozmod/idea-tests/algorithms/linkedlist"
+	"github.com/stretchr/testify/assert"
+	"reflect"
 	"testing"
 )
 
@@ -21,5 +22,5 @@ func TestReverseLinkedList(t *testing.T) {
 			break
 		}
 	}
-	fmt.Println(rev)
+	assert.True(t, reflect.DeepEqual(rev, linkedlist.NewLinkedListNode(10, 9, 8, 7, 6, 5, 4, 3, 2, 1)))
 }
