@@ -11,9 +11,10 @@ import (
 var testCasesSift []testCase
 
 func init() {
-	const quantity = 10
-	cases := make([]testCase, 0, quantity)
-	for i := 0; i < quantity; i++ {
+	const (
+		quantity = 10_000_0000
+	)
+	newCase := func(shift int) testCase {
 		input := make([]int, quantity)
 		sift := rand.Intn(quantity - 1)
 		val := 0
@@ -25,9 +26,14 @@ func init() {
 			input[j] = val
 			val++
 		}
-		cases = append(cases, testCase{in: input, exp: quantity - 1})
+		return testCase{in: input, exp: quantity - 1}
 	}
-	testCasesSift = cases
+
+	testCasesSift = []testCase{
+		newCase(quantity / 2),
+		newCase(rand.Intn(quantity - 1)),
+		newCase(rand.Intn(quantity / 5)),
+	}
 }
 
 func BenchmarkShiftedReqMax(b *testing.B) {
@@ -48,7 +54,7 @@ func BenchmarkShiftedLinearMax(b *testing.B) {
 	}
 }
 
-func BenchmarkShiftedReqMax_2(b *testing.B) {
+func BenchmarkShiftedReqMax_WithMinMaxSearch(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		for _, cs := range testCasesSift {
