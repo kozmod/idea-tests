@@ -9,11 +9,6 @@ import (
 
 var testCases []testCase
 
-type testCase struct {
-	in  []int
-	exp int
-}
-
 func init() {
 	const quantity = 10
 	cases := make([]testCase, 0, quantity)
@@ -76,29 +71,4 @@ func TestLinearMax(t *testing.T) {
 		res := linearMax(cs.in)
 		assert.Equal(t, cs.exp, res, fmt.Sprintf("exp: %d, actual:%d, case:%d", cs.exp, res, i))
 	}
-}
-
-func reqMax(in []int) int {
-	if len(in) < 2 {
-		return in[0]
-	}
-	l := reqMax(in[:len(in)/2])
-	r := reqMax(in[len(in)/2:])
-	if l > r {
-		return l
-	}
-	return r
-}
-
-func linearMax(in []int) int {
-	var max *int
-	for _, v := range in {
-		if max == nil || *max < v {
-			max = &v
-		}
-	}
-	if max == nil {
-		return 0
-	}
-	return *max
 }
