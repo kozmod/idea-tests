@@ -58,14 +58,14 @@ func BenchmarkShiftedReqMax_WithMinMaxSearch(b *testing.B) {
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		for _, cs := range testCasesSift {
-			_, _ = search.SearchSiftedMax(cs.in)
+			_, _ = search.SearchShiftedMax(cs.in)
 		}
 	}
 }
 
 func TestSearchSiftedMax(t *testing.T) {
 	for i, cs := range testCasesSift {
-		res, _ := search.SearchSiftedMax(cs.in)
+		res, _ := search.SearchShiftedMax(cs.in)
 		assert.Equal(t, cs.exp, res, fmt.Sprintf("exp: %d, actual:%d, case:%d", cs.exp, res, i))
 	}
 }

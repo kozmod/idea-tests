@@ -2,7 +2,7 @@ package search
 
 import "errors"
 
-func SearchSiftedMax(in []int) (int, error) {
+func SearchShiftedMax(in []int) (int, error) {
 	if len(in) == 1 {
 		return in[0], nil
 	}
