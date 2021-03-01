@@ -65,8 +65,7 @@ func minDeletions(S string) int {
 			_, ok := unique[val]
 			if ok {
 				res++
-				val = val - 1
-				if val == 0 {
+				if val = val - 1; val == 0 {
 					break
 				}
 			} else {
