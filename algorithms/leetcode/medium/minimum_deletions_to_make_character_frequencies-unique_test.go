@@ -47,6 +47,7 @@ func Test_Minimum_Deletions_to_Make_Character_Frequencies_Unique(t *testing.T) {
 	assert.Equal(t, 0, minDeletions("aab"))
 	assert.Equal(t, 2, minDeletions("aaabbbcc"))
 	assert.Equal(t, 2, minDeletions("ceabaacb"))
+	assert.Equal(t, 2, minDeletions("bbcebab"))
 
 }
 
@@ -60,25 +61,19 @@ func minDeletions(S string) int {
 	unique := make(map[int]struct{}, len(quantity))
 	res := 0
 	for _, val := range quantity {
-		_, ok := unique[val]
-		if ok {
-			incrementAndCheck(&res, val, unique)
-		} else {
-			unique[val] = struct{}{}
+		for {
+			_, ok := unique[val]
+			if ok {
+				res++
+				val = val - 1
+				if val == 0 {
+					break
+				}
+			} else {
+				unique[val] = struct{}{}
+				break
+			}
 		}
 	}
 	return res
-}
-
-func incrementAndCheck(res *int, val int, m map[int]struct{}) {
-	*res++
-	val = val - 1
-	if val != 0 {
-		_, ok := m[val]
-		if ok {
-			incrementAndCheck(res, val, m)
-		} else {
-			m[val] = struct{}{}
-		}
-	}
 }
