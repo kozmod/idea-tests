@@ -3,6 +3,7 @@ package marshal
 import (
 	"encoding/xml"
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"io"
 	"strings"
 	"testing"
@@ -16,8 +17,11 @@ type Ids struct {
 
 func Test1(t *testing.T) {
 	ids := &Ids{[]id{"test1", "test2"}}
-	IdsStr, _ := xml.Marshal(ids.Vals)
-	fmt.Println(string(IdsStr))
+	IdsStr, _ := xml.MarshalIndent(ids.Vals, "", " ")
+	assert.Equal(t,
+		`<id>test1</id>
+<id>test2</id>`,
+		string(IdsStr))
 }
 
 type Customs struct {
@@ -38,7 +42,7 @@ func Test2(t *testing.T) {
 	p := CustomXml{
 		XMLName:  xml.Name{Local: "Custom_TagName"},
 		Chardata: "Custom_DATA"}
-	res, _ := xml.Marshal(p)
+	res, _ := xml.MarshalIndent(p, "", " ")
 	fmt.Println(string(res))
 
 	customs := Customs{
@@ -46,12 +50,12 @@ func Test2(t *testing.T) {
 			{XMLName: xml.Name{Local: "1"}, Chardata: "XXX"},
 			{XMLName: xml.Name{Local: "2"}, Chardata: "YYY"}},
 	}
-	res, _ = xml.Marshal(customs.Vals)
+	res, _ = xml.MarshalIndent(customs.Vals, "", " ")
 	fmt.Println(string(res))
 
 	n := NestedOrder{XMLName: xml.Name{Local: "Test"}, Items: []string{"a", "v"}}
 
-	res, _ = xml.Marshal(n)
+	res, _ = xml.MarshalIndent(n, "", " ")
 	fmt.Println(string(res))
 }
 
