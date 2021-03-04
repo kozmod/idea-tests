@@ -2,8 +2,6 @@ package linkedlist
 
 import (
 	"encoding/json"
-	"strconv"
-	"strings"
 )
 
 type ListNode struct {
@@ -14,19 +12,6 @@ type ListNode struct {
 func (ln *ListNode) String() string {
 	b, _ := json.Marshal(ln)
 	return string(b)
-}
-
-func (ln *ListNode) StringVals() string {
-	var b strings.Builder
-	current := ln
-	for {
-		if current == nil {
-			break
-		}
-		b.WriteString(strconv.Itoa(current.Val))
-		current = current.Next
-	}
-	return b.String()
 }
 
 //noinspection SpellCheckingInspection
