@@ -12,6 +12,8 @@ RUN  GO111MODULE="on" CGO_ENABLED=0 GOOS=linux go build -o main .
 
 FROM alpine:latest
 LABEL maintainer="Kozmo"
+#Fix prmission through 'private' network proxy
+RUN sed -i -e 's/https/http/' /etc/apk/repositories
 RUN apk update && apk add mc tmux curl busybox-extras openssh-client apache2-utils vim
 WORKDIR /app
 COPY --from=0 /app/main .
