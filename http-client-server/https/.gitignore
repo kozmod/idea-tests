@@ -1,0 +1,8 @@
+*.sublime-project
+*.sublime-workspace
+*.un~
+*.swp
+.idea/
+venodr/
+bin
+etc
