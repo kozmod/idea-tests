@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/kozmod/idea-tests/core/datastruct"
-
 	"github.com/stretchr/testify/assert"
 )
 
@@ -26,9 +24,13 @@ func TestSliceInitByPointerCopy(t *testing.T) {
 }
 
 func TestChangeStructInSlice(t *testing.T) {
+	type SomeStruct struct {
+		Val string
+	}
+
 	a, b, x := "a", "b", "X!"
 
-	s := []datastruct.SomeStruct{
+	s := []SomeStruct{
 		2: {Val: a},
 		0: {Val: b},
 	}

@@ -1,4 +1,4 @@
-package datastruct_test
+package datastruct_and_construction_test
 
 import (
 	"fmt"

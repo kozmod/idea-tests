@@ -28,7 +28,7 @@ type s3 struct {
 	s2
 }
 
-func TestExtention(t *testing.T) {
+func TestExtension(t *testing.T) {
 	s := s3{s1: s1{"a"}, s2: s2{1}}
 	fmt.Println(s)
 	assert.NotNil(t, s)
