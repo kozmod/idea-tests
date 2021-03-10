@@ -1,8 +1,9 @@
-module github.com/kozmod/idea-tests/http-client-server/http2-client
+module github.com/kozmod/idea-tests/http-client-server/http/http2-client
 
 go 1.13
 
 require (
+	github.com/kozmod/idea-tests/http-client-server/http2-client v0.0.0-20210310151133-e30c972e6b96
 	github.com/magiconair/properties v1.8.0
 	github.com/spf13/cobra v1.0.0
 	github.com/stretchr/testify v1.2.2

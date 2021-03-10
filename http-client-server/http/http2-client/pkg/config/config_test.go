@@ -6,7 +6,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/kozmod/idea-tests/http-client-server/http2-client/pkg/config"
 	"github.com/magiconair/properties/assert"
 )
 
@@ -16,12 +15,12 @@ func TestGetConfigEnv(t *testing.T) {
 	exRF := "3"
 	exPPU := "4"
 
-	_ = os.Setenv(config.ServerAddrEnv, exSA)
-	_ = os.Setenv(config.RequestQuantityEnv, exRQ)
-	_ = os.Setenv(config.RequestFrequencySecEnv, exRF)
-	_ = os.Setenv(config.PostWithPayloadUrlEnv, exPPU)
+	_ = os.Setenv(ServerAddrEnv, exSA)
+	_ = os.Setenv(RequestQuantityEnv, exRQ)
+	_ = os.Setenv(RequestFrequencySecEnv, exRF)
+	_ = os.Setenv(PostWithPayloadUrlEnv, exPPU)
 
-	conf := config.FromEnv()
+	conf := FromEnv()
 	assert.Equal(t, exSA, conf.ServerAddr())
 	q, _ := strconv.Atoi(exRQ)
 	assert.Equal(t, q, conf.RequestQuantity())
